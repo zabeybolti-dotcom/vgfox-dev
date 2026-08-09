@@ -2,9 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, ArrowDown, MoreVertical, Send, FileText, Mail, ChevronRight } from "lucide-react";
-import heroBg from "/11.jpg";
+import heroBg from "/11.webp";
 import priborImg from "/pribor.jpg";
-import brandImg from "/2.jpg";
+import brandImg from "/2.webp";
+import nedvizhImg from "/nedvizh-hero.webp";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -40,11 +41,11 @@ const PROJECTS_DATA: {
 }[] = [
   {
     id: 1,
-    title: "OmniAI — кроссплатформенная ИИ-экосистема для бизнеса",
-    subtitle: "Enterprise / AI",
-    result: "Разработка закрытой Enterprise-платформы (Web / iOS / Android) для автоматизации аналитики и внутренних процессов компании на базе LLM-моделей.",
-    image:
-      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2200&q=85",
+    title: "Аренда-Профи — управление арендой квартир в Санкт-Петербурге",
+    subtitle: "Лендинг · Недвижимость",
+    result: "Конверсионный лендинг с интерактивным калькулятором дохода, AIDA-воронкой и автоматическим приёмом заявок в Telegram для агентства по сдаче квартир.",
+    image: nedvizhImg,
+    link: "https://n.vgfox.ru",
   },
   {
     id: 2,
@@ -425,42 +426,8 @@ function Portfolio() {
                     </a>
                   </div>
                 </div>
-              ) : p.id === 1 ? (
-                <div className="block group">
-                  <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px] bg-[#12131a] relative">
-                    <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="relative w-48 h-36">
-                        <div className="absolute top-2 left-0 right-0 h-1.5 bg-white/5 rounded-full" />
-                        <div className="absolute top-7 left-0 right-0 h-1.5 bg-white/5 rounded-full" />
-                        <div className="absolute top-7 left-0 w-3/5 h-1.5 bg-gradient-to-r from-purple-500/40 to-transparent rounded-full" />
-                        <div className="absolute top-12 left-0 right-0 h-0.5 bg-white/[0.03] rounded-full" />
-                        <div className="absolute top-16 left-0 right-2/3 h-1 bg-white/5 rounded-full" />
-                        <div className="absolute top-20 left-0 right-1/4 h-1 bg-white/5 rounded-full" />
-                        <div className="absolute top-24 left-0 right-1/2 h-1 bg-gradient-to-r from-blue-500/30 to-transparent rounded-full" />
-                        <div className="absolute top-28 left-1/3 right-0 h-1 bg-white/5 rounded-full" />
-                        <div className="absolute top-[56px] left-[60%] w-14 h-14 rounded-full bg-purple-600/20 blur-xl" />
-                        <div className="absolute top-[52px] left-[58%] w-12 h-12 rounded-full bg-blue-500/20 blur-xl" />
-                        <div className="absolute top-14 left-[62%] w-8 h-8 rounded-full border border-white/[0.06] backdrop-blur-sm flex items-center justify-center">
-                          <div className="w-3 h-3 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 blur-[1px]" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
-                      {p.subtitle}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
-                      {p.title}
-                    </h3>
-                    <p className="text-sm text-neutral-300">
-                      {p.result}
-                    </p>
-                  </div>
-                </div>
               ) : (
-                <a href={p.link ?? "#contact"} className="block group">
+                <a href={p.link ?? "#contact"} target="_blank" rel="noopener noreferrer" className="block group">
                   <div className="overflow-hidden rounded-2xl mb-4">
                     <img
                       src={p.image}

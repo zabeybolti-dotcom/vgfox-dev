@@ -15,6 +15,20 @@ globalThis.__nitro_vite_envs__ = services;
 //#endregion
 //#region #nitro/virtual/public-assets-data
 var public_assets_data_default = {
+	"/CNAME": {
+		"type": "text/plain; charset=utf-8",
+		"etag": "\"9-OYz0kWVoltaAC6GQ92YKyG9vwSA\"",
+		"mtime": "2026-07-02T19:57:29.354Z",
+		"size": 9,
+		"path": "../../docs/CNAME"
+	},
+	"/assets/2-31tNrUrg.webp": {
+		"type": "image/webp",
+		"etag": "\"1b66e-yTreOUGuy6coxUtWmkewhcHM5AY\"",
+		"mtime": "2026-08-09T12:37:16.555Z",
+		"size": 112238,
+		"path": "../../docs/assets/2-31tNrUrg.webp"
+	},
 	"/favicon.ico": {
 		"type": "image/vnd.microsoft.icon",
 		"etag": "\"4f95-3RXc3p2mhEAs1WBwaIvE0Y0uu0Y\"",
@@ -22,26 +36,47 @@ var public_assets_data_default = {
 		"size": 20373,
 		"path": "../../docs/favicon.ico"
 	},
-	"/assets/styles-BHwndxJV.css": {
+	"/assets/11-BCs0z-Z5.webp": {
+		"type": "image/webp",
+		"etag": "\"3e764-LiFi37uN6CgnrM3byw0P1klRFvo\"",
+		"mtime": "2026-08-09T12:37:16.554Z",
+		"size": 255844,
+		"path": "../../docs/assets/11-BCs0z-Z5.webp"
+	},
+	"/assets/nedvizh-hero-D8JLSEwm.webp": {
+		"type": "image/webp",
+		"etag": "\"2c5a4-P+twLgEtnma6SpwrIGN/P/dnG8g\"",
+		"mtime": "2026-08-09T12:37:16.555Z",
+		"size": 181668,
+		"path": "../../docs/assets/nedvizh-hero-D8JLSEwm.webp"
+	},
+	"/assets/styles-92by1xYC.css": {
 		"type": "text/css; charset=utf-8",
-		"etag": "\"15314-OIMqG48kwk8YpNfIGMJCSHXH5fo\"",
-		"mtime": "2026-07-02T18:45:45.681Z",
-		"size": 86804,
-		"path": "../../docs/assets/styles-BHwndxJV.css"
+		"etag": "\"13f7a-o5JCJqrQEeWOtEApw2cz4N/NPvQ\"",
+		"mtime": "2026-08-09T12:37:16.557Z",
+		"size": 81786,
+		"path": "../../docs/assets/styles-92by1xYC.css"
 	},
-	"/assets/index-DX3OnyzS.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"543aa-jGNVhPoG0cEBTJMMc5iV7PjplLg\"",
-		"mtime": "2026-07-02T18:45:45.681Z",
-		"size": 345002,
-		"path": "../../docs/assets/index-DX3OnyzS.js"
+	"/assets/pribor-BSfZNji_.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"1d7b6-dWmeHz8yQTmrqlo821VeXMSE4KQ\"",
+		"mtime": "2026-08-09T12:37:16.557Z",
+		"size": 120758,
+		"path": "../../docs/assets/pribor-BSfZNji_.jpg"
 	},
-	"/assets/routes-CpfLmXj1.js": {
+	"/assets/routes-BZGMHwfp.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"24473-pnMsz0pznNQz1k8wMVuhThP83AQ\"",
-		"mtime": "2026-07-02T18:45:45.681Z",
-		"size": 148595,
-		"path": "../../docs/assets/routes-CpfLmXj1.js"
+		"etag": "\"24022-07BOF4/8KZdN7VEaFxMOm/hXHlY\"",
+		"mtime": "2026-08-09T12:37:16.554Z",
+		"size": 147490,
+		"path": "../../docs/assets/routes-BZGMHwfp.js"
+	},
+	"/assets/index-DadFS_c0.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"54390-Nu60kCBqng9x4S/JqqavOk3W5bg\"",
+		"mtime": "2026-08-09T12:37:16.554Z",
+		"size": 344976,
+		"path": "../../docs/assets/index-DadFS_c0.js"
 	}
 };
 //#endregion
