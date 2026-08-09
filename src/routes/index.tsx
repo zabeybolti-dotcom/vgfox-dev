@@ -322,7 +322,7 @@ function Portfolio() {
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               {p.id === 2 ? (
-                <div className="block group">
+                <a href="https://www.rustore.ru/catalog/app/com.wavestudio.pribort1" target="_blank" rel="noopener noreferrer" className="block group">
                   <div className="overflow-hidden rounded-2xl mb-4">
                     <img
                       src={p.image}
@@ -341,16 +341,8 @@ function Portfolio() {
                     <p className="text-sm text-neutral-300">
                       {p.result}
                     </p>
-                    <a
-                      href="https://www.rustore.ru/catalog/app/com.wavestudio.pribort1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#0066cc] hover:text-[#0077ed] text-sm font-medium inline-flex items-center gap-1 mt-2 transition-colors"
-                    >
-                      Смотреть в RuStore &gt;
-                    </a>
                   </div>
-                </div>
+                </a>
               ) : p.id === 3 ? (
                 <div className="block group">
                   <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px]">
@@ -416,14 +408,6 @@ function Portfolio() {
                     <p className="text-sm text-neutral-300">
                       {p.result}
                     </p>
-                    <a
-                      href="https://t.me/mastermy17_bot"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#0066cc] hover:text-[#0077ed] text-sm font-medium inline-flex items-center gap-1 mt-2 transition-colors"
-                    >
-                      @mastermy17_bot &gt;
-                    </a>
                   </div>
                 </div>
               ) : (
