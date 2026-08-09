@@ -45,7 +45,7 @@ const PROJECTS_DATA: {
     subtitle: "Лендинг · Недвижимость",
     result: "Конверсионный лендинг с интерактивным калькулятором дохода, AIDA-воронкой и автоматическим приёмом заявок в Telegram для агентства по сдаче квартир.",
     image: nedvizhImg,
-    link: "https://n.vgfox.ru",
+    link: "https://vgfox.ru/arenda/",
   },
   {
     id: 2,
