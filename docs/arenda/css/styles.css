@@ -70,6 +70,7 @@ html {
 .mobile-menu.is-open {
   opacity: 1;
   pointer-events: auto;
+  background-color: rgba(26, 26, 46, 0.98);
 }
 
 /* Burger animation on open */
@@ -788,6 +789,11 @@ html {
   #hero {
     min-height: 100svh;
     min-height: 100vh;
+  }
+
+  /* Hero content — push below fixed nav on mobile */
+  #hero .relative.z-10 {
+    padding-top: 5rem;
   }
 
   /* Section padding — reduce vertical padding */
