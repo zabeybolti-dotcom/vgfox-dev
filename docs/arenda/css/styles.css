@@ -702,7 +702,7 @@ html {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 35;
+  z-index: 55;
   background-color: rgba(27, 58, 92, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -776,14 +776,57 @@ html {
 
 /* ======================== RESPONSIVE BREAKPOINTS ======================== */
 
-/* Extra small — up to 479px */
-@media (max-width: 479px) {
+/* ========== MOBILE — up to 767px ========== */
+@media (max-width: 767px) {
+  /* Navigation — less padding on mobile */
+  .nav-inner {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Hero — reduce padding on very small screens */
+  #hero {
+    min-height: 100svh;
+    min-height: 100vh;
+  }
+
+  /* Section padding — reduce vertical padding */
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Container padding — ensure not too wide on small screens */
+  .max-w-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Gallery overlay — always visible on mobile (no hover) */
+  .gallery-overlay {
+    opacity: 1;
+  }
+
+  /* Cards — compact padding */
   .card,
   .card-accented,
   .card-pain {
     padding: 1.25rem;
   }
 
+  /* Card icon — slightly smaller */
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.625rem;
+  }
+
+  .card-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* FAQ items */
   .faq-header {
     padding: 1rem 1.25rem;
   }
@@ -792,12 +835,109 @@ html {
     padding: 0 1.25rem 1rem 1.25rem;
   }
 
+  /* Testimonials */
   .testimonial-card {
     padding: 1.25rem;
   }
 
+  .testimonial-card::before {
+    font-size: 3rem;
+    top: 0.75rem;
+    left: 1rem;
+  }
+
+  /* About badges */
   .about-badge {
     padding: 0.625rem;
+  }
+
+  /* Calculator */
+  .calc-result-amount {
+    font-size: 2rem;
+  }
+
+  /* Gold divider — smaller on mobile */
+  .gold-divider {
+    width: 48px;
+    height: 2px;
+    margin-bottom: 1rem;
+  }
+
+  /* Step numbers — slightly smaller */
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  /* Buttons — full width on mobile */
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Fix hero badges wrapping */
+  .hero-element.flex-wrap {
+    gap: 1rem;
+  }
+
+  /* Prevent text overflow in calc result */
+  .calc-result {
+    padding: 1.25rem;
+  }
+
+  /* Body bottom padding to account for sticky CTA */
+  body {
+    padding-bottom: 60px;
+  }
+
+  /* Hero trust badges — stack nicely */
+  .hero-element .flex.items-center.gap-3 {
+    gap: 0.75rem;
+  }
+
+  /* About section photo overlay text */
+  .about-photo-overlay .flex.items-center.gap-4 {
+    gap: 0.75rem;
+  }
+
+  .about-photo-overlay .w-14 {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  /* CTA section form — no extra padding on mobile */
+  .cta-form-card {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Footer bottom bar — stack on mobile */
+  #footer .border-t .flex {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+/* Extra small — up to 374px */
+@media (max-width: 374px) {
+  /* Further reduce padding for very small screens */
+  section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .card,
+  .card-accented,
+  .card-pain,
+  .testimonial-card {
+    padding: 1rem;
+  }
+
+  /* Hero text — smaller on tiny screens */
+  h1 {
+    font-size: 1.75rem !important;
   }
 }
 
@@ -810,19 +950,24 @@ html {
   }
 }
 
-/* Small tablet / large mobile — up to 767px */
-@media (max-width: 767px) {
-  .calc-result-amount {
-    font-size: 2rem;
-  }
-}
-
 /* Desktop — 768px+ */
 @media (min-width: 768px) {
   .card,
   .card-accented,
   .card-pain {
     padding: 2rem;
+  }
+
+  /* Reset body padding */
+  body {
+    padding-bottom: 0;
+  }
+
+  /* Reset full-width buttons */
+  .btn-primary,
+  .btn-secondary {
+    width: auto;
+    text-align: left;
   }
 }
 
