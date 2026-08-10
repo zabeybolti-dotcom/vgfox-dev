@@ -89,8 +89,7 @@ html {
 
 .burger-is-open .burger-line:nth-child(3) {
   width: 1.5rem;
-  transform: translateY(-4px) rotate(-45deg);
-  margin-left: 0;
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ======================== BUTTONS ======================== */
