@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, ArrowDown, MoreVertical, Send, FileText, Mail, ChevronRight } from "lucide-react";
 import heroBg from "/11.webp";
 import priborImg from "/pribor.jpg";
-import brandImg from "/2.webp";
+import guitarImg from "/guitar.webp";
 import nedvizhImg from "/nedvizh-hero-v3.webp";
 
 export const Route = createFileRoute("/")({
@@ -64,10 +64,11 @@ const PROJECTS_DATA: {
   },
   {
     id: 4,
-    title: "Редизайн и цифровая айдентика бренда",
-    subtitle: "Брендинг · Айдентика",
-    result: "Разработка премиального визуального стиля, шрифтовой системы и гайдлайнов для технологичных ИИ-продуктов.",
-    image: brandImg,
+    title: "Карта грифа — интерактивный гриф гитары",
+    subtitle: "Android · Музыка",
+    result: "Визуальный справочник гитариста: ноты, гаммы, аккорды и альтернативные строи с настоящим звуком. Работает полностью офлайн.",
+    image: guitarImg,
+    link: "https://www.rustore.ru/catalog/app/com.guitarharmony",
   },
 ];
 
