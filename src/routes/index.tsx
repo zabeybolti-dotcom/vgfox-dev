@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, ArrowDown, MoreVertical, Send, FileText, Mail, ChevronRight } from "lucide-react";
 import heroBg from "/11.webp";
 import priborImg from "/pribor.jpg";
-import guitarImg from "/guitar.webp";
+import guitarImg from "/guitar-v2.webp";
 import nedvizhImg from "/nedvizh-hero-v3.webp";
 
 export const Route = createFileRoute("/")({
