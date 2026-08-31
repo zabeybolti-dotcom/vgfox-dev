@@ -1,0 +1,675 @@
+﻿<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DENTARA — современная стоматологическая клиника в Москве. Имплантация, ортодонтия, протезирование, эстетика. Запишитесь на бесплатную консультацию.">
+  <title>DENTARA — Современная стоматологическая клиника</title>
+
+  <!-- Шрифты Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Настройки Tailwind + базовые токены -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgmain: '#f5f9f6',
+            section: '#eaf2ed',
+            card: '#ffffff',
+            cardhover: '#eef7f1',
+            accent: '#10b981',
+            accentlight: '#34d399',
+            accentdark: '#047857',
+            textmain: '#0f2a22',
+            textsec: '#45695a',
+            textmut: '#7e9a8c',
+            border: '#e0eae2',
+            borderhover: '#b8d8c6',
+            footer: '#0d1f19'
+          },
+          fontFamily: {
+            sans: ['Inter','sans-serif'],
+            display: ['Playfair Display','serif']
+          },
+          maxWidth: { container: '1280px' }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- ================= ШАПКА ================= -->
+  <header id="header" class="fixed top-0 left-0 w-full z-50">
+    <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+      <div class="flex items-center justify-between h-20">
+        <a href="#hero" class="logo" aria-label="DENTARA">
+          DENTARA
+        </a>
+
+        <nav class="hidden md:flex items-center gap-9">
+          <a href="#about" class="nav-link">О клинике</a>
+          <a href="#services" class="nav-link">Услуги</a>
+          <a href="#doctors" class="nav-link">Врачи</a>
+          <a href="#reviews" class="nav-link">Отзывы</a>
+          <a href="#prices" class="nav-link">Цены</a>
+          <a href="#contacts" class="nav-link">Контакты</a>
+        </nav>
+
+        <div class="hidden md:block">
+          <a href="#contacts" class="btn btn-primary">Записаться</a>
+        </div>
+
+        <!-- Бургер -->
+        <button id="burgerBtn" class="burger md:hidden" aria-label="Открыть меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Мобильное меню -->
+    <div id="mobileMenu" class="mobile-menu">
+      <nav class="mobile-menu-nav">
+        <a href="#about" class="mob-link">О клинике</a>
+        <a href="#services" class="mob-link">Услуги</a>
+        <a href="#doctors" class="mob-link">Врачи</a>
+        <a href="#reviews" class="mob-link">Отзывы</a>
+        <a href="#prices" class="mob-link">Цены</a>
+        <a href="#contacts" class="mob-link">Контакты</a>
+        <a href="#contacts" class="btn btn-primary mob-cta">Записаться</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= ГЕРОЙ ================= -->
+    <section id="hero" class="hero">
+      <div class="hero-bg">
+        <img src="https://images.pexels.com/photos/7800666/pexels-photo-7800666.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1200&fit=crop" alt="Современная стоматологическая клиника" fetchpriority="high">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <span class="label reveal" style="--d:.05s">Современная стоматология в Москве</span>
+        <h1 class="reveal" style="--d:.15s">Ваша улыбка —<br>наше стремление</h1>
+        <p class="reveal" style="--d:.28s">
+          Возвращаем здоровье и белизну улыбки без боли и страха. Передовые технологии,
+          собственная 3D-диагностика и врачи с опытом более 15 лет.
+        </p>
+
+        <div class="hero-cta reveal" style="--d:.4s">
+          <a href="#contacts" class="btn btn-primary btn-lg">Записаться на приём</a>
+          <a href="#services" class="btn btn-outline btn-lg">Наши услуги</a>
+        </div>
+
+        <div class="hero-stats reveal" style="--d:.55s">
+          <div class="stat">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">лет опыта</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div class="stat-num">12 000+</div>
+            <div class="stat-label">довольных пациентов</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div class="stat-num">98%</div>
+            <div class="stat-label">возвращаются к нам</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="hero-scroll" aria-label="Прокрутить вниз">
+        <i data-lucide="chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- ================= ДОВЕРИЕ / ПОЛОСКА ================= -->
+    <section class="trustbar">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="trustbar-inner reveal">
+          <span class="trustbar-item"><i data-lucide="shield-check"></i> Гарантия до 5 лет</span>
+          <span class="trustbar-item"><i data-lucide="award"></i> Клиника года 2024</span>
+          <span class="trustbar-item"><i data-lucide="badge-check"></i> Лицензия Минздрава</span>
+          <span class="trustbar-item"><i data-lucide="heart-handshake"></i> Хирургия без боли</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= О КЛИНИКЕ ================= -->
+    <section id="about" class="section section-alt py-section-mob lg:py-section">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="about-grid">
+          <div class="about-visual reveal">
+            <div class="about-img">
+              <img src="https://images.pexels.com/photos/6812569/pexels-photo-6812569.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&fit=crop" alt="Интерьер клиники DENTARA" loading="lazy">
+            </div>
+            <div class="about-badge">
+              <div class="about-badge-num">15</div>
+              <div class="about-badge-text">лет<br>заботы о улыбках</div>
+            </div>
+          </div>
+
+          <div class="about-text">
+            <div class="section-head reveal">
+              <span class="label">О клинике</span>
+              <h2>Технологии и забота о каждой детали</h2>
+            </div>
+            <p class="lead reveal">
+              Мы создали пространство, где лечение — это спокойный и комфортный опыт. 3D-диагностика,
+              микроскоп и анестезия нового поколения позволяют решать задачи любой сложности бережно и точно.
+            </p>
+
+            <div class="feature-grid">
+              <div class="feature reveal" style="--d:.05s">
+                <div class="feature-icon"><i data-lucide="monitor"></i></div>
+                <div>
+                  <h3>Современное оборудование</h3>
+                  <p>3D-томография и микроскоп для точной диагностики.</p>
+                </div>
+              </div>
+              <div class="feature reveal" style="--d:.15s">
+                <div class="feature-icon"><i data-lucide="activity"></i></div>
+                <div>
+                  <h3>Безболезненное лечение</h3>
+                  <p>Анестезия и методики, минимизирующие дискомфорт.</p>
+                </div>
+              </div>
+              <div class="feature reveal" style="--d:.25s">
+                <div class="feature-icon"><i data-lucide="user-check"></i></div>
+                <div>
+                  <h3>Индивидуальный подход</h3>
+                  <p>Личный план лечения под ваши цели и бюджет.</p>
+                </div>
+              </div>
+              <div class="feature reveal" style="--d:.35s">
+                <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+                <div>
+                  <h3>Стерильность и безопасность</h3>
+                  <p>Строгий контроль и стерилизация инструментов.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= УСЛУГИ ================= -->
+    <section id="services" class="section py-section-mob lg:py-section">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="section-head section-head-center reveal">
+          <span class="label">Услуги</span>
+          <h2>Полный спектр стоматологической помощи</h2>
+          <p class="sub">От профилактики до сложной имплантации — всё в одной клинике, в одних руках.</p>
+        </div>
+
+        <div class="service-grid">
+          <!-- Услуга 1 -->
+          <article class="service-card reveal" style="--d:.05s">
+            <img src="https://images.pexels.com/photos/5622235/pexels-photo-5622235.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Терапевтическая стоматология" loading="lazy">
+            <div class="service-shade"></div>
+            <div class="service-body">
+              <span class="label service-cat">Лечение</span>
+              <h3>Терапевтическая стоматология</h3>
+              <p>Лечение кариеса, пульпита и деликатное восстановление зубов.</p>
+              <a href="#contacts" class="service-link">Подробнее <i data-lucide="arrow-right"></i></a>
+            </div>
+          </article>
+          <!-- Услуга 2 -->
+          <article class="service-card reveal" style="--d:.1s">
+            <img src="https://images.pexels.com/photos/13207278/pexels-photo-13207278.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Ортопедия и протезирование" loading="lazy">
+            <div class="service-shade"></div>
+            <div class="service-body">
+              <span class="label service-cat">Протезирование</span>
+              <h3>Ортопедия и протезирование</h3>
+              <p>Коронки, мосты и протезы любой сложности с гарантией качества.</p>
+              <a href="#contacts" class="service-link">Подробнее <i data-lucide="arrow-right"></i></a>
+            </div>
+          </article>
+          <!-- Услуга 3 -->
+          <article class="service-card reveal" style="--d:.15s">
+            <img src="https://images.pexels.com/photos/6502305/pexels-photo-6502305.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Имплантация зубов" loading="lazy">
+            <div class="service-shade"></div>
+            <div class="service-body">
+              <span class="label service-cat">Имплантация</span>
+              <h3>Имплантация зубов</h3>
+              <p>Надёжные имплантаты и восстановление зубов под ключ.</p>
+              <a href="#contacts" class="service-link">Подробнее <i data-lucide="arrow-right"></i></a>
+            </div>
+          </article>
+          <!-- Услуга 4 -->
+          <article class="service-card reveal" style="--d:.05s">
+            <img src="https://images.pexels.com/photos/11887613/pexels-photo-11887613.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Ортодонтия" loading="lazy">
+            <div class="service-shade"></div>
+            <div class="service-body">
+              <span class="label service-cat">Исправление прикуса</span>
+              <h3>Ортодонтия</h3>
+              <p>Элайнеры и брекеты для ровных зубов и правильного прикуса.</p>
+              <a href="#contacts" class="service-link">Подробнее <i data-lucide="arrow-right"></i></a>
+            </div>
+          </article>
+          <!-- Услуга 5 -->
+          <article class="service-card reveal" style="--d:.1s">
+            <img src="https://images.pexels.com/photos/4270939/pexels-photo-4270939.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Хирургическая стоматология" loading="lazy">
+            <div class="service-shade"></div>
+            <div class="service-body">
+              <span class="label service-cat">Хирургия</span>
+              <h3>Хирургическая стоматология</h3>
+              <p>Удаление зубов и сложные операции без боли и стресса.</p>
+              <a href="#contacts" class="service-link">Подробнее <i data-lucide="arrow-right"></i></a>
+            </div>
+          </article>
+          <!-- Услуга 6 -->
+          <article class="service-card reveal" style="--d:.15s">
+            <img src="https://images.pexels.com/photos/6627284/pexels-photo-6627284.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Эстетическая стоматология" loading="lazy">
+            <div class="service-shade"></div>
+            <div class="service-body">
+              <span class="label service-cat">Эстетика</span>
+              <h3>Эстетическая стоматология</h3>
+              <p>Отбеливание и виниры для безупречной, естественной улыбки.</p>
+              <a href="#contacts" class="service-link">Подробнее <i data-lucide="arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ВРАЧИ ================= -->
+    <section id="doctors" class="section section-alt py-section-mob lg:py-section">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="section-head section-head-center reveal">
+          <span class="label">Наши специалисты</span>
+          <h2>Опытные врачи, которым доверяют</h2>
+          <p class="sub">Средний стаж команды — 12 лет. Непрерывное обучение и международные сертификаты.</p>
+        </div>
+
+        <div class="doctor-grid">
+          <article class="doctor-card reveal" style="--d:.05s">
+            <div class="doctor-img">
+              <img src="https://images.pexels.com/photos/7803059/pexels-photo-7803059.jpeg?auto=compress&cs=tinysrgb&w=500&h=640&fit=crop" alt="Козлова Анна Михайловна" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <h3>Козлова Анна Михайловна</h3>
+              <div class="doctor-role">Главный врач, терапевт</div>
+              <div class="doctor-exp"><i data-lucide="briefcase"></i> Стаж 15 лет</div>
+              <p>Специалист по эстетическому восстановлению и лечению сложных случаев.</p>
+            </div>
+          </article>
+          <article class="doctor-card reveal" style="--d:.1s">
+            <div class="doctor-img">
+              <img src="https://images.pexels.com/photos/17792882/pexels-photo-17792882.jpeg?auto=compress&cs=tinysrgb&w=500&h=640&fit=crop" alt="Смирнов Дмитрий Алексеевич" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <h3>Смирнов Дмитрий Алексеевич</h3>
+              <div class="doctor-role">Хирург-имплантолог</div>
+              <div class="doctor-exp"><i data-lucide="briefcase"></i> Стаж 12 лет</div>
+              <p>Эксперт по имплантации и сложным хирургическим вмешательствам.</p>
+            </div>
+          </article>
+          <article class="doctor-card reveal" style="--d:.15s">
+            <div class="doctor-img">
+              <img src="https://images.pexels.com/photos/3881226/pexels-photo-3881226.jpeg?auto=compress&cs=tinysrgb&w=500&h=640&fit=crop" alt="Петрова Елена Сергеевна" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <h3>Петрова Елена Сергеевна</h3>
+              <div class="doctor-role">Ортодонт</div>
+              <div class="doctor-exp"><i data-lucide="briefcase"></i> Стаж 10 лет</div>
+              <p>Ведущий специалист по элайнерам и брекет-системам.</p>
+            </div>
+          </article>
+          <article class="doctor-card reveal" style="--d:.2s">
+            <div class="doctor-img">
+              <img src="https://images.pexels.com/photos/32115957/pexels-photo-32115957.jpeg?auto=compress&cs=tinysrgb&w=500&h=640&fit=crop" alt="Иванов Артём Владимирович" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <h3>Иванов Артём Владимирович</h3>
+              <div class="doctor-role">Протезист</div>
+              <div class="doctor-exp"><i data-lucide="briefcase"></i> Стаж 13 лет</div>
+              <p>Мастер ортопедии: коронки, виниры и съёмные протезы.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ОТЗЫВЫ ================= -->
+    <section id="reviews" class="section py-section-mob lg:py-section">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="section-head section-head-center reveal">
+          <span class="label">Отзывы</span>
+          <h2>Что говорят наши пациенты</h2>
+        </div>
+
+        <div class="review-track reveal">
+          <article class="review-card">
+            <i data-lucide="quote" class="review-quote"></i>
+            <p>Делала профессиональную чистку — это лучший опыт! Никакой боли, врач всё подробно объяснила. После процедуры зубы словно новые.</p>
+            <div class="review-author">
+              <img src="https://images.pexels.com/photos/5842006/pexels-photo-5842006.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop" alt="Мария" loading="lazy">
+              <div class="review-meta">
+                <div class="review-name">Мария К.</div>
+                <div class="review-text">Профессиональная гигиена</div>
+                <div class="stars">
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <i data-lucide="quote" class="review-quote"></i>
+            <p>Поставила имплант — всё прошло спокойно, без отёков и боли. Врач расписал план лечения сразу, с прозрачными ценами. Рекомендую!</p>
+            <div class="review-author">
+              <img src="https://images.pexels.com/photos/4350225/pexels-photo-4350225.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop" alt="Анна" loading="lazy">
+              <div class="review-meta">
+                <div class="review-name">Анна С.</div>
+                <div class="review-text">Имплантация</div>
+                <div class="stars">
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <i data-lucide="quote" class="review-quote"></i>
+            <p>Дочь носит элайнеры — каждое посещение как праздник. Врачи внимательные, всё объясняют, а результат через год уже отличный.</p>
+            <div class="review-author">
+              <img src="https://images.pexels.com/photos/16961166/pexels-photo-16961166.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop" alt="Ольга" loading="lazy">
+              <div class="review-meta">
+                <div class="review-name">Ольга В.</div>
+                <div class="review-text">Ортодонтия</div>
+                <div class="stars">
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <i data-lucide="quote" class="review-quote"></i>
+            <p>Виниры E-max перед свадьбой — результат превзошёл ожидания. Улыбка выглядит абсолютно естественно, всё сделали быстро и комфортно.</p>
+            <div class="review-author">
+              <img src="https://images.pexels.com/photos/37409445/pexels-photo-37409445.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop" alt="Дмитрий" loading="lazy">
+              <div class="review-meta">
+                <div class="review-name">Дмитрий Л.</div>
+                <div class="review-text">Виниры E-max</div>
+                <div class="stars">
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <i data-lucide="quote" class="review-quote"></i>
+            <p>Боялся стоматологов всю жизнь, но тут всё иначе. Врач сразу нашёл подход, даже лечение кариеса прошло без малейшей боли.</p>
+            <div class="review-author">
+              <img src="https://images.pexels.com/photos/37458054/pexels-photo-37458054.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop" alt="Игорь" loading="lazy">
+              <div class="review-meta">
+                <div class="review-name">Игорь Н.</div>
+                <div class="review-text">Лечение кариеса</div>
+                <div class="stars">
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                  <i data-lucide="star" class="fill-accent text-accent"></i>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ЦЕНЫ ================= -->
+    <section id="prices" class="section section-alt py-section-mob lg:py-section">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="section-head section-head-center reveal">
+          <span class="label">Цены</span>
+          <h2>Прозрачное ценообразование</h2>
+          <p class="sub">Честные цены без скрытых доплат. Вы всегда знаете стоимость до начала лечения.</p>
+        </div>
+
+        <div class="pricing">
+          <div class="pricing-row reveal" style="--d:.02s">
+            <span class="pricing-name">Консультация и осмотр</span>
+            <span class="pricing-free">Бесплатно</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.06s">
+            <span class="pricing-name">Профессиональная гигиена</span>
+            <span class="pricing-price">4 500 ₽</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.1s">
+            <span class="pricing-name">Лечение кариеса</span>
+            <span class="pricing-price">от 5 000 ₽</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.14s">
+            <span class="pricing-name">Установка световой пломбы</span>
+            <span class="pricing-price">от 7 000 ₽</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.18s">
+            <span class="pricing-name">Установка импланта</span>
+            <span class="pricing-price">от 35 000 ₽</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.22s">
+            <span class="pricing-name">Металлокерамическая коронка</span>
+            <span class="pricing-price">от 18 000 ₽</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.26s">
+            <span class="pricing-name">Виниры E-max</span>
+            <span class="pricing-price">от 25 000 ₽</span>
+          </div>
+          <div class="pricing-row reveal" style="--d:.3s">
+            <span class="pricing-name">Исправление прикуса элайнерами</span>
+            <span class="pricing-price">от 80 000 ₽</span>
+          </div>
+        </div>
+
+        <p class="pricing-note reveal">Точная стоимость определяется после бесплатной консультации и диагностики.</p>
+
+        <div class="pricing-cta reveal">
+          <a href="#contacts" class="btn btn-outline btn-lg">Получить прайс-лист</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= КОНТАКТЫ ================= -->
+    <section id="contacts" class="section py-section-mob lg:py-section">
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+        <div class="section-head section-head-center reveal">
+          <span class="label">Контакты</span>
+          <h2>Запишитесь на приём</h2>
+          <p class="sub">Оставьте заявку — мы перезвоним в течение 15 минут и подберём удобное время.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Контактная информация -->
+          <div class="contact-info reveal">
+            <div class="contact-item">
+              <div class="contact-icon"><i data-lucide="map-pin"></i></div>
+              <div>
+                <span class="contact-label">Адрес</span>
+                <span class="contact-value">г. Москва, ул. Примерная, д. 15</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i data-lucide="phone"></i></div>
+              <div>
+                <span class="contact-label">Телефон</span>
+                <a href="tel:+74951234567" class="contact-value">+7 (495) 123-45-67</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i data-lucide="mail"></i></div>
+              <div>
+                <span class="contact-label">E-mail</span>
+                <a href="mailto:info@dentara.ru" class="contact-value">info@dentara.ru</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i data-lucide="clock"></i></div>
+              <div>
+                <span class="contact-label">Режим работы</span>
+                <span class="contact-value">Пн–Сб: 9:00 — 21:00, Вс: выходной</span>
+              </div>
+            </div>
+
+            <a href="#contacts" class="btn btn-ghost mt-6"><i data-lucide="calendar" class="btn-ico"></i> Записаться</a>
+          </div>
+
+          <!-- Форма -->
+          <div class="contact-form-wrap reveal">
+            <form id="bookingForm" class="contact-form" novalidate>
+              <div class="form-field">
+                <label for="name">Ваше имя</label>
+                <input id="name" type="text" name="name" placeholder="Как к вам обращаться?" required>
+              </div>
+              <div class="form-field">
+                <label for="phone">Телефон</label>
+                <input id="phone" type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+              </div>
+              <div class="form-field">
+                <label for="service">Услуга</label>
+                <select id="service" name="service" required>
+                  <option value="" selected disabled>Выберите услугу</option>
+                  <option>Консультация</option>
+                  <option>Терапия</option>
+                  <option>Имплантация</option>
+                  <option>Ортодонтия</option>
+                  <option>Протезирование</option>
+                  <option>Гигиена</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg btn-full">Отправить заявку</button>
+            </form>
+
+            <div id="formSuccess" class="form-success">
+              <i data-lucide="check-circle-2"></i>
+              <span>Заявка отправлена! Мы перезвоним в течение 15 минут.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA БАННЕР ================= -->
+    <section class="cta-banner">
+      <div class="cta-banner-bg">
+        <img src="https://images.pexels.com/photos/4269682/pexels-photo-4269682.jpeg?auto=compress&cs=tinysrgb&w=1920&h=700&fit=crop" alt="" loading="lazy">
+        <div class="cta-banner-shade"></div>
+      </div>
+      <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20 relative">
+        <div class="cta-banner-inner reveal">
+          <h2>Первая консультация<br>— бесплатно</h2>
+          <p>Осмотр, консультация специалиста и план лечения — без оплаты.</p>
+          <a href="#contacts" class="btn btn-primary btn-lg">Получить бесплатную консультацию</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= ФУТЕР ================= -->
+  <footer class="footer">
+    <div class="max-w-container mx-auto px-5 md:px-10 lg:px-20">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo logo-footer">DENTARA</a>
+          <p>Современная стоматологическая клиника премиального уровня в Москве.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <a href="#about">О клинике</a>
+          <a href="#services">Услуги</a>
+          <a href="#doctors">Врачи</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#prices">Цены</a>
+        </div>
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+          <a href="mailto:info@dentara.ru">info@dentara.ru</a>
+          <span>г. Москва, ул. Примерная, д. 15</span>
+        </div>
+        <div class="footer-col">
+          <h4>Режим работы</h4>
+          <span>Пн–Сб: 9:00 — 21:00</span>
+          <span>Вс: выходной</span>
+          <div class="footer-social">
+            <a href="#" aria-label="Telegram"><i data-lucide="send"></i></a>
+            <a href="#" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+            <a href="#" aria-label="VK"><i data-lucide="users"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 DENTARA. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= МИНИ-ЧАТ ================= -->
+  <div class="chat-root">
+    <div id="chatWindow" class="chat-window">
+      <div class="chat-head">
+        <div class="chat-head-info">
+          <span class="chat-dot"></span>
+          <span>Онлайн-консультация</span>
+        </div>
+        <button id="chatClose" class="chat-close" aria-label="Закрыть чат">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div id="chatBody" class="chat-body"></div>
+      <form id="chatForm" class="chat-input">
+        <input id="chatInput" type="text" placeholder="Введите сообщение..." autocomplete="off">
+        <button type="submit" class="chat-send" aria-label="Отправить">
+          <i data-lucide="arrow-up"></i>
+        </button>
+      </form>
+    </div>
+
+    <button id="chatToggle" class="chat-toggle" aria-label="Открыть чат">
+      <i data-lucide="message-circle" class="chat-toggle-ico"></i>
+      <span class="chat-online"></span>
+    </button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
