@@ -92,7 +92,7 @@
      3b. Плавный переход по якорям с учётом фиксированной шапки
      ------------------------------------------------------- */
   (function smoothAnchors() {
-    const HEADER = 86;
+    const HEADER = 88;
     document.addEventListener("click", (e) => {
       const a = e.target.closest('a[href^="#"]');
       if (!a) return;
@@ -101,10 +101,11 @@
       const el = document.getElementById(href.slice(1));
       if (!el) return;
       e.preventDefault();
+      const target = el.querySelector(".section-head") || el;
       const y =
-        el === document.body
+        target === document.body
           ? 0
-          : el.getBoundingClientRect().top + window.scrollY - HEADER;
+          : target.getBoundingClientRect().top + window.scrollY - HEADER;
       window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
     });
   })();
