@@ -303,26 +303,14 @@
      7b. Фолбэк для изображений (если ссылка недоступна)
      ------------------------------------------------------- */
   (function imgFallback() {
-    const GRADS = [
-      "linear-gradient(135deg,#EDEAFD,#7d6bf0)",
-      "linear-gradient(135deg,#FFF3D6,#FFB627)",
-      "linear-gradient(135deg,#E0F7F6,#00CEC9)",
-    ];
-    let i = 0;
-    const noteSVG =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="64" height="64"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>';
-    const handle = (el) => {
-      el.removeAttribute("src");
-      el.removeAttribute("srcset");
-      const div = document.createElement("div");
-      div.className = "img-fallback";
-      div.style.background = GRADS[i++ % GRADS.length];
-      div.innerHTML = noteSVG;
-      el.replaceWith(div);
-    };
+    // Если фото не загрузилось — прячем его и показываем фирменную подложку
     document.addEventListener("error", (e) => {
       const t = e.target;
-      if (t && t.tagName === "IMG") handle(t);
+      if (t && t.tagName === "IMG") {
+        t.style.display = "none";
+        t.removeAttribute("src");
+        t.removeAttribute("srcset");
+      }
     }, true);
   })();
 
