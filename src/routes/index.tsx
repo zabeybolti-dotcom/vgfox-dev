@@ -61,8 +61,7 @@ const PROJECTS_DATA: Project[] = [
     category: "app",
     title: "ПРИБОР-Т1 — хроматический тюнер",
     subtitle: "Android · Музыка",
-    result:
-      "Высокоточный музыкальный настройщик для Android с живой неоновой аудио-волной и эталонной точностью.",
+    result: "Точный хроматический тюнер для Android с живой аудио-волной.",
     image: priborImg,
   },
   {
@@ -70,8 +69,7 @@ const PROJECTS_DATA: Project[] = [
     category: "app",
     title: "Карта грифа — интерактивный гриф гитары",
     subtitle: "Android · Музыка",
-    result:
-      "Визуальный справочник гитариста: ноты, гаммы, аккорды и альтернативные строи с настоящим звуком. Работает полностью офлайн.",
+    result: "Ноты, гаммы и аккорды с настоящим звуком. Работает полностью офлайн.",
     image: guitarImg,
     link: "https://www.rustore.ru/catalog/app/com.guitarharmony",
   },
@@ -89,8 +87,7 @@ const PROJECTS_DATA: Project[] = [
     category: "site",
     title: "Аренда-Профи — управление арендой квартир в Санкт-Петербурге",
     subtitle: "Лендинг · Недвижимость",
-    result:
-      "Конверсионный лендинг с интерактивным калькулятором дохода, AIDA-воронкой и автоматическим приёмом заявок в Telegram для агентства по сдаче квартир.",
+    result: "Лендинг аренды квартир с калькулятором дохода и приёмом заявок в Telegram.",
     image: nedvizhImg,
     link: "https://vgfox.ru/arenda/",
   },
@@ -99,8 +96,7 @@ const PROJECTS_DATA: Project[] = [
     category: "site",
     title: "DENTARA — современная стоматологическая клиника в Москве",
     subtitle: "Сайт · Медицина",
-    result:
-      "Премиальный сайт клиники с онлайн-записью, карточками врачей, прозрачным прайсом и формой заявки на приём в 15 минут.",
+    result: "Сайт клиники с онлайн-записью, карточками врачей и прозрачным прайсом.",
     image: denteraImg,
     link: "https://vgfox.ru/dentera",
   },
@@ -109,8 +105,7 @@ const PROJECTS_DATA: Project[] = [
     category: "site",
     title: "Камертон — детская музыкальная школа в Москве",
     subtitle: "Сайт · Образование",
-    result:
-      "Сайт музыкальной школы с шестью направлениями, карточками преподавателей, абонементами и записью на бесплатное занятие.",
+    result: "Сайт музшколы с направлениями, преподавателями и записью на занятие.",
     image: musicImg,
     link: "https://vgfox.ru/music",
   },
@@ -361,8 +356,10 @@ function Portfolio() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
               {p.subtitle}
             </span>
-            <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">{p.title}</h3>
-            <p className="text-sm text-neutral-300">{p.result}</p>
+            <h3 className="text-lg md:text-xl font-bold text-white mt-2 mb-1 leading-snug">
+              {p.title}
+            </h3>
+            <p className="text-sm leading-snug text-neutral-300">{p.result}</p>
           </div>
         </a>
       );
@@ -370,9 +367,9 @@ function Portfolio() {
     if (p.id === 3) {
       return (
         <div className="block group">
-          <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px]">
+          <div className="overflow-hidden rounded-2xl mb-3 w-full aspect-video">
             <div className="w-full h-full bg-[#0e1621] font-sans flex flex-col">
-              <div className="w-full h-12 bg-[#17212b] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
+              <div className="w-full h-10 bg-[#17212b] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-sm">
                     ✨
@@ -387,23 +384,22 @@ function Portfolio() {
                 <MoreVertical className="w-4 h-4 text-neutral-400" />
               </div>
               <div className="flex-1 p-2 flex flex-col justify-end gap-1.5 overflow-hidden">
-                <div className="bg-[#182533] rounded-xl p-2.5 space-y-1.5 self-start w-full max-w-[90%]">
+                <div className="bg-[#182533] rounded-xl p-2 space-y-1 self-start w-full max-w-[92%]">
                   {[
-                    "Педикюр полный (гигиена+покрытие) — 2000₽",
-                    "Педикюр пальчики — 1200₽",
-                    "Снятие чужого материала — 500₽",
-                    "Дизайн (один палец) — 100₽",
-                    "Японский маникюр — 1000₽",
+                    "Полный педикюр — 2000₽",
+                    "Пальчики — 1200₽",
+                    "Снятие чужого — 500₽",
+                    "Дизайн — 100₽",
                   ].map((text) => (
                     <div
                       key={text}
-                      className="bg-[#2b5278] text-white text-[11px] leading-tight rounded-lg px-3 py-2 text-center cursor-pointer hover:bg-[#366c9e] transition-colors"
+                      className="bg-[#2b5278] text-white text-[11px] leading-tight rounded-lg px-2.5 py-1.5 text-center cursor-pointer hover:bg-[#366c9e] transition-colors"
                     >
                       {text}
                     </div>
                   ))}
                 </div>
-                <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-3 text-[11px] max-w-[80%] self-end relative shadow-sm mt-1">
+                <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-2 text-[11px] max-w-[78%] self-end relative shadow-sm">
                   🛠 Мои записи
                   <span className="text-[9px] text-[#7da3c5] absolute bottom-1 right-2 flex items-center gap-0.5">
                     12:36
@@ -415,20 +411,6 @@ function Portfolio() {
                     </svg>
                   </span>
                 </div>
-                <div className="bg-[#202b36] text-white border border-white/5 rounded-2xl rounded-tl-none p-3 text-[11px] max-w-[88%] self-start relative shadow-sm leading-relaxed">
-                  📅 Ваши записи:
-                  <br />
-                  🔹 Снятие чужого материала — 11.07.2026 в 14:00
-                  <span className="text-[9px] text-neutral-500 absolute bottom-1 right-2 flex items-center gap-0.5">
-                    12:36
-                    <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
-                      <path
-                        d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z"
-                        fill="#5c6a7a"
-                      />
-                    </svg>
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -436,8 +418,10 @@ function Portfolio() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
               {p.subtitle}
             </span>
-            <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">{p.title}</h3>
-            <p className="text-sm text-neutral-300">{p.result}</p>
+            <h3 className="text-lg md:text-xl font-bold text-white mt-2 mb-1 leading-snug">
+              {p.title}
+            </h3>
+            <p className="text-sm leading-snug text-neutral-300">{p.result}</p>
           </div>
         </div>
       );
@@ -449,12 +433,12 @@ function Portfolio() {
         rel="noopener noreferrer"
         className="block group"
       >
-        <div className="overflow-hidden rounded-2xl mb-4">
+        <div className="overflow-hidden rounded-2xl mb-3 aspect-video">
           <img
             src={p.image}
             alt={p.title}
             loading="lazy"
-            className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           />
         </div>
         <div>
