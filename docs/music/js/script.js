@@ -83,6 +83,39 @@
   })();
 
   /* -------------------------------------------------------
+     4b. Анимированные счётчики статистики
+     ------------------------------------------------------- */
+  (function counters() {
+    const els = $$(".num[data-count]");
+    if (!els.length) return;
+    const fmt = (n) => Math.round(n).toLocaleString("ru-RU");
+    const animate = (el) => {
+      const target = parseFloat(el.getAttribute("data-count")) || 0;
+      const suffix = el.getAttribute("data-suffix") || "";
+      const dur = 1400;
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = fmt(target) + suffix;
+      };
+      requestAnimationFrame(step);
+    };
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => (el.textContent = (el.getAttribute("data-count") || 0) + (el.getAttribute("data-suffix") || "")));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    els.forEach((el) => io.observe(el));
+  })();
+
+  /* -------------------------------------------------------
      5. Карусель отзывов
      ------------------------------------------------------- */
   (function reviewsCarousel() {
