@@ -1,11 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, ArrowDown, MoreVertical, Send, FileText, Mail, ChevronRight } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowRight,
+  ArrowDown,
+  MoreVertical,
+  Send,
+  FileText,
+  Mail,
+  ChevronRight,
+} from "lucide-react";
 import heroBg from "/11.webp";
 import priborImg from "/pribor.jpg";
 import guitarImg from "/guitar-v2.webp";
 import nedvizhImg from "/nedvizh-hero-v3.webp";
+import denteraImg from "/portfolio-dentera.webp";
+import musicImg from "/portfolio-music.webp";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -13,8 +25,7 @@ export const Route = createFileRoute("/")({
     meta: [
       {
         property: "og:image",
-        content:
-          "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=1200&q=85",
+        content: "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=1200&q=85",
       },
     ],
   }),
@@ -24,51 +35,84 @@ export const Route = createFileRoute("/")({
 //  CONTACTS
 // ============================================================================
 const TELEGRAM_URL = "https://t.me/vgfox";
-const MAX_PROFILE_URL = "https://max.ru/u/f9LHodD0cOJ2yR33xJludOlyCzNjw-y9WtGopPG0wTpcHV2Kbc5hKHO_Jzs"; // ← точная ссылка на профиль MAX
+const MAX_PROFILE_URL =
+  "https://max.ru/u/f9LHodD0cOJ2yR33xJludOlyCzNjw-y9WtGopPG0wTpcHV2Kbc5hKHO_Jzs"; // ← точная ссылка на профиль MAX
 const EMAIL = "info@vgfox.ru";
 const EMAIL_URL = `mailto:${EMAIL}`;
 
 // ============================================================================
 //  PROJECTS_DATA — редактируется здесь, рендерится через .map()
+//  category: "app" → раздел «Приложения», "site" → раздел «Сайты»
 // ============================================================================
-const PROJECTS_DATA: {
+type Project = {
   id: number;
+  category: "app" | "site";
   title: string;
   subtitle: string;
   result: string;
   image: string;
   link?: string;
-}[] = [
+};
+
+const PROJECTS_DATA: Project[] = [
+  // ——— ПРИЛОЖЕНИЯ ———
+  {
+    id: 2,
+    category: "app",
+    title: "ПРИБОР-Т1 — хроматический тюнер",
+    subtitle: "Android · Музыка",
+    result:
+      "Высокоточный музыкальный настройщик для Android с живой неоновой аудио-волной и эталонной точностью.",
+    image: priborImg,
+  },
+  {
+    id: 4,
+    category: "app",
+    title: "Карта грифа — интерактивный гриф гитары",
+    subtitle: "Android · Музыка",
+    result:
+      "Визуальный справочник гитариста: ноты, гаммы, аккорды и альтернативные строи с настоящим звуком. Работает полностью офлайн.",
+    image: guitarImg,
+    link: "https://www.rustore.ru/catalog/app/com.guitarharmony",
+  },
+  {
+    id: 3,
+    category: "app",
+    title: "NailBookBot — бот автозаписи для бьюти-мастеров",
+    subtitle: "Telegram-бот · Автоматизация",
+    result: "Экономия до 15 часов на переписках с клиентами в неделю",
+    image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=2200&q=85",
+  },
+  // ——— САЙТЫ ———
   {
     id: 1,
+    category: "site",
     title: "Аренда-Профи — управление арендой квартир в Санкт-Петербурге",
     subtitle: "Лендинг · Недвижимость",
-    result: "Конверсионный лендинг с интерактивным калькулятором дохода, AIDA-воронкой и автоматическим приёмом заявок в Telegram для агентства по сдаче квартир.",
+    result:
+      "Конверсионный лендинг с интерактивным калькулятором дохода, AIDA-воронкой и автоматическим приёмом заявок в Telegram для агентства по сдаче квартир.",
     image: nedvizhImg,
     link: "https://vgfox.ru/arenda/",
   },
   {
-    id: 2,
-    title: "ПРИБОР-Т1 — хроматический тюнер",
-    subtitle: "Android · Музыка",
-    result: "Высокоточный музыкальный настройщик для Android с живой неоновой аудио-волной и эталонной точностью.",
-    image: priborImg,
+    id: 5,
+    category: "site",
+    title: "DENTARA — современная стоматологическая клиника в Москве",
+    subtitle: "Сайт · Медицина",
+    result:
+      "Премиальный сайт клиники с онлайн-записью, карточками врачей, прозрачным прайсом и формой заявки на приём в 15 минут.",
+    image: denteraImg,
+    link: "https://vgfox.ru/dentera",
   },
   {
-    id: 3,
-    title: "NailBookBot — бот автозаписи для бьюти-мастеров",
-    subtitle: "Telegram-бот · Автоматизация",
-    result: "Экономия до 15 часов на переписках с клиентами в неделю",
-    image:
-      "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=2200&q=85",
-  },
-  {
-    id: 4,
-    title: "Карта грифа — интерактивный гриф гитары",
-    subtitle: "Android · Музыка",
-    result: "Визуальный справочник гитариста: ноты, гаммы, аккорды и альтернативные строи с настоящим звуком. Работает полностью офлайн.",
-    image: guitarImg,
-    link: "https://www.rustore.ru/catalog/app/com.guitarharmony",
+    id: 6,
+    category: "site",
+    title: "Камертон — детская музыкальная школа в Москве",
+    subtitle: "Сайт · Образование",
+    result:
+      "Сайт музыкальной школы с шестью направлениями, карточками преподавателей, абонементами и записью на бесплатное занятие.",
+    image: musicImg,
+    link: "https://vgfox.ru/music",
   },
 ];
 
@@ -108,9 +152,7 @@ function Nav() {
   const go = (href: string) => {
     setOpen(false);
     setTimeout(() => {
-      document
-        .querySelector(href)
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 60);
   };
 
@@ -118,10 +160,7 @@ function Nav() {
     <>
       <header className="fixed top-0 inset-x-0 z-50 bg-black/70 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="max-w-[1200px] mx-auto h-11 sm:h-12 px-4 sm:px-6 flex items-center justify-between text-[13px]">
-          <a
-            href="#top"
-            className="apple-link tracking-widest uppercase text-[12px] font-normal"
-          >
+          <a href="#top" className="apple-link tracking-widest uppercase text-[12px] font-normal">
             vgfox.ru
           </a>
 
@@ -226,8 +265,8 @@ function Hero() {
           <br className="hidden sm:block" /> для бизнеса.
         </h1>
         <p className="mt-4 sm:mt-5 mx-auto max-w-[640px] text-[16px] sm:text-[20px] lg:text-[22px] leading-snug tracking-tight text-apple-gray">
-          Разрабатываю сайты под ключ, мобильные приложения и Telegram-ботов,
-          которые приносят прибыль.
+          Разрабатываю сайты под ключ, мобильные приложения и Telegram-ботов, которые приносят
+          прибыль.
         </p>
 
         <div className="mt-5 sm:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-[15px] sm:text-[17px]">
@@ -236,9 +275,7 @@ function Hero() {
           </AppleLink>
           <button
             onClick={() =>
-              document
-                .querySelector("#services")
-                ?.scrollIntoView({ behavior: "smooth" })
+              document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })
             }
             className="apple-link inline-flex items-center gap-1.5 text-white"
           >
@@ -249,8 +286,6 @@ function Hero() {
     </section>
   );
 }
-
-
 
 /* ------------------------------ SERVICES -------------------------------- */
 function Services() {
@@ -290,12 +325,8 @@ function Services() {
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="bg-neutral-900/50 backdrop-blur-md rounded-3xl p-8 md:p-10 border border-white/[0.05] hover:border-white/20 transition-all duration-300"
             >
-              <h3 className="text-2xl font-semibold mb-3 text-white">
-                {item.title}
-              </h3>
-              <p className="text-[#86868b] text-base leading-relaxed">
-                {item.desc}
-              </p>
+              <h3 className="text-2xl font-semibold mb-3 text-white">{item.title}</h3>
+              <p className="text-[#86868b] text-base leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -306,137 +337,167 @@ function Services() {
 
 /* ------------------------------ PORTFOLIO ------------------------------- */
 function Portfolio() {
+  const apps = PROJECTS_DATA.filter((p) => p.category === "app");
+  const sites = PROJECTS_DATA.filter((p) => p.category === "site");
+
+  const renderCard = (p: Project) => {
+    if (p.id === 2) {
+      return (
+        <a
+          href="https://www.rustore.ru/catalog/app/com.wavestudio.pribort1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block group"
+        >
+          <div className="overflow-hidden rounded-2xl mb-4">
+            <img
+              src={p.image}
+              alt={p.title}
+              loading="lazy"
+              className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            />
+          </div>
+          <div>
+            <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+              {p.subtitle}
+            </span>
+            <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">{p.title}</h3>
+            <p className="text-sm text-neutral-300">{p.result}</p>
+          </div>
+        </a>
+      );
+    }
+    if (p.id === 3) {
+      return (
+        <div className="block group">
+          <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px]">
+            <div className="w-full h-full bg-[#0e1621] font-sans flex flex-col">
+              <div className="w-full h-12 bg-[#17212b] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-sm">
+                    ✨
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-white leading-tight">
+                      Запись к Мастеру
+                    </p>
+                    <p className="text-[10px] text-[#7da3c5] leading-tight">бот</p>
+                  </div>
+                </div>
+                <MoreVertical className="w-4 h-4 text-neutral-400" />
+              </div>
+              <div className="flex-1 p-2 flex flex-col justify-end gap-1.5 overflow-hidden">
+                <div className="bg-[#182533] rounded-xl p-2.5 space-y-1.5 self-start w-full max-w-[90%]">
+                  {[
+                    "Педикюр полный (гигиена+покрытие) — 2000₽",
+                    "Педикюр пальчики — 1200₽",
+                    "Снятие чужого материала — 500₽",
+                    "Дизайн (один палец) — 100₽",
+                    "Японский маникюр — 1000₽",
+                  ].map((text) => (
+                    <div
+                      key={text}
+                      className="bg-[#2b5278] text-white text-[11px] leading-tight rounded-lg px-3 py-2 text-center cursor-pointer hover:bg-[#366c9e] transition-colors"
+                    >
+                      {text}
+                    </div>
+                  ))}
+                </div>
+                <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-3 text-[11px] max-w-[80%] self-end relative shadow-sm mt-1">
+                  🛠 Мои записи
+                  <span className="text-[9px] text-[#7da3c5] absolute bottom-1 right-2 flex items-center gap-0.5">
+                    12:36
+                    <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
+                      <path
+                        d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z"
+                        fill="#7da3c5"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div className="bg-[#202b36] text-white border border-white/5 rounded-2xl rounded-tl-none p-3 text-[11px] max-w-[88%] self-start relative shadow-sm leading-relaxed">
+                  📅 Ваши записи:
+                  <br />
+                  🔹 Снятие чужого материала — 11.07.2026 в 14:00
+                  <span className="text-[9px] text-neutral-500 absolute bottom-1 right-2 flex items-center gap-0.5">
+                    12:36
+                    <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
+                      <path
+                        d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z"
+                        fill="#5c6a7a"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+              {p.subtitle}
+            </span>
+            <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">{p.title}</h3>
+            <p className="text-sm text-neutral-300">{p.result}</p>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <a
+        href={p.link ?? "#contact"}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block group"
+      >
+        <div className="overflow-hidden rounded-2xl mb-4">
+          <img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+          />
+        </div>
+        <div>
+          <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
+            {p.subtitle}
+          </span>
+          <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">{p.title}</h3>
+          <p className="text-sm text-neutral-300">{p.result}</p>
+        </div>
+      </a>
+    );
+  };
+
+  const renderGroup = (title: string, items: Project[]) => (
+    <div className="mt-16 first:mt-0">
+      <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-10 text-center">
+        {title}
+      </h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {items.map((p, i) => (
+          <motion.div
+            key={p.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {renderCard(p)}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <section id="portfolio" className="bg-black py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-16 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-10 text-center">
           Избранные концепты.
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {PROJECTS_DATA.map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {p.id === 2 ? (
-                <a href="https://www.rustore.ru/catalog/app/com.wavestudio.pribort1" target="_blank" rel="noopener noreferrer" className="block group">
-                  <div className="overflow-hidden rounded-2xl mb-4">
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      loading="lazy"
-                      className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                    />
-                  </div>
-                  <div>
-                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
-                      {p.subtitle}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
-                      {p.title}
-                    </h3>
-                    <p className="text-sm text-neutral-300">
-                      {p.result}
-                    </p>
-                  </div>
-                </a>
-              ) : p.id === 3 ? (
-                <div className="block group">
-                  <div className="overflow-hidden rounded-2xl mb-4 w-full h-[240px] md:h-[280px]">
-                    <div className="w-full h-full bg-[#0e1621] font-sans flex flex-col">
-                      <div className="w-full h-12 bg-[#17212b] flex items-center justify-between px-3 border-b border-black/10 shrink-0">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-sm">
-                            ✨
-                          </div>
-                          <div>
-                            <p className="text-xs font-semibold text-white leading-tight">Запись к Мастеру</p>
-                            <p className="text-[10px] text-[#7da3c5] leading-tight">бот</p>
-                          </div>
-                        </div>
-                        <MoreVertical className="w-4 h-4 text-neutral-400" />
-                      </div>
-                      <div className="flex-1 p-2 flex flex-col justify-end gap-1.5 overflow-hidden">
-                        <div className="bg-[#182533] rounded-xl p-2.5 space-y-1.5 self-start w-full max-w-[90%]">
-                          {[
-                            "Педикюр полный (гигиена+покрытие) — 2000₽",
-                            "Педикюр пальчики — 1200₽",
-                            "Снятие чужого материала — 500₽",
-                            "Дизайн (один палец) — 100₽",
-                            "Японский маникюр — 1000₽",
-                          ].map((text) => (
-                            <div
-                              key={text}
-                              className="bg-[#2b5278] text-white text-[11px] leading-tight rounded-lg px-3 py-2 text-center cursor-pointer hover:bg-[#366c9e] transition-colors"
-                            >
-                              {text}
-                            </div>
-                          ))}
-                        </div>
-                        <div className="bg-[#2b5278] text-white rounded-2xl rounded-tr-none p-3 text-[11px] max-w-[80%] self-end relative shadow-sm mt-1">
-                          🛠 Мои записи
-                          <span className="text-[9px] text-[#7da3c5] absolute bottom-1 right-2 flex items-center gap-0.5">
-                            12:36
-                            <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
-                              <path d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z" fill="#7da3c5"/>
-                            </svg>
-                          </span>
-                        </div>
-                        <div className="bg-[#202b36] text-white border border-white/5 rounded-2xl rounded-tl-none p-3 text-[11px] max-w-[88%] self-start relative shadow-sm leading-relaxed">
-                          📅 Ваши записи:<br />
-                          🔹 Снятие чужого материала — 11.07.2026 в 14:00
-                          <span className="text-[9px] text-neutral-500 absolute bottom-1 right-2 flex items-center gap-0.5">
-                            12:36
-                            <svg className="w-3 h-3" viewBox="0 0 16 11" fill="none">
-                              <path d="M11.071 10.142l4.605-4.605-1.41-1.41-3.195 3.195-3.195-3.195-1.41 1.41 4.605 4.605z" fill="#5c6a7a"/>
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
-                      {p.subtitle}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
-                      {p.title}
-                    </h3>
-                    <p className="text-sm text-neutral-300">
-                      {p.result}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <a href={p.link ?? "#contact"} target="_blank" rel="noopener noreferrer" className="block group">
-                  <div className="overflow-hidden rounded-2xl mb-4">
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      loading="lazy"
-                      className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                    />
-                  </div>
-                  <div>
-                    <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
-                      {p.subtitle}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">
-                      {p.title}
-                    </h3>
-                    <p className="text-sm text-neutral-300">
-                      {p.result}
-                    </p>
-                  </div>
-                </a>
-              )}
-            </motion.div>
-          ))}
-        </div>
+        {renderGroup("Приложения", apps)}
+        {renderGroup("Сайты", sites)}
       </div>
     </section>
   );
@@ -532,11 +593,23 @@ function Philosophy() {
           >
             <div className="flex flex-col md:flex-row gap-8 mb-6">
               <div className="flex-1">
-                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Студия</p>
+                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">
+                  Студия
+                </p>
                 <div className="flex flex-col gap-3">
-                  {["Дизайнер задерживает макеты", "Кодер ждёт ТЗ", "Менеджер переводит стрелки"].map((item) => (
+                  {[
+                    "Дизайнер задерживает макеты",
+                    "Кодер ждёт ТЗ",
+                    "Менеджер переводит стрелки",
+                  ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-sm text-neutral-500">
-                      <svg className="w-4 h-4 text-red-400/60 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg
+                        className="w-4 h-4 text-red-400/60 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
                         <path d="M18 6L6 18M6 6l12 12" />
                       </svg>
                       {item}
@@ -546,9 +619,17 @@ function Philosophy() {
               </div>
               <div className="w-px bg-white/[0.06] hidden md:block" />
               <div className="flex-1">
-                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Эксперт</p>
+                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">
+                  Эксперт
+                </p>
                 <div className="flex items-center gap-2 text-sm text-white">
-                  <svg className="w-4 h-4 text-green-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg
+                    className="w-4 h-4 text-green-400 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                   Один человек отвечает за всё
