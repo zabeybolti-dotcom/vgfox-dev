@@ -85,7 +85,7 @@ const PROJECTS_DATA: Project[] = [
   {
     id: 1,
     category: "site",
-    title: "Аренда-Профи — управление арендой квартир в Санкт-Петербурге",
+    title: "Аренда-Профи — управление арендой",
     subtitle: "Лендинг · Недвижимость",
     result: "Лендинг аренды квартир с калькулятором дохода и приёмом заявок в Telegram.",
     image: nedvizhImg,
@@ -94,7 +94,7 @@ const PROJECTS_DATA: Project[] = [
   {
     id: 5,
     category: "site",
-    title: "DENTARA — современная стоматологическая клиника в Москве",
+    title: "DENTARA — современная стоматология",
     subtitle: "Сайт · Медицина",
     result: "Сайт клиники с онлайн-записью, карточками врачей и прозрачным прайсом.",
     image: denteraImg,
@@ -103,7 +103,7 @@ const PROJECTS_DATA: Project[] = [
   {
     id: 6,
     category: "site",
-    title: "Камертон — детская музыкальная школа в Москве",
+    title: "Камертон — музыкальная школа",
     subtitle: "Сайт · Образование",
     result: "Сайт музшколы с направлениями, преподавателями и записью на занятие.",
     image: musicImg,
@@ -356,7 +356,7 @@ function Portfolio() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
               {p.subtitle}
             </span>
-            <h3 className="text-lg md:text-xl font-bold text-white mt-2 mb-1 leading-snug">
+            <h3 className="text-base md:text-lg font-bold text-white mt-2 mb-1 leading-snug">
               {p.title}
             </h3>
             <p className="text-sm leading-snug text-neutral-300">{p.result}</p>
@@ -418,7 +418,7 @@ function Portfolio() {
             <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
               {p.subtitle}
             </span>
-            <h3 className="text-lg md:text-xl font-bold text-white mt-2 mb-1 leading-snug">
+            <h3 className="text-base md:text-lg font-bold text-white mt-2 mb-1 leading-snug">
               {p.title}
             </h3>
             <p className="text-sm leading-snug text-neutral-300">{p.result}</p>
@@ -445,7 +445,9 @@ function Portfolio() {
           <span className="inline-block bg-white/10 backdrop-blur-md text-white rounded-full px-3 py-1 text-xs">
             {p.subtitle}
           </span>
-          <h3 className="text-xl md:text-2xl font-bold text-white mt-3 mb-2">{p.title}</h3>
+          <h3 className="text-base md:text-lg font-bold text-white mt-2 mb-1 leading-snug">
+            {p.title}
+          </h3>
           <p className="text-sm text-neutral-300">{p.result}</p>
         </div>
       </a>
