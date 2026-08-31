@@ -323,6 +323,7 @@ h1, h2, h3, h4 {
   color: var(--text-2);
   padding: 10px 14px;
   border-radius: 12px;
+  white-space: nowrap;
 }
 .nav-links a:hover {
   color: var(--text);
@@ -1659,6 +1660,16 @@ h1, h2, h3, h4 {
   .plan.featured { transform: none; }
   .timeline { padding-left: 30px; }
   .btn { padding: 16px 26px; font-size: 0.9rem; }
+}
+
+/* Отступ при якорной прокрутке под фиксированной шапкой */
+section[id] { scroll-margin-top: 96px; }
+
+/* Компактная навигация на средних экранах (без переноса на две строки) */
+@media (max-width: 1280px) and (min-width: 769px) {
+  .nav-links a { font-size: 0.85rem; padding: 9px 10px; }
+  .nav-links { gap: 2px; }
+  .nav { gap: 14px; }
 }
 
 /* ---------------------------------------------------------

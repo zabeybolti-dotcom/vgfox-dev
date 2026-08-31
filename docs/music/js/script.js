@@ -24,14 +24,35 @@
   }
 
   /* -------------------------------------------------------
-     2. Активная ссылка в навигации
+     2. Активная ссылка в навигации (скролл-спай)
      ------------------------------------------------------- */
   (function activeNav() {
-    const current = window.location.pathname.split("/").pop() || "index.html";
-    $$(".nav-links a, .mobile-menu a").forEach((link) => {
-      const href = link.getAttribute("href");
-      if (href && href === current) link.classList.add("active");
+    const links = $$(".nav-links a, .mobile-menu a");
+    const map = {};
+    links.forEach((l) => {
+      const href = l.getAttribute("href");
+      const id = href && href.startsWith("#") ? href.slice(1) : "";
+      if (id) map[id] = l;
     });
+    const ids = Object.keys(map);
+    if (!ids.length) return;
+    const setActive = (id) => {
+      links.forEach((l) => l.classList.remove("active"));
+      if (map[id]) map[id].classList.add("active");
+    };
+    const secs = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    if (!secs.length) return;
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) setActive(e.target.id);
+          });
+        },
+        { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+      );
+      secs.forEach((s) => io.observe(s));
+    }
   })();
 
   /* -------------------------------------------------------

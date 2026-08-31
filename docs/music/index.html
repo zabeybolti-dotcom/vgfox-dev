@@ -17,26 +17,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body id="top">
 
   <header class="site-header">
     <div class="container nav">
-      <a href="index.html" class="logo" aria-label="Камертон — на главную">
+      <a href="#top" class="logo" aria-label="Камертон — на главную">
         <span class="logo-badge" aria-hidden="true">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
         </span>
-        <span class="logo-text">Камер<span>тон</span></span></span>
+        <span class="logo-text">Камер<span>тон</span></span>
       </a>
       <nav class="nav-links" aria-label="Основная навигация">
-        <a href="index.html">Главная</a>
-        <a href="about.html">О школе</a>
-        <a href="programs.html">Направления</a>
-        <a href="teachers.html">Преподаватели</a>
-        <a href="pricing.html">Абонементы</a>
-        <a href="gallery.html">Галерея</a>
-        <a href="contacts.html">Контакты</a>
+        <a href="#top">Главная</a>
+        <a href="#about">О школе</a>
+        <a href="#directions">Направления</a>
+        <a href="#teachers">Преподаватели</a>
+        <a href="#pricing">Абонементы</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#contacts">Контакты</a>
       </nav>
-      <a href="contacts.html" class="btn btn-primary nav-cta">Записаться</a>
+      <a href="#contacts" class="btn btn-primary nav-cta">Записаться</a>
       <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
@@ -44,14 +44,14 @@
   </header>
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
-    <a href="index.html">Главная</a>
-    <a href="about.html">О школе</a>
-    <a href="programs.html">Направления</a>
-    <a href="teachers.html">Преподаватели</a>
-    <a href="pricing.html">Абонементы</a>
-    <a href="gallery.html">Галерея</a>
-    <a href="contacts.html">Контакты</a>
-    <a href="contacts.html" class="btn btn-primary">Записаться на занятие</a>
+    <a href="#top">Главная</a>
+    <a href="#about">О школе</a>
+    <a href="#directions">Направления</a>
+    <a href="#teachers">Преподаватели</a>
+    <a href="#pricing">Абонементы</a>
+    <a href="#gallery">Галерея</a>
+    <a href="#contacts">Контакты</a>
+    <a href="#contacts" class="btn btn-primary">Записаться на занятие</a>
   </nav>
 
   <main>
@@ -73,8 +73,8 @@
             <h1 class="h1 reveal">Пусть ваш ребёнок <em class="acc-serif">зазвучит</em></h1>
             <p class="lead reveal">«Камертон» — школа, где юные музыканты влюбляются в музыку, а родители гордятся первыми выступлениями. Добрые педагоги, сцена и настоящий результат.</p>
             <div class="hero-actions reveal">
-              <a href="contacts.html" class="btn btn-primary">Записаться на бесплатное занятие</a>
-              <a href="programs.html" class="btn btn-ghost">Выбрать направление</a>
+              <a href="#contacts" class="btn btn-primary">Записаться на бесплатное занятие</a>
+              <a href="#directions" class="btn btn-ghost">Выбрать направление</a>
             </div>
             <div class="hero-trust reveal">
               <div class="avatars" aria-hidden="true">
@@ -117,7 +117,7 @@
         </div>
       </div>
 
-      <a href="#stats" class="scroll-hint" aria-label="Прокрутить вниз">
+      <a href="#about" class="scroll-hint" aria-label="Прокрутить вниз">
         <span></span>
       </a>
     </section>
@@ -150,6 +150,66 @@
       </div>
     </section>
 
+    <!-- ==================== О ШКОЛЕ ==================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head" style="max-width:720px;">
+          <span class="kicker"><i></i>О школе</span>
+          <h2 class="h2">Место, где начинается любовь к музыке</h2>
+          <p class="lead">С 2014 года «Камертон» учит детей не просто держать инструмент — а понимать музыку, чувствовать её и строить с ней дружбу на всю жизнь.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-photo reveal">
+            <img src="images/about-banner.jpg" alt="Игра на фортепиано в музыкальном классе" loading="lazy">
+          </div>
+          <div class="about-copy reveal">
+            <span class="kicker"><i></i>Наша история</span>
+            <h3>Всё началось с трёх фортепиано</h3>
+            <p>«Камертон» открылся в 2014 году в небольшом классе на Моховой с тремя инструментами и огромным желанием двух преподавателей — Анны и Сергея — доказать: учить детей музыке можно без слёз и страха сцены.</p>
+            <p class="strong">Наша миссия проста: помочь каждому ребёнку раскрыть природную музыкальность, подарить уверенность и радость творчества.</p>
+            <p>Сегодня это школа, где учатся сотни детей, выступают юные лауреаты конкурсов, а выпускники поступают в консерватории и продолжают играть. Но главное не изменилось: здесь каждого малыша встречают с улыбкой.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ЦЕННОСТИ ==================== -->
+    <section class="section" id="values" style="padding-top:0;">
+      <div class="container">
+        <div class="section-head text-center mx-auto">
+          <span class="kicker"><i></i>Ценности</span>
+          <h2 class="h2">На чём стоит «Камертон»</h2>
+          <p class="lead">Четыре принципа, которые не меняются с годами.</p>
+        </div>
+        <div class="values">
+          <div class="value reveal">
+            <div class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7v10l10 5 10-5V7l-10-5zm0 2.3L19.5 8 12 11.7 4.5 8 12 4.3z"/></svg></div>
+            <h3>Любовь к делу</h3>
+            <p>Учим с душой и интересом, а не по шаблону. Музыка должна радовать, а не мучить.</p>
+          </div>
+          <div class="value reveal" style="--delay:.08s">
+            <div class="ic" style="background:#FFF3D6;color:#e89b00;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 2h4v4h-4zM8 4h8v2H8zM12 8a6 6 0 0 1 6 6v1H6v-1a6 6 0 0 1 6-6z"/></svg></div>
+            <h3>Уважение к ребёнку</h3>
+            <p>Мы не критикуем, а поддерживаем. Каждый ученик — личность со своим темпом и голосом.</p>
+          </div>
+          <div class="value reveal" style="--delay:.16s">
+            <div class="ic" style="background:#E0F7F6;color:#00CEC9;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <h3>Качество</h3>
+            <p>Сильные педагоги, исправные инструменты и продуманная программа занятий для разных возрастов.</p>
+          </div>
+          <div class="value reveal" style="--delay:.24s">
+            <div class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div>
+            <h3>Открытость</h3>
+            <p>Родители всегда в курсе успехов: открытые уроки, концерты и честный диалог о будущем ребёнка.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" d="M0,40 C240,90 480,-10 720,40 C960,90 1200,-10 1440,40 L1440,90 L0,90 Z"/>
+    </svg>
+
     <!-- ==================== НАПРАВЛЕНИЯ ==================== -->
     <section class="section" id="directions">
       <div class="container">
@@ -169,7 +229,7 @@
               <h3>Фортепиано</h3>
               <p>Классика и современные пьесы. Отличная база для слуха и координации. Занятия для самых юных — с 4 лет.</p>
               <div class="tags"><span class="tag">с 4 лет</span><span class="tag">30–45 мин</span></div>
-              <a href="programs.html" class="link">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#contacts" class="link">Записаться <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -182,7 +242,7 @@
               <h3>Гитара</h3>
               <p>Аккорды, мелодии и любимые песни. Учимся играть и петь одновременно — уверенно и с удовольствием.</p>
               <div class="tags"><span class="tag y">с 7 лет</span><span class="tag">30–45 мин</span></div>
-              <a href="programs.html" class="link">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#contacts" class="link">Записаться <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -195,7 +255,7 @@
               <h3>Вокал</h3>
               <p>Постановка голоса, дыхание, артикуляция и сценическая свобода. Песни, которые ребёнок сам выбирает.</p>
               <div class="tags"><span class="tag t">с 6 лет</span><span class="tag">45 мин</span></div>
-              <a href="programs.html" class="link">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#contacts" class="link">Записаться <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -208,7 +268,7 @@
               <h3>Скрипка</h3>
               <p>Точный слух, чистая интонация и умение солировать. Прочный путь к оркестру с 5 лет.</p>
               <div class="tags"><span class="tag">с 5 лет</span><span class="tag">30–45 мин</span></div>
-              <a href="programs.html" class="link">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#contacts" class="link">Записаться <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -221,7 +281,7 @@
               <h3>Ударные</h3>
               <p>Ритм — стержень музыки. Развиваем чувство ритма, координацию и энергию в творческом русле.</p>
               <div class="tags"><span class="tag y">с 6 лет</span><span class="tag">45 мин</span></div>
-              <a href="programs.html" class="link">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#contacts" class="link">Записаться <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -234,7 +294,85 @@
               <h3>Сольфеджио</h3>
               <p>Музыкальная грамота в игровой форме: ноты, ритм, слуховая работа. Основа для любого музыканта.</p>
               <div class="tags"><span class="tag t">с 4 лет</span><span class="tag">30 мин</span></div>
-              <a href="programs.html" class="link">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#contacts" class="link">Записаться <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <svg class="wave-divider" style="transform:rotate(180deg);" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" d="M0,40 C240,90 480,-10 720,40 C960,90 1200,-10 1440,40 L1440,90 L0,90 Z"/>
+    </svg>
+
+    <!-- ==================== ПРЕПОДАВАТЕЛИ ==================== -->
+    <section class="section" id="teachers">
+      <div class="container">
+        <div class="section-head text-center mx-auto">
+          <span class="kicker"><i></i>Преподаватели</span>
+          <h2 class="h2">Команда, которая вдохновляет</h2>
+          <p class="lead">Каждый педагог — практикующий музыкант с профильным образованием и опытом преподавания от 6 лет, которого дети с удовольствием ждут на уроке.</p>
+        </div>
+        <div class="teachers">
+
+          <article class="teacher reveal">
+            <div class="teacher-photo t-avatar" style="--c:#6C5CE7;--c2:#a78bf0;"><span class="t-initial">А</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <div class="teacher-body">
+              <span class="inst">Фортепиано · 9 лет</span>
+              <h3>Анна Соловьёва</h3>
+              <p class="quals">Выпускница Московской консерватории. Лауреат международных конкурсов, ведёт подготовительное отделение для малышей.</p>
+              <div class="teacher-quote">Каждый ребёнок талантлив — важно лишь расслышать, к чему лежит его душа.</div>
+            </div>
+          </article>
+
+          <article class="teacher reveal" style="--delay:.06s">
+            <div class="teacher-photo t-avatar" style="--c:#f5a623;--c2:#ffd76b;"><span class="t-initial">Д</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <div class="teacher-body">
+              <span class="inst">Гитара · 8 лет</span>
+              <h3>Дмитрий Волков</h3>
+              <p class="quals">Эстрадный гитарист, автор обучающих программ для подростков и участник джазовых проектов.</p>
+              <div class="teacher-quote">Гитара — суперсила подростка. Научить её держать и спеть свою боссанову — моя работа.</div>
+            </div>
+          </article>
+
+          <article class="teacher reveal" style="--delay:.12s">
+            <div class="teacher-photo t-avatar" style="--c:#00CEC9;--c2:#4be0da;"><span class="t-initial">М</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <div class="teacher-body">
+              <span class="inst">Вокал · 7 лет</span>
+              <h3>Мария Кузнецова</h3>
+              <p class="quals">Солистка джазового оркестра и педагог по эстрадному вокалу. Работает над сценической свободой и чистотой интонации.</p>
+              <div class="teacher-quote">Когда ребёнок поёт свободно — меняется даже осанка. Пение раскрывает и творчески, и лично.</div>
+            </div>
+          </article>
+
+          <article class="teacher reveal" style="--delay:.18s">
+            <div class="teacher-photo t-avatar" style="--c:#e0719b;--c2:#ff9db8;"><span class="t-initial">И</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <div class="teacher-body">
+              <span class="inst">Скрипка · 10 лет</span>
+              <h3>Игорь Медведев</h3>
+              <p class="quals">Лауреат всероссийских конкурсов, артист симфонического оркестра. Готовит детей к выступлениям и концертам.</p>
+              <div class="teacher-quote">Скрипка — это диалог с инструментом. Терпение здесь дороже таланта, и мы это бережно строим.</div>
+            </div>
+          </article>
+
+          <article class="teacher reveal" style="--delay:.24s">
+            <div class="teacher-photo t-avatar" style="--c:#5A4BD1;--c2:#8a6bf5;"><span class="t-initial">П</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <div class="teacher-body">
+              <span class="inst">Ударные · 6 лет</span>
+              <h3>Полина Романова</h3>
+              <p class="quals">Участница рок-группы, преподаёт с любовью к ритму. Находит подход к самым энергичным и живым ученикам.</p>
+              <div class="teacher-quote">Ритм — самый честный язык музыки. Постучите ладонью — и всё получится.</div>
+            </div>
+          </article>
+
+          <article class="teacher reveal" style="--delay:.3s">
+            <div class="teacher-photo t-avatar" style="--c:#f59a00;--c2:#ffcf5c;"><span class="t-initial">С</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
+            <div class="teacher-body">
+              <span class="inst">Сольфеджио · 11 лет</span>
+              <h3>Сергей Литвинов</h3>
+              <p class="quals">Композитор и теоретик. Превращает музыкальную грамоту в игру, которую дети любят, а не боятся.</p>
+              <div class="teacher-quote">Теория оживает, когда ребёнок слышит её в настоящей мелодии, а не в скучной таблице.</div>
             </div>
           </article>
 
@@ -243,90 +381,6 @@
     </section>
 
     <svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-      <path fill="currentColor" d="M0,40 C240,90 480,-10 720,40 C960,90 1200,-10 1440,40 L1440,90 L0,90 Z"/>
-    </svg>
-
-    <!-- ==================== ПОЧЕМУ МЫ ==================== -->
-    <section class="section" id="why">
-      <div class="container">
-        <div class="section-head text-center mx-auto">
-          <span class="kicker"><i></i>Почему мы</span>
-          <h2 class="h2">Почему родители выбирают «Камертон»</h2>
-          <p class="lead">Мы не просто учим нотам — помогаем ребёнку расти уверенной и увлечённой личностью.</p>
-        </div>
-        <div class="features">
-          <div class="feature reveal">
-            <span class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 4.9 5.6.8-4 3.9.9 5.4-4.9-2.6L7 17l.9-5.4-4-3.9 5.6-.8L12 2z"/></svg></span>
-            <div><h3>Добрые педагоги</h3><p>Преподаватели с консерваторским образованием и опытом работы с детьми, которые объясняют без давления.</p></div>
-          </div>
-          <div class="feature reveal" style="--delay:.08s">
-            <span class="ic" style="background:#FFF3D6;color:#e89b00;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7-4.5-9.3-8.5C1 10 2 6 5.5 5.5 8 5 10 7 12 9c2-2 4-4 6.5-3.5C22 6 23 10 21.3 12.5 19 16.5 12 21 12 21z"/></svg></span>
-            <div><h3>Индивидуальный подход</h3><p>Программу и темп подстраиваем под ребёнка. Кто-то идёт к конкурсам, кто-то учится «для себя».</p></div>
-          </div>
-          <div class="feature reveal" style="--delay:.16s">
-            <span class="ic" style="background:#E0F7F6;color:#00CEC9;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></span>
-            <div><h3>Открытые концерты</h3><p>Четыре отчётных концерта в год и фестивали — ребёнок видит свой рост и не боится сцены.</p></div>
-          </div>
-          <div class="feature reveal" style="--delay:.24s">
-            <span class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm12 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM6 12h12v4H6z"/></svg></span>
-            <div><h3>Современные классы</h3><p>Светлые классы с качественными инструментами и уютная зона ожидания для родителей.</p></div>
-          </div>
-          <div class="feature reveal" style="--delay:.32s">
-            <span class="ic" style="background:#FFF3D6;color:#e89b00;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 5h2v6l5 3-1 1.7-6-3.6V7z"/></svg></span>
-            <div><h3>Удобное расписание</h3><p>Принимаем с 4 лет и подбираем время — утро, день и вечер. Легко совмещать со школой и кружками.</p></div>
-          </div>
-          <div class="feature reveal" style="--delay:.4s">
-            <span class="ic" style="background:#E0F7F6;color:#00CEC9;"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l6 2.5V9c0 4.5-2.6 8.4-6 10-3.4-1.6-6-5.5-6-10V4.5L12 2zm0 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg></span>
-            <div><h3>Безопасно и честно</h3><p>Не «продаём» лишние занятия — рекомендуем только то, что принесёт пользу.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== ПРЕПОДАВАТЕЛИ ==================== -->
-    <section class="section">
-      <div class="container">
-        <div class="section-head" style="max-width:720px;">
-          <span class="kicker"><i></i>Преподаватели</span>
-          <h2 class="h2">Команда, которая вдохновляет</h2>
-          <p class="lead">Каждый педагог — практикующий музыкант с опытом преподавания от 6 лет, которого дети с удовольствием ждут на уроке.</p>
-        </div>
-        <div class="teachers">
-          <article class="teacher reveal">
-            <div class="teacher-photo t-avatar" style="--c:#6C5CE7;--c2:#a78bf0;"><span class="t-initial">А</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
-            <div class="teacher-body">
-              <span class="inst">Фортепиано · 9 лет</span>
-              <h3>Анна Соловьёва</h3>
-              <p class="quals">Лауреат международных конкурсов, педагог подготовительного отделения.</p>
-              <div class="teacher-quote"><p>Каждый ребёнок талантлив — важно лишь расслышать, к чему лежит его душа.</p></div>
-            </div>
-          </article>
-          <article class="teacher reveal" style="--delay:.1s">
-            <div class="teacher-photo t-avatar" style="--c:#f5a623;--c2:#ffd76b;"><span class="t-initial">Д</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
-            <div class="teacher-body">
-              <span class="inst">Гитара · 8 лет</span>
-              <h3>Дмитрий Волков</h3>
-              <p class="quals">Эстрадный гитарист, автор обучающих программ для подростков.</p>
-              <div class="teacher-quote"><p>Гитара — суперсила подростка. Научить её держать и спеть свою песню — моя работа.</p></div>
-            </div>
-          </article>
-          <article class="teacher reveal" style="--delay:.2s">
-            <div class="teacher-photo t-avatar" style="--c:#00CEC9;--c2:#4be0da;"><span class="t-initial">М</span><svg class="t-icon" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></div>
-            <div class="teacher-body">
-              <span class="inst">Вокал · 7 лет</span>
-              <h3>Мария Кузнецова</h3>
-              <p class="quals">Солистка джазового оркестра, педагог по эстрадному вокалу.</p>
-              <div class="teacher-quote"><p>Когда ребёнок поёт свободно — меняется даже осанка.</p></div>
-            </div>
-          </article>
-        </div>
-        <div class="text-center" style="margin-top:40px;">
-          <a href="teachers.html" class="btn btn-ghost">Все преподаватели</a>
-        </div>
-      </div>
-    </section>
-
-    <svg class="wave-divider" style="transform:rotate(180deg);" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
       <path fill="currentColor" d="M0,40 C240,90 480,-10 720,40 C960,90 1200,-10 1440,40 L1440,90 L0,90 Z"/>
     </svg>
 
@@ -384,6 +438,157 @@
       </div>
     </section>
 
+    <svg class="wave-divider" style="transform:rotate(180deg);" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" d="M0,40 C240,90 480,-10 720,40 C960,90 1200,-10 1440,40 L1440,90 L0,90 Z"/>
+    </svg>
+
+    <!-- ==================== АБОНЕМЕНТЫ ==================== -->
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-head text-center mx-auto">
+          <span class="kicker"><i></i>Абонементы</span>
+          <h2 class="h2">Честные цены без скрытых платежей</h2>
+          <p class="lead">Выбирайте удобный формат: попробуйте разово или занимайтесь регулярно. Чем больше занятий — тем выгоднее цена за каждое.</p>
+        </div>
+        <div class="plans">
+
+          <article class="plan reveal">
+            <h3>Разовое занятие</h3>
+            <div class="price">1 200 <small>₽</small></div>
+            <div class="per">за одно занятие · 45 минут</div>
+            <ul>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Пробное занятие без оплаты</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Первый визит — знакомство</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Любой инструмент на выбор</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Совет педагога по направлению</li>
+            </ul>
+            <a href="#contacts" class="btn btn-ghost">Попробовать</a>
+          </article>
+
+          <article class="plan featured reveal" style="--delay:.06s">
+            <span class="plan-badge">Чаще всего выбирают ★</span>
+            <h3>8 занятий в месяц</h3>
+            <div class="price">8 500 <small>₽</small></div>
+            <div class="per">≈ 1 062 ₽ за занятие · 1 раз в неделю</div>
+            <ul>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Все включено из разового</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Экономия до 18%</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Обратная связь педагога</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Перенос занятия без штрафа</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Участие в отчётном концерте</li>
+            </ul>
+            <a href="#contacts" class="btn btn-primary">Выбрать абонемент</a>
+          </article>
+
+          <article class="plan reveal" style="--delay:.12s">
+            <h3>16 занятий в месяц</h3>
+            <div class="price">15 500 <small>₽</small></div>
+            <div class="per">≈ 969 ₽ за занятие · 2 раза в неделю</div>
+            <ul>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Максимум выгоды и прогресса</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Ускоренный рост навыка</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Приоритет в расписании</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Концерты и конкурсы</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19 20 8l-1.5-1.5z"/></svg>Личный консультант</li>
+            </ul>
+            <a href="#contacts" class="btn btn-ghost">Выбрать абонемент</a>
+          </article>
+
+        </div>
+
+        <div class="section-head text-center mx-auto" style="margin-top:64px;">
+          <span class="kicker"><i></i>Что входит</span>
+          <h2 class="h2">В каждый абонемент включено</h2>
+        </div>
+        <div class="included">
+          <div class="grid">
+            <div class="item reveal">
+              <span class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></span>
+              <div><strong>Все инструменты</strong><span>Фортепиано, гитара, скрипка и ударная установка — в школе. Ничего покупать не нужно.</span></div>
+            </div>
+            <div class="item reveal" style="--delay:.06s">
+              <span class="ic" style="background:#FFF3D6;color:#e89b00;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></span>
+              <div><strong>Обратная связь</strong><span>Отчёт родителям после каждого модуля: что получилось и над чем работаем.</span></div>
+            </div>
+            <div class="item reveal" style="--delay:.12s">
+              <span class="ic" style="background:#E0F7F6;color:#00CEC9;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/></svg></span>
+              <div><strong>Концерты и фестивали</strong><span>Четыре отчётных концерта в год и участие в городских музыкальных событиях.</span></div>
+            </div>
+            <div class="item reveal" style="--delay:.18s">
+              <span class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1-2 3.4V10h2v2h-2v9h-2v-1H6a2 2 0 0 1-2-2V9.5A4 4 0 0 1 12 2z"/></svg></span>
+              <div><strong>Гибкое расписание</strong><span>Утренние, дневные и вечерние окна — легко совмещать со школой и кружками.</span></div>
+            </div>
+            <div class="item reveal" style="--delay:.24s">
+              <span class="ic" style="background:#FFF3D6;color:#e89b00;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l6 2.5V9c0 4.5-2.6 8.4-6 10-3.4-1.6-6-5.5-6-10V4.5L12 2z"/></svg></span>
+              <div><strong>Без скрытых платежей</strong><span>Цена фиксируется при покупке абонемента. Никаких доплат за вход и участие.</span></div>
+            </div>
+            <div class="item reveal" style="--delay:.3s">
+              <span class="ic" style="background:#E0F7F6;color:#00CEC9;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 10l9-4v8.55A4 4 0 1 0 14 18V8h4V4H3z"/></svg></span>
+              <div><strong>Домашние материалы</strong><span>Репертуар и упражнения в личном кабинете — практикуйтесь дома уверенно.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" d="M0,40 C240,90 480,-10 720,40 C960,90 1200,-10 1440,40 L1440,90 L0,90 Z"/>
+    </svg>
+
+    <!-- ==================== ГАЛЕРЕЯ ==================== -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-head text-center mx-auto">
+          <span class="kicker"><i></i>Галерея</span>
+          <h2 class="h2">Живые моменты нашей школы</h2>
+          <p class="lead">Занятия, репетиции, первые выступления и настоящие победы. Нажмите на фото, чтобы рассмотреть ближе.</p>
+        </div>
+        <div class="gallery">
+
+          <figure class="g-item" data-src="images/g-piano.jpg">
+            <img src="images/g-piano.jpg" alt="Ученик играет на фортепиано" loading="lazy">
+            <div class="g-veil">Урок фортепиано · класс №3</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-sheet.jpg">
+            <img src="images/g-sheet.jpg" alt="Клавиши рояля крупным планом" loading="lazy">
+            <div class="g-veil">Чуткая работа над звуком</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-violin.jpg">
+            <img src="images/g-violin.jpg" alt="Музыкальный инструмент в классе" loading="lazy">
+            <div class="g-veil">Наши инструменты</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-flute.jpg">
+            <img src="images/g-flute.jpg" alt="Юные музыканты на репетиции" loading="lazy">
+            <div class="g-veil">Подготовка к отчётному концерту</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-concert.jpg">
+            <img src="images/g-concert.jpg" alt="Выступление на сцене с музыкантами" loading="lazy">
+            <div class="g-veil">Сцена концертного зала</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-microphone.jpg">
+            <img src="images/g-microphone.jpg" alt="Гитара на занятии" loading="lazy">
+            <div class="g-veil">Индивидуальный урок гитары</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-kids.jpg">
+            <img src="images/g-kids.jpg" alt="Инструменты оркестра" loading="lazy">
+            <div class="g-veil">Ансамбль юных скрипачей</div>
+          </figure>
+
+          <figure class="g-item" data-src="images/g-orchestra.jpg">
+            <img src="images/g-orchestra.jpg" alt="Девочка играет на музыкальном инструменте" loading="lazy">
+            <div class="g-veil">Первые успехи на сцене</div>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== CTA ==================== -->
     <section class="section">
       <div class="container">
@@ -394,41 +599,159 @@
             <span class="kicker light"><i></i>Пробное занятие</span>
             <h2 class="h2">Первое занятие — бесплатно</h2>
             <p>Запишитесь на пробный урок и познакомьтесь с педагогом. Убедитесь, что ваш ребёнок влюблён в музыку. Это займёт всего 30 минут.</p>
-            <a href="contacts.html" class="btn btn-light">Записаться на занятие</a>
+            <a href="#contacts" class="btn btn-light">Записаться на занятие</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== КОНТАКТЫ ==================== -->
+    <section class="section" id="contacts">
+      <div class="container">
+        <div class="section-head text-center mx-auto">
+          <span class="kicker"><i></i>Контакты</span>
+          <h2 class="h2">Мы на связи — и ждём вас</h2>
+          <p class="lead">Запишите ребёнка на бесплатное занятие или просто задайте вопрос. Мы перезвоним в течение рабочего дня.</p>
+        </div>
+        <div class="contact-grid">
+          <!-- Инфо -->
+          <div class="contact-info">
+            <div class="c-item reveal">
+              <span class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1l-2.2 2.3z"/></svg></span>
+              <div><strong>+7 (495) 123-45-67</strong><span>Звоните с 09:00 до 20:00, мы всегда рады помочь.</span></div>
+            </div>
+            <div class="c-item reveal" style="--delay:.06s">
+              <span class="ic" style="background:#FFF3D6;color:#e89b00;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></span>
+              <div><strong>г. Москва, ул. Музыкальная, д. 12</strong><span>5 минут пешком от метро. Есть парковка.</span></div>
+            </div>
+            <div class="c-item reveal" style="--delay:.12s">
+              <span class="ic" style="background:#E0F7F6;color:#00CEC9;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 5h2v6l5 3-1 1.7-6-3.6V7z"/></svg></span>
+              <div><strong>Пн–Сб: 09:00–20:00</strong><span>Воскресенье — выходной, но мы на связи по телефону.</span></div>
+            </div>
+            <div class="c-item reveal" style="--delay:.18s">
+              <span class="ic" style="background:#EDEAFD;color:#6C5CE7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 2h4v4h-4zM8 4h8v2H8zM12 8a6 6 0 0 1 6 6v1H6v-1a6 6 0 0 1 6-6zM6 20l-1 2h14l-1-2z"/></svg></span>
+              <div><strong>Пробное занятие</strong><span>Первое занятие — бесплатное. Запишитесь по форме ниже или позвоните нам.</span></div>
+            </div>
+
+            <!-- Карта -->
+            <div class="map-placeholder reveal" role="img" aria-label="Схематичная карта: ул. Музыкальная, д. 12">
+              <div class="mp-grid" aria-hidden="true"></div>
+              <div class="map-pin">
+                <div class="pulse" aria-hidden="true"></div>
+                <div class="pin"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/></svg></span></div>
+                <div class="label">ул. Музыкальная, 12</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Форма -->
+          <div class="form-card reveal" style="--delay:.1s;">
+            <h2 class="h2">Запись на бесплатное занятие</h2>
+            <p class="sub">Заполните форму — и мы перезвоним, чтобы подобрать направление и время.</p>
+
+            <form id="signupForm" novalidate>
+              <div class="form-fields">
+                <div class="field">
+                  <label for="fname">Имя ребёнка <em>*</em></label>
+                  <input type="text" id="fname" name="name" placeholder="Например, Мария" autocomplete="name">
+                  <span class="err-msg">Введите имя (минимум 2 буквы).</span>
+                </div>
+
+                <div class="field">
+                  <label for="fphone">Телефон родителя <em>*</em></label>
+                  <input type="tel" id="fphone" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel">
+                  <span class="err-msg">Введите корректный номер телефона.</span>
+                </div>
+
+                <div class="form-row">
+                  <div class="field">
+                    <label for="finstrument">Инструмент <em>*</em></label>
+                    <select id="finstrument" name="instrument" required>
+                      <option value="" disabled selected>Выберите...</option>
+                      <option value="piano">Фортепиано</option>
+                      <option value="guitar">Гитара</option>
+                      <option value="vocals">Вокал</option>
+                      <option value="violin">Скрипка</option>
+                      <option value="drums">Ударные</option>
+                      <option value="solfeggio">Сольфеджио</option>
+                      <option value="help">Посоветуйте</option>
+                    </select>
+                    <span class="err-msg">Выберите направление.</span>
+                  </div>
+                  <div class="field">
+                    <label for="fage">Возраст ребёнка <em>*</em></label>
+                    <select id="fage" name="age" required>
+                      <option value="" disabled selected>Выберите...</option>
+                      <option value="4-6">4–6 лет</option>
+                      <option value="7-9">7–9 лет</option>
+                      <option value="10-12">10–12 лет</option>
+                      <option value="13-14">13–14 лет</option>
+                    </select>
+                    <span class="err-msg">Укажите возраст.</span>
+                  </div>
+                </div>
+
+                <label class="consent">
+                  <input type="checkbox" id="fconsent" required>
+                  <span>Я соглашаюсь на обработку персональных данных и подтверждаю, что мне больше 18 лет.</span>
+                </label>
+
+                <button type="submit" class="btn btn-primary" style="width:100%;">Отправить заявку</button>
+              </div>
+
+              <div class="form-success" role="status">
+                <div class="check">✓</div>
+                <h3>Заявка отправлена!</h3>
+                <p style="color:var(--text-2);margin-top:10px;">Спасибо! Мы получили вашу заявку и перезвоним в течение рабочего дня.</p>
+                <button type="button" class="btn btn-ghost" id="sendAnother" style="margin-top:22px;">Отправить ещё одну</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ==================== ЛАЙТБОКС ==================== -->
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии" tabindex="-1">
+    <button class="lb-close" aria-label="Закрыть">×</button>
+    <button class="lb-nav lb-prev" aria-label="Предыдущее фото">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <img src="" alt="">
+    <button class="lb-nav lb-next" aria-label="Следующее фото">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="logo" aria-label="Камертон — на главную">
+          <a href="#top" class="logo" aria-label="Камертон — на главную">
             <span class="logo-badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></span>
-            <span class="logo-text">Камер<span>тон</span></span></span>
+            <span class="logo-text">Камер<span>тон</span></span>
           </a>
           <p>Детская музыкальная школа «Камертон» — здесь растут юные музыканты, которые любят своё дело.</p>
         </div>
         <div class="footer-col">
           <h4>Школа</h4>
           <ul>
-            <li><a href="about.html">О школе</a></li>
-            <li><a href="teachers.html">Преподаватели</a></li>
-            <li><a href="pricing.html">Абонементы</a></li>
-            <li><a href="gallery.html">Галерея</a></li>
-            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="#about">О школе</a></li>
+            <li><a href="#teachers">Преподаватели</a></li>
+            <li><a href="#pricing">Абонементы</a></li>
+            <li><a href="#gallery">Галерея</a></li>
+            <li><a href="#contacts">Контакты</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Направления</h4>
           <ul>
-            <li><a href="programs.html">Фортепиано</a></li>
-            <li><a href="programs.html">Вокал</a></li>
-            <li><a href="programs.html">Гитара</a></li>
-            <li><a href="programs.html">Скрипка</a></li>
-            <li><a href="programs.html">Ударные</a></li>
+            <li><a href="#directions">Фортепиано</a></li>
+            <li><a href="#directions">Вокал</a></li>
+            <li><a href="#directions">Гитара</a></li>
+            <li><a href="#directions">Скрипка</a></li>
+            <li><a href="#directions">Ударные</a></li>
           </ul>
         </div>
         <div class="footer-col">
