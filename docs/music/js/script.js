@@ -36,23 +36,32 @@
     });
     const ids = Object.keys(map);
     if (!ids.length) return;
-    const setActive = (id) => {
+    const secIds = ids.filter((id) => id !== "top");
+    const secs = secIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const spy = () => {
+      const y = window.scrollY + 170;
+      let current = "top";
+      secs.forEach((s) => {
+        if (s.offsetTop <= y) current = s.id;
+      });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        current = secIds[secIds.length - 1];
+      }
       links.forEach((l) => l.classList.remove("active"));
-      if (map[id]) map[id].classList.add("active");
+      const tgt = map[current];
+      if (tgt) tgt.classList.add("active");
     };
-    const secs = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (!secs.length) return;
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) setActive(e.target.id);
-          });
-        },
-        { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-      );
-      secs.forEach((s) => io.observe(s));
-    }
+    spy();
+    let t;
+    window.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(t);
+        t = setTimeout(spy, 70);
+      },
+      { passive: true }
+    );
   })();
 
   /* -------------------------------------------------------
@@ -78,6 +87,27 @@
       })
     );
   }
+
+  /* -------------------------------------------------------
+     3b. Плавный переход по якорям с учётом фиксированной шапки
+     ------------------------------------------------------- */
+  (function smoothAnchors() {
+    const HEADER = 86;
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const href = a.getAttribute("href");
+      if (href === "#") return;
+      const el = document.getElementById(href.slice(1));
+      if (!el) return;
+      e.preventDefault();
+      const y =
+        el === document.body
+          ? 0
+          : el.getBoundingClientRect().top + window.scrollY - HEADER;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    });
+  })();
 
   /* -------------------------------------------------------
      4. Появление блоков при скролле (IntersectionObserver)
