@@ -344,12 +344,12 @@ function Portfolio() {
           rel="noopener noreferrer"
           className="block group"
         >
-          <div className="overflow-hidden rounded-2xl mb-4">
+          <div className="overflow-hidden rounded-2xl mb-3 aspect-video">
             <img
               src={p.image}
               alt={p.title}
               loading="lazy"
-              className="w-full h-[240px] md:h-[280px] object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             />
           </div>
           <div>
