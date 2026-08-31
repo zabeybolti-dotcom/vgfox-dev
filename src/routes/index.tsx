@@ -67,7 +67,7 @@ const PROJECTS_DATA: Project[] = [
   {
     id: 4,
     category: "app",
-    title: "Карта грифа — интерактивный гриф гитары",
+    title: "Карта грифа — аккорды и гаммы",
     subtitle: "Android · Музыка",
     result: "Ноты, гаммы и аккорды с настоящим звуком. Работает полностью офлайн.",
     image: guitarImg,
@@ -76,7 +76,7 @@ const PROJECTS_DATA: Project[] = [
   {
     id: 3,
     category: "app",
-    title: "NailBookBot — бот автозаписи для бьюти-мастеров",
+    title: "NailBookBot — бот автозаписи",
     subtitle: "Telegram-бот · Автоматизация",
     result: "Экономия до 15 часов на переписках с клиентами в неделю",
     image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=2200&q=85",
@@ -359,7 +359,7 @@ function Portfolio() {
             <h3 className="text-base md:text-lg font-bold text-white mt-2 mb-1 leading-snug">
               {p.title}
             </h3>
-            <p className="text-sm leading-snug text-neutral-300">{p.result}</p>
+            <p className="text-sm leading-relaxed text-[#86868b]">{p.result}</p>
           </div>
         </a>
       );
@@ -421,7 +421,7 @@ function Portfolio() {
             <h3 className="text-base md:text-lg font-bold text-white mt-2 mb-1 leading-snug">
               {p.title}
             </h3>
-            <p className="text-sm leading-snug text-neutral-300">{p.result}</p>
+            <p className="text-sm leading-relaxed text-[#86868b]">{p.result}</p>
           </div>
         </div>
       );
@@ -448,7 +448,7 @@ function Portfolio() {
           <h3 className="text-base md:text-lg font-bold text-white mt-2 mb-1 leading-snug">
             {p.title}
           </h3>
-          <p className="text-sm text-neutral-300">{p.result}</p>
+          <p className="text-sm leading-relaxed text-[#86868b]">{p.result}</p>
         </div>
       </a>
     );
