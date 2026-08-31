@@ -8,20 +8,21 @@
    --------------------------------------------------------- */
 :root {
   /* Палитра — светлая тёплая тема */
-  --bg: #FAF9F6;                 /* тёплый айвори */
+  --bg: #FBF8F3;                 /* тёплый айвори */
   --surface: #FFFFFF;            /* поверхности/карточки */
-  --surface-soft: #FFFDF7;
+  --surface-soft: #FBF8F1;
   --primary: #6C5CE7;            /* мягкий фиолетовый */
-  --primary-dark: #5A4BD1;
-  --primary-soft: #EDEAFD;
+  --primary-dark: #4F45C8;
+  --primary-soft: #EEECFB;
   --accent: #FFB627;             /* солнечный жёлтый */
   --accent-soft: #FFF3D6;
-  --teal: #00CEC9;               /* бирюза */
-  --teal-soft: #E0F7F6;
-  --text: #2D3436;               /* основной текст */
-  --text-2: #6B7280;             /* вторичный текст */
-  --text-3: #9AA1AC;
-  --border: #ECEAF4;
+  --teal: #00B8B3;               /* бирюза */
+  --teal-soft: #E2F6F4;
+  --text: #221E3C;               /* основной текст */
+  --text-2: #5C5B6D;             /* вторичный текст */
+  --text-3: #9896A6;
+  --ink: #221E3C;
+  --border: #EBE8F2;
   --white: #FFFFFF;
 
   /* Типографика */
@@ -29,14 +30,14 @@
   --font-body: "Onest", "Manrope", system-ui, sans-serif;
 
   /* Радиусы */
-  --radius: 24px;
+  --radius: 22px;
   --radius-sm: 16px;
   --radius-pill: 100px;
 
-  /* Тени — мягкие многослойные */
-  --shadow: 0 10px 40px rgba(108, 92, 231, 0.08);
-  --shadow-md: 0 16px 50px rgba(108, 92, 231, 0.12);
-  --shadow-lg: 0 24px 70px rgba(108, 92, 231, 0.18);
+  /* Тени — мягкие многослойные, нейтральные */
+  --shadow: 0 14px 44px rgba(34, 30, 60, 0.07);
+  --shadow-md: 0 24px 60px rgba(34, 30, 60, 0.10);
+  --shadow-lg: 0 34px 90px rgba(34, 30, 60, 0.15);
 
   /* Прочее */
   --transition: all 0.3s ease;
@@ -103,10 +104,13 @@ h1, h2, h3, h4 {
 }
 
 .h1 {
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-size: clamp(2.35rem, 6vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 .h2 {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: -0.02em;
 }
 
 /* Видимый фокус для клавиатурной навигации */
@@ -464,7 +468,17 @@ h1, h2, h3, h4 {
 .hero-visual {
   position: relative;
 }
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: -16px -16px 20px 20px;
+  border-radius: calc(var(--radius) + 8px);
+  background: linear-gradient(135deg, var(--primary-soft), transparent 55%);
+  z-index: 0;
+}
 .hero-photo {
+  position: relative;
+  z-index: 1;
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -640,20 +654,28 @@ h1, h2, h3, h4 {
 .teacher {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 20px;
   overflow: hidden;
   transition: var(--transition);
 }
-.teacher:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.teacher:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(108, 92, 231, 0.22); }
 .teacher-photo {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
+  position: relative;
   overflow: hidden;
-  background: var(--primary-soft);
+  background: linear-gradient(160deg, #6C5CE7, #4F45C8);
 }
-.teacher-photo img { width: 100%; height: 100%; transition: transform 0.5s ease; }
-.teacher:hover .teacher-photo img { transform: scale(1.05); }
-.teacher-body { padding: 24px; }
-.teacher-body h3 { font-size: 1.15rem; }
+.teacher-photo img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: luminosity; opacity: 0.92; transition: transform 0.6s ease, opacity 0.4s ease; }
+.teacher:hover .teacher-photo img { transform: scale(1.06); opacity: 0.98; }
+.teacher-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 48%, rgba(34, 30, 60, 0.5));
+  pointer-events: none;
+}
+.teacher-body { padding: 22px 22px 26px; }
+.teacher-body h3 { font-size: 1.28rem; font-family: var(--font-head); font-weight: 700; letter-spacing: -0.01em; }
 .teacher-body .inst {
   color: var(--primary);
   font-weight: 700;
@@ -661,7 +683,7 @@ h1, h2, h3, h4 {
   display: inline-block;
   margin: 8px 0 14px;
 }
-.teacher-body .quals { color: var(--text-2); font-size: 0.9rem; margin-bottom: 16px; }
+.teacher-body .quals { color: var(--text-2); font-size: 0.9rem; line-height: 1.55; margin-bottom: 16px; }
 .teacher-quote {
   position: relative;
   font-size: 0.92rem;
