@@ -106,6 +106,27 @@ html,body{overscroll-behavior:none}
 #intro .i-cr{position:absolute;bottom:26px;font:400 11px/1.6 'IBM Plex Mono',monospace;
   color:var(--dim);letter-spacing:.14em;animation:fadeUp 1s 1.2s both}
 #intro .i-cr a{color:var(--dim);text-decoration:none;border-bottom:1px dotted var(--dim)}
+
+/* ---------- мобильный гейт: обязательный вход через полный экран ---------- */
+#gate{position:fixed;inset:0;z-index:60;display:none;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:24px;
+  background:radial-gradient(ellipse at 50% 60%,rgba(3,3,10,.6),rgba(3,3,10,.97) 78%);
+  transition:opacity .7s ease,visibility .7s}
+#gate.on{display:flex}
+#gate.off{opacity:0;visibility:hidden}
+#gate .g-eyebrow{font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.5em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:26px;animation:fadeUp 1s .2s both}
+#gate .g-t{font:800 clamp(30px,9vw,54px)/1.08 'Unbounded',sans-serif;letter-spacing:.04em;
+  text-shadow:0 0 46px rgba(0,229,255,.35);animation:fadeUp 1s .45s both}
+#gate .g-s{max-width:420px;margin-top:20px;font-weight:300;color:#c3cdea;
+  font-size:clamp(13px,1.8vw,15px);line-height:1.6;animation:fadeUp 1s .7s both;
+  text-shadow:0 2px 20px rgba(0,0,0,.95),0 0 6px rgba(0,0,0,.9)}
+#gate .g-start{margin-top:34px;padding:16px 40px;border:1px solid var(--accent);color:var(--accent);
+  font:500 13px/1 'IBM Plex Mono',monospace;letter-spacing:.32em;text-transform:uppercase;
+  cursor:pointer;background:transparent;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+  transition:.35s;animation:fadeUp 1s .95s both}
+#gate .g-start:hover{background:var(--accent);color:#02131a;box-shadow:0 0 44px rgba(0,229,255,.55)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 /* ---------- бренд ---------- */
@@ -349,6 +370,10 @@ body.no-webgl #loader{display:none}
   #intro .i-start{margin-top:18px;padding:11px 26px;letter-spacing:.24em}
   #intro .i-fs{margin-top:10px;padding:9px 18px;letter-spacing:.2em}
   #intro .i-cr{position:static;margin-top:16px;font-size:8.5px;line-height:1.4} /* в потоке — перекрытий нет */
+  #gate{padding:12px calc(14px + env(safe-area-inset-right)) 12px calc(14px + env(safe-area-inset-left))}
+  #gate .g-eyebrow{margin-bottom:12px;letter-spacing:.2em}
+  #gate .g-s{display:none}
+  #gate .g-start{margin-top:22px;padding:11px 28px;letter-spacing:.24em}
   #controls{bottom:calc(10px + env(safe-area-inset-bottom));left:calc(10px + env(safe-area-inset-left))}
   #navZone{bottom:calc(10px + env(safe-area-inset-bottom));right:calc(10px + env(safe-area-inset-right))}
 }
@@ -364,6 +389,14 @@ body.no-webgl #loader{display:none}
   <div class="l-brand">НЕЙРОХРОНИКА</div>
   <div class="l-core"></div>
   <div class="l-txt">калибровка нейросети</div>
+</div>
+
+<div id="gate">
+  <div class="g-eyebrow">Интерактивный таймлайн</div>
+  <div class="g-t">Откройте<br>на весь экран</div>
+  <p class="g-s">НЕЙРОХРОНИКА — иммерсивный опыт: живая нейросеть времени.
+  Без полного экрана панели браузера съедают пространство и ломают масштаб.</p>
+  <button id="btnGate" class="g-start">Во весь экран</button>
 </div>
 
 <div id="intro">
@@ -2587,6 +2620,12 @@ function fsSync(){
   const p=$('fsIco'); if(p) p.querySelector('path').setAttribute('d',on?FS_COLLAPSE:FS_EXPAND);
 }
 if(!fsOk){ $('btnFs').style.display='none'; $('btnFs2').style.display='none'; }
+/* мобильный гейт: предупреждение и обязательный вход через полный экран */
+const gate=$('gate');
+if(COARSE&&fsOk&&gate){
+  gate.classList.add('on');
+  $('btnGate').addEventListener('click',()=>{ fsToggle(); gate.classList.add('off'); });
+}
 $('btnFs').addEventListener('click',fsToggle);
 $('btnFs2').addEventListener('click',fsToggle);
 ['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,fsSync));
