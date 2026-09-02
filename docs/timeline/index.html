@@ -199,6 +199,7 @@ html,body{overscroll-behavior:none}
   color:var(--dim);transition:.25s;
   clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px)}
 .nav:hover{color:var(--accent);border-color:var(--accent);box-shadow:0 0 16px rgba(0,229,255,.2)}
+.nav svg{display:block}
 .nav:disabled{opacity:.25;cursor:default;box-shadow:none}
 #cr{position:fixed;left:22px;bottom:16px;z-index:20;font:400 10px/1.7 'IBM Plex Mono',monospace;
   color:var(--dim);letter-spacing:.1em}
@@ -411,6 +412,11 @@ body.no-webgl #loader{display:none}
 </div>
 
 <div id="navZone">
+  <button class="nav" id="btnFs2" aria-label="Во весь экран">
+    <svg id="fsIco" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+    </svg>
+  </button>
   <button class="nav" id="btnPrev" aria-label="Предыдущая эпоха">‹</button>
   <button class="nav" id="btnNext" aria-label="Следующая эпоха">›</button>
 </div>
@@ -2549,19 +2555,27 @@ $('btnStart').addEventListener('click',()=>{
   introMode=false;
   goTo(START_ERA,{dur:RM?0.6:2.6});
 });
-/* кнопка «На весь экран» (Fullscreen API; на iPhone не поддерживается — кнопку скрываем) */
+/* кнопки «На весь экран»: на интро и у стрелок (Fullscreen API; на iPhone не поддерживается — скрываем) */
 const fsEl=document.documentElement;
-if(!(fsEl.requestFullscreen||fsEl.webkitRequestFullscreen)) $('btnFs').style.display='none';
-$('btnFs').addEventListener('click',()=>{
+const fsOk=!!(fsEl.requestFullscreen||fsEl.webkitRequestFullscreen);
+const FS_EXPAND='M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3';
+const FS_COLLAPSE='M9 3v4a2 2 0 0 1-2 2H3M15 3v4a2 2 0 0 0 2 2h4M9 21v-4a2 2 0 0 0-2-2H3M15 21v-4a2 2 0 0 1 2-2h4';
+function fsToggle(){
   if(document.fullscreenElement||document.webkitFullscreenElement){
     (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document);
   }else{
     (fsEl.requestFullscreen||fsEl.webkitRequestFullscreen||function(){}).call(fsEl);
   }
-});
-['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>{
-  $('btnFs').textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'Свернуть':'На весь экран';
-}));
+}
+function fsSync(){
+  const on=!!(document.fullscreenElement||document.webkitFullscreenElement);
+  $('btnFs').textContent=on?'Свернуть':'На весь экран';
+  const p=$('fsIco'); if(p) p.querySelector('path').setAttribute('d',on?FS_COLLAPSE:FS_EXPAND);
+}
+if(!fsOk){ $('btnFs').style.display='none'; $('btnFs2').style.display='none'; }
+$('btnFs').addEventListener('click',fsToggle);
+$('btnFs2').addEventListener('click',fsToggle);
+['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,fsSync));
 
 /* ---------- загрузчик ---------- */
 const t0=performance.now();
@@ -2740,11 +2754,12 @@ function animate(){
       d.style.left=((_v1.x*0.5+0.5)*innerWidth)+'px';
       d.style.top=((-_v1.y*0.5+0.5)*innerHeight)+'px';
     }
-  }else if(COARSE&&arrived&&!flight&&!scrub&&!detailOpen){
-    /* мобильные подписи: следуют за своими точками, прячутся при открытой карточке */
+  }else if(COARSE&&arrived&&!scrub){
+    /* подписи следуют за точками; на время карточки/статьи/полёта — прячутся, после закрытия возвращаются */
+    const off=pcardOpen||detailOpen||flight;
     for(let j=0;j<mobPick.length;j++){
       const p=mobPick[j], d=evLabels[j];
-      if(pcardOpen){ d.classList.remove('show'); continue; }
+      if(off){ d.style.transitionDelay='0ms'; d.classList.remove('show'); continue; }
       _v1.set(hPos[p.hk*3],hPos[p.hk*3+1],hPos[p.hk*3+2]).project(camera);
       d.style.left=clamp((_v1.x*0.5+0.5)*innerWidth,54,innerWidth-54)+'px';
       d.style.top=clamp((-_v1.y*0.5+0.5)*innerHeight,76,innerHeight-150)+'px';
