@@ -23,11 +23,13 @@ html,body{height:100%}
 body{
   background:var(--bg);color:var(--txt);
   font-family:'Exo 2','Segoe UI',sans-serif;
-  overflow:hidden;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-#webgl{position:fixed;inset:0;z-index:0;touch-action:none} /* жесты на сцене — только наши: свайп вниз не тянет обновление страницы */
+#webgl{position:fixed;inset:0;z-index:0} /* страница чуть скроллится (спейсер) — браузер прячет адресную строку */
 html,body{overscroll-behavior:none}
+#barspacer{height:150vh}                 /* вертикальный ход страницы: свайп прячет панель браузера */
+#detail .d-inner{overscroll-behavior:contain}
 #webgl canvas{display:block}
 
 /* ---------- подписи событий и прицел наведения ---------- */
@@ -335,6 +337,7 @@ body.no-webgl #loader{display:none}
 <body>
 
 <div id="webgl"></div>
+<div id="barspacer" aria-hidden="true"></div>
 <div id="reticle"></div>
 
 <div id="loader">
@@ -2025,6 +2028,7 @@ function goTo(i,opt){
   if(!flight&&!scrub&&i===currentEra&&arrived) return;
   /* перелёт можно прервать в любой момент: новый стартует от текущего положения камеры */
   const interrupt=!!(flight||scrub);
+  window.scrollTo(0,1e6);                  /* панель браузера не возвращается при перелётах */
   const from=camera.position.clone(), fromL=lookCur.clone();
   const to=viewPos(i), toL=centers[i].clone();
   const d=from.distanceTo(to);
@@ -2057,6 +2061,7 @@ function scrubBy(dir){
   if(touring) stopTour();
   flight=null; scrub={target:nt};
   arrived=false;
+  window.scrollTo(0,1e6);                  /* держим страницу прокрученной — панель браузера не возвращается */
   hideCard(); hidePcard(); hideLabels(); setHover(-1); whoosh();
   hintOff();
 }
@@ -2390,7 +2395,7 @@ function labelIdx(i){
 let mobPick=[];   /* мобильные подписи текущей эпохи: {k,hk} — разложены по экрану равномерно */
 function revealLabels(i){
   if(COARSE){
-    /* до пяти подписей: равномерно по экрану (farthest-point sampling от центра), без наложений */
+    /* до десяти подписей: равномерно по экрану (farthest-point sampling от центра), без наложений */
     evLabels.forEach(d=>{ d.classList.remove('show'); d.style.display='none'; });
     const W=innerWidth,H=innerHeight,tv=new THREE.Vector3(),cand=[];
     for(const k of labelIdx(i)){
@@ -2409,7 +2414,7 @@ function revealLabels(i){
       let bi=0,bd=1e9;
       cand.forEach((c,j)=>{const d=Math.hypot(c.x-W/2,c.y-H*0.47);if(d<bd){bd=d;bi=j}});
       picked.push(cand[bi]);
-      while(picked.length<5){
+      while(picked.length<10){
         let best=null,bs=-1;
         for(const c of cand){
           if(picked.includes(c)) continue;
@@ -2417,7 +2422,7 @@ function revealLabels(i){
           for(const p of picked) m=Math.min(m,Math.hypot(p.x-c.x,p.y-c.y));
           if(m>bs){bs=m;best=c}
         }
-        if(!best||bs<80) break;                 /* ближе 80px — уже тесно */
+        if(!best||bs<72) break;                 /* ближе 72px — уже тесно */
         picked.push(best);
       }
     }
@@ -2513,7 +2518,7 @@ addEventListener('touchstart',e=>{
 addEventListener('touchend',e=>{
   if(tY===null) return;
   const dy=tY-e.changedTouches[0].clientY, dx=Math.abs(tX-e.changedTouches[0].clientX);
-  if(Math.abs(dy)>46&&dy*2.2>dx) scrubBy(dy>0?1:-1);
+  if(Math.abs(dy)>46&&Math.abs(dy)*2.2>dx) scrubBy(dy>0?1:-1);   /* модуль доминирования — иначе свайп вниз отбрасывался */
   tY=null;
 },{passive:true});
 addEventListener('touchcancel',()=>{ tY=null; },{passive:true});
