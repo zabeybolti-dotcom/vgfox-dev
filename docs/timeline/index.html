@@ -465,9 +465,12 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 const RM     = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = matchMedia('(pointer: coarse)').matches;
 /* посадка под узкий экран: fitK отодвигает камеру (пропорционально узости кадра) */
-let fitK=1;
+let fitK=1, fitS=1;
 function calcFit(){ const a=innerWidth/Math.max(1,innerHeight);
-  fitK=a>=1.25?1:Math.min(2.4,1.25/a); }
+  fitK=a>=1.25?1:Math.min(2.4,1.25/a);
+  /* размер точек компенсируем куда слабее, чем дистанцию: иначе на телефоне
+     кластер сливается в сплошное светящееся пятно */
+  fitS=COARSE?(a>=1.25?0.9:(a<0.55?0.6:0.85)):1; }
 calcFit();
 if(COARSE) document.getElementById('hint').textContent='свайп — соседняя эпоха · клик по точке — событие';
 const $ = id => document.getElementById(id);
@@ -1513,7 +1516,7 @@ neuronGeo.setAttribute('aExcite',   excAttr);
 const uni = {
   uTime:{value:0},
   uEra:{value:0},
-  uFit:{value:fitK},
+  uFit:{value:fitS},
   uPixelRatio:{value:renderer.getPixelRatio()}
 };
 const neuronMat=new THREE.ShaderMaterial({
@@ -1907,7 +1910,7 @@ function seedIcons(fl){
 ============================================================ */
 const composer=new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene,camera));
-const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.68,0.62,0.17);
+const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),COARSE?0.45:0.68,COARSE?0.5:0.62,0.17);
 composer.addPass(bloom);
 const cine=new ShaderPass({
   uniforms:{ tDiffuse:{value:null}, uTime:{value:0}, uAberr:{value:0},
@@ -2543,7 +2546,7 @@ requestAnimationFrame(loaderTick);
    РЕСАЙЗ / ВИДИМОСТЬ
 ============================================================ */
 addEventListener('resize',()=>{
-  calcFit(); uni.uFit.value=fitK;
+  calcFit(); uni.uFit.value=fitS;
   camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth,innerHeight);
