@@ -464,13 +464,14 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 ============================================================ */
 const RM     = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = matchMedia('(pointer: coarse)').matches;
-/* посадка под узкий экран: fitK отодвигает камеру (пропорционально узости кадра) */
+/* посадка под узкий экран: fitK отодвигает камеру ровно настолько, чтобы диск
+   заполнял ~90% ширины кадра (широкая ось диска ~ 19.4·1.45·√(AR/1.25) ед.) */
 let fitK=1, fitS=1;
 function calcFit(){ const a=innerWidth/Math.max(1,innerHeight);
-  fitK=a>=1.25?1:Math.min(2.4,1.25/a);
+  fitK=a>=1.25?1:Math.max(1,Math.min(2.4,1.42/Math.sqrt(a)));
   /* размер точек компенсируем куда слабее, чем дистанцию: иначе на телефоне
      кластер сливается в сплошное светящееся пятно */
-  fitS=COARSE?(a>=1.25?0.9:(a<0.55?0.6:0.85)):1; }
+  fitS=COARSE?(a>=1.25?0.9:(a<0.55?0.7:0.9)):1; }
 calcFit();
 if(COARSE) document.getElementById('hint').textContent='свайп — соседняя эпоха · клик по точке — событие';
 const $ = id => document.getElementById(id);
@@ -1446,6 +1447,7 @@ const col=new THREE.Color();
 /* уникальная геометрия кластера: диск-«подсолнух» — все события гарантированно на экране */
 const _AR=innerWidth/Math.max(1,innerHeight);
 const NK=_AR>=1.25?1:Math.sqrt(_AR/1.25);   /* узкий экран: диск сжимается по широкой оси */
+const VSTR=_AR>=1.25?0.92:Math.min(1.9,1.24/Math.sqrt(_AR)); /* и растягивается по вертикали под высокий экран */
 for(let i=0;i<ERAS;i++){
   eraNeurons[i]=[];
   nucleusNeuron[i]=[];
@@ -1466,7 +1468,7 @@ for(let i=0;i<ERAS;i++){
     const r=R*Math.sqrt((k-0.5)/Math.max(1,K-1)), a=k*2.39996+rot0;
     nuclei.push(c.clone()
       .addScaledVector(u,Math.cos(a)*r*1.45*NK)
-      .addScaledVector(vv,Math.sin(a)*r*(0.92+0.5*(1-NK)))
+      .addScaledVector(vv,Math.sin(a)*r*VSTR)
       .addScaledVector(f,(((k%3)-1)*1.6+(Math.random()-0.5)*0.8)*(1-0.4*(1-NK))));
   }
   for(let m=0;m<count;m++){
