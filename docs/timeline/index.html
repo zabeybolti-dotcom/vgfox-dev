@@ -2042,7 +2042,13 @@ $('btnSound').addEventListener('click',()=>{
 ============================================================ */
 function viewPos(i){
   const az=0.55+(i/(ERAS-1))*2.15;
-  const dist=(34+(i%3)*2.5)*fitK, elev=7.5+(i%4)*1.6;   /* fitK: на узких экранах камера отъезжает */
+  /* узкий экран: посадка по радиусу ИМЕННО этой эпохи — любая эпоха заполняет кадр одинаково (~96% ширины) */
+  let fi=1;
+  if(fitK>1){
+    const S=1+Math.sin(i*3.71)*0.06, R=(5.4+eraEvents[i].length*0.7)*S;
+    fi=Math.max(1,Math.min(2.4,R*0.069/Math.sqrt(innerWidth/Math.max(1,innerHeight))));
+  }
+  const dist=(34+(fitK>1?0:(i%3)*2.5))*fi, elev=7.5+(i%4)*1.6;
   return centers[i].clone().add(new THREE.Vector3(Math.sin(az)*dist,elev,Math.cos(az)*dist));
 }
 const lookCur=centers[0].clone();
