@@ -247,7 +247,7 @@ html,body{overscroll-behavior:none}
 #detail .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(3,3,10,.62),rgba(2,2,8,.9));
   opacity:0;transition:opacity .6s}
 #detail.open .veil{opacity:1}
-.d-close{position:absolute;top:calc(11vh + 18px);right:26px;z-index:3;width:44px;height:44px;
+.d-close{position:absolute;top:calc(11vh + 18px);right:max(26px,calc(50% - 438px));z-index:3;width:44px;height:44px;
   border:1px solid var(--line);background:var(--glass);display:grid;place-items:center;
   font-size:17px;color:var(--dim);transition:.25s;opacity:0;
   clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px)}
