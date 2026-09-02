@@ -285,7 +285,15 @@ body.no-webgl #loader{display:none}
 #pcard .p-x:hover{color:var(--txt)}
 #pcard .p-hint{margin-top:10px;font:400 9px/1.5 'IBM Plex Mono',monospace;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
 .c-hint{margin-top:14px;font:400 9.5px/1.6 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
-@media (pointer:coarse){#pcard{left:12px;right:12px;bottom:140px;width:auto}}
+@media (pointer:coarse){
+  #pcard{left:10px;right:10px;bottom:150px;width:auto;padding:12px 14px}
+  #pcard .p-ic{width:30px;height:30px}
+  #pcard .p-year{font-size:16px}
+  #pcard h4{font-size:13px;margin:8px 0 6px}
+  #pcard .p-short{font-size:11.5px;line-height:1.55}
+  #pcard .p-row{margin-top:10px}
+  #pcard .p-hint{display:none}
+}
 
 /* ---------- мобильная адаптация ---------- */
 @media (max-width:760px){
@@ -303,6 +311,14 @@ body.no-webgl #loader{display:none}
   #hint{bottom:auto;top:64px;font-size:9px;letter-spacing:.18em}
   .d-close{top:calc(11vh + 10px);right:12px}
   .d-inner{padding:4vh 18px 8vh}
+  /* интро: заголовок в две строки, всё влезает по ширине */
+  #intro{padding:20px 14px}
+  #intro .i-eyebrow{font-size:9px;letter-spacing:.26em;margin-bottom:18px}
+  #intro h1{font-size:clamp(38px,12.5vw,60px)}
+  #intro h1 em{display:block}
+  #intro .i-sub{margin-top:18px}
+  #intro .i-start{margin-top:30px;padding:14px 26px;letter-spacing:.26em}
+  #intro .i-cr{left:0;right:0;text-align:center;font-size:9.5px;letter-spacing:.06em}
 }
 </style>
 </head>
@@ -445,6 +461,12 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 ============================================================ */
 const RM     = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = matchMedia('(pointer: coarse)').matches;
+/* посадка под узкий экран: fitK отодвигает камеру (пропорционально узости кадра) */
+let fitK=1;
+function calcFit(){ const a=innerWidth/Math.max(1,innerHeight);
+  fitK=a>=1.25?1:Math.min(2.4,1.25/a); }
+calcFit();
+if(COARSE) document.getElementById('hint').textContent='свайп — соседняя эпоха · клик по точке — событие';
 const $ = id => document.getElementById(id);
 const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
 const easeIO = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
@@ -1416,6 +1438,8 @@ const eraNeurons=[], nucleusNeuron=[];
 let N = 0;
 const col=new THREE.Color();
 /* уникальная геометрия кластера: диск-«подсолнух» — все события гарантированно на экране */
+const _AR=innerWidth/Math.max(1,innerHeight);
+const NK=_AR>=1.25?1:Math.sqrt(_AR/1.25);   /* узкий экран: диск сжимается по широкой оси */
 for(let i=0;i<ERAS;i++){
   eraNeurons[i]=[];
   nucleusNeuron[i]=[];
@@ -1435,9 +1459,9 @@ for(let i=0;i<ERAS;i++){
   for(let k=1;k<K;k++){
     const r=R*Math.sqrt((k-0.5)/Math.max(1,K-1)), a=k*2.39996+rot0;
     nuclei.push(c.clone()
-      .addScaledVector(u,Math.cos(a)*r*1.45)
-      .addScaledVector(vv,Math.sin(a)*r*0.92)
-      .addScaledVector(f,((k%3)-1)*1.6+(Math.random()-0.5)*0.8));
+      .addScaledVector(u,Math.cos(a)*r*1.45*NK)
+      .addScaledVector(vv,Math.sin(a)*r*(0.92+0.5*(1-NK)))
+      .addScaledVector(f,(((k%3)-1)*1.6+(Math.random()-0.5)*0.8)*(1-0.4*(1-NK))));
   }
   for(let m=0;m<count;m++){
     const p=nuclei[m];
@@ -1486,6 +1510,7 @@ neuronGeo.setAttribute('aExcite',   excAttr);
 const uni = {
   uTime:{value:0},
   uEra:{value:0},
+  uFit:{value:fitK},
   uPixelRatio:{value:renderer.getPixelRatio()}
 };
 const neuronMat=new THREE.ShaderMaterial({
@@ -1493,7 +1518,7 @@ const neuronMat=new THREE.ShaderMaterial({
   vertexShader:`
     attribute float aSize; attribute float aPhase; attribute vec3 aColor;
     attribute float aEra; attribute float aExcite;
-    uniform float uTime; uniform float uEra; uniform float uPixelRatio;
+    uniform float uTime; uniform float uEra; uniform float uPixelRatio; uniform float uFit;
     varying vec3 vColor; varying float vGlow;
     void main(){
       vec3 p=position;
@@ -1505,7 +1530,7 @@ const neuronMat=new THREE.ShaderMaterial({
       float e=aExcite;
       float near=0.18+0.82*exp(-abs(aEra-uEra)*0.8);
       float s=aSize*(tw*near+e*2.1);
-      gl_PointSize=min(s*uPixelRatio*(150.0/max(1.0,-mv.z)),110.0);
+      gl_PointSize=min(s*uPixelRatio*uFit*(150.0/max(1.0,-mv.z)),110.0);
       vColor=mix(aColor,vec3(1.0),min(1.0,e*0.75));
       vGlow=tw*near+e*1.6;
       gl_Position=projectionMatrix*mv;
@@ -1560,13 +1585,13 @@ haloGeo.setAttribute('aExcite',new THREE.BufferAttribute(hExc,1));
 const iconTex=new THREE.CanvasTexture(iconCanvas);
 iconTex.anisotropy=4;
 const haloMat=new THREE.ShaderMaterial({
-  uniforms:{uTime:uni.uTime,uEra:uni.uEra,uPixelRatio:uni.uPixelRatio,map:{value:iconTex}},
+  uniforms:{uTime:uni.uTime,uEra:uni.uEra,uPixelRatio:uni.uPixelRatio,uFit:uni.uFit,map:{value:iconTex}},
   transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
   vertexShader:`
     attribute float aSize; attribute float aPhase; attribute vec3 aColor;
     attribute float aH; attribute float aNuc; attribute float aIcon;
     attribute float aEra; attribute float aExcite;
-    uniform float uTime; uniform float uPixelRatio; uniform float uEra;
+    uniform float uTime; uniform float uPixelRatio; uniform float uEra; uniform float uFit;
     varying vec3 vC; varying float vP; varying float vH; varying float vN;
     varying float vIcon; varying float vAct; varying float vE; varying float vRot; varying float vPh;
     void main(){
@@ -1576,7 +1601,7 @@ const haloMat=new THREE.ShaderMaterial({
       vAct=0.10+0.90*exp(-abs(aEra-uEra)*1.6);
       vRot=uTime*(0.10+0.06*sin(aPhase*3.1));
       float s=aSize*(1.0+aH*0.22+vE*0.30)*(1.0+aNuc*0.05);
-      gl_PointSize=min(s*uPixelRatio*(150.0/max(1.0,-mv.z)),140.0);
+      gl_PointSize=min(s*uPixelRatio*uFit*(150.0/max(1.0,-mv.z)),140.0);
       gl_Position=projectionMatrix*mv;
     }`,
   fragmentShader:`
@@ -1743,12 +1768,12 @@ const pulseMat=new THREE.ShaderMaterial({
   uniforms:uni, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
   vertexShader:`
     attribute vec3 aColor; attribute float aSize; attribute float aEnv;
-    uniform float uTime; uniform float uPixelRatio;
+    uniform float uTime; uniform float uPixelRatio; uniform float uFit;
     varying vec3 vColor; varying float vGlow; varying float vEnv;
     void main(){
       vec4 mv=modelViewMatrix*vec4(position,1.0);
       float tw=0.55+0.45*sin(uTime*2.4+aSize*17.0);
-      gl_PointSize=min(aSize*(0.8+0.2*tw)*uPixelRatio*(150.0/max(1.0,-mv.z)),60.0);
+      gl_PointSize=min(aSize*(0.8+0.2*tw)*uPixelRatio*uFit*(150.0/max(1.0,-mv.z)),60.0);
       vColor=aColor; vGlow=tw; vEnv=aEnv;
       gl_Position=projectionMatrix*mv;
     }`,
@@ -2009,7 +2034,7 @@ $('btnSound').addEventListener('click',()=>{
 ============================================================ */
 function viewPos(i){
   const az=0.55+(i/(ERAS-1))*2.15;
-  const dist=34+(i%3)*2.5, elev=7.5+(i%4)*1.6;
+  const dist=(34+(i%3)*2.5)*fitK, elev=7.5+(i%4)*1.6;   /* fitK: на узких экранах камера отъезжает */
   return centers[i].clone().add(new THREE.Vector3(Math.sin(az)*dist,elev,Math.cos(az)*dist));
 }
 const lookCur=centers[0].clone();
@@ -2066,9 +2091,10 @@ function scrubBy(dir){
 
 /* маркер таймлайна живёт непрерывно: ползёт и в полёте, и в скольжении, год считается на лету */
 function updateTL(f){
-  const pct=f/(ERAS-1)*100;
-  $('tlHead').style.left=pct+'%';
-  $('tlYear').style.left=pct+'%';
+      const pct=f/(ERAS-1)*100;
+      const yl=Math.min(97,Math.max(3,pct));   /* год не выезжает за края узкого экрана */
+      $('tlHead').style.left=pct+'%';
+      $('tlYear').style.left=yl+'%';
   const i0=Math.min(ERAS-2,Math.floor(f)), fr=clamp(f-i0,0,1);
   $('tlYear').textContent=Math.round(TIMELINE[i0].y+(TIMELINE[i0+1].y-TIMELINE[i0].y)*fr);
   $('tlFill').style.width=pct+'%';
@@ -2389,9 +2415,9 @@ function labelIdx(i){
   return _labCache[i]=arr;
 }
 function revealLabels(i){
-  const li=labelIdx(i);
+  const li=labelIdx(i), lim=COARSE?9:li.length;   /* на тач-экране подписей меньше — иначе каша */
   evLabels.forEach((d,k)=>{
-    if(k<li.length){
+    if(k<li.length&&k<lim){
       const ev=eraEvents[i][li[k]];
       d.style.display='';
       d.dataset.era=i; d.dataset.k=li[k];
@@ -2513,6 +2539,7 @@ requestAnimationFrame(loaderTick);
    РЕСАЙЗ / ВИДИМОСТЬ
 ============================================================ */
 addEventListener('resize',()=>{
+  calcFit(); uni.uFit.value=fitK;
   camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth,innerHeight);
