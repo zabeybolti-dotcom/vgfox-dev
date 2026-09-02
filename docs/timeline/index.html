@@ -296,6 +296,11 @@ body.no-webgl #loader{display:none}
   #pcard .p-short{font-size:11.5px;line-height:1.55}
   #pcard .p-row{margin-top:10px}
   #pcard .p-hint{display:none}
+  /* подписи точек: тише и мельче — год как акцент, короткий заголовок */
+  .evlabel{font-size:8.5px;padding:3px 7px;gap:4px;letter-spacing:.03em;
+    background:rgba(6,9,20,.5);border-color:rgba(120,160,255,.14);backdrop-filter:none}
+  .evlabel.show{opacity:.72}
+  .evlabel .e-t{max-width:96px}
 }
 
 /* ---------- мобильная адаптация ---------- */
@@ -2467,8 +2472,40 @@ function labelIdx(i){
   for(let k=0;k<evs.length;k++) arr.push(k);
   return _labCache[i]=arr;
 }
+let mobPick=[];   /* мобильные подписи текущей эпохи: {k,hk} — разведены по экрану без наложений */
 function revealLabels(i){
-  if(COARSE){ evLabels.forEach(d=>{ d.classList.remove('show'); d.style.display='none'; }); return; }
+  if(COARSE){
+    /* не все точки, а до трёх: самые наружные, не залезают на таймлайн/нижнюю зону, без наложений */
+    evLabels.forEach(d=>{ d.classList.remove('show'); d.style.display='none'; });
+    const W=innerWidth,H=innerHeight,tv=new THREE.Vector3(),cand=[];
+    for(const k of labelIdx(i)){
+      if(k===0) continue;                       /* центральное ядро эпохи не подписываем */
+      const hk=haloOf.get(nucleusNeuron[i][k]);
+      if(hk==null) continue;
+      tv.set(hPos[hk*3],hPos[hk*3+1],hPos[hk*3+2]).project(camera);
+      if(tv.z>=1) continue;
+      const x=(tv.x*0.5+0.5)*W, y=(-tv.y*0.5+0.5)*H;
+      if(x<44||x>W-44||y<72||y>H-150) continue;
+      cand.push({k,hk,x,y,r:(x-W/2)*(x-W/2)+(y-H*0.42)*(y-H*0.42)});
+    }
+    cand.sort((a,b)=>b.r-a.r);
+    const sep=Math.min(150,Math.max(95,W*0.3)), picked=[];
+    for(const c of cand){
+      if(picked.length>=3) break;
+      if(picked.every(p=>Math.hypot(p.x-c.x,p.y-c.y)>=sep)) picked.push(c);
+    }
+    mobPick=picked;
+    picked.forEach((p,j)=>{
+      const d=evLabels[j], ev=eraEvents[i][p.k];
+      d.style.display='';
+      d.dataset.era=i; d.dataset.k=p.k;
+      d.querySelector('.e-y').textContent=ev.y;
+      d.querySelector('.e-t').textContent=ev.t;
+      d.style.transitionDelay=(420+j*140)+'ms';
+      requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('show')));
+    });
+    return;
+  }
   const li=labelIdx(i), lim=li.length;
   evLabels.forEach((d,k)=>{
     if(k<li.length&&k<lim){
@@ -2751,6 +2788,15 @@ function animate(){
       d.classList.toggle('under',k%2===1);
       d.style.left=((_v1.x*0.5+0.5)*innerWidth)+'px';
       d.style.top=((-_v1.y*0.5+0.5)*innerHeight)+'px';
+    }
+  }else if(COARSE&&arrived&&!flight&&!scrub&&!detailOpen){
+    /* мобильные подписи: следуют за своими точками, прячутся при открытой карточке */
+    for(let j=0;j<mobPick.length;j++){
+      const p=mobPick[j], d=evLabels[j];
+      if(pcardOpen){ d.classList.remove('show'); continue; }
+      _v1.set(hPos[p.hk*3],hPos[p.hk*3+1],hPos[p.hk*3+2]).project(camera);
+      d.style.left=clamp((_v1.x*0.5+0.5)*innerWidth,54,innerWidth-54)+'px';
+      d.style.top=clamp((-_v1.y*0.5+0.5)*innerHeight,76,innerHeight-150)+'px';
     }
   }
   if(hoverKey>=0&&!flight&&!scrub&&!detailOpen&&!COARSE){
