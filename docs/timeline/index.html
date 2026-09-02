@@ -1531,7 +1531,7 @@ const neuronMat=new THREE.ShaderMaterial({
       vec4 mv=modelViewMatrix*vec4(p,1.0);
       float tw=0.72+0.28*sin(uTime*(1.2+fract(aPhase*0.13)*1.7)+aPhase*17.0);
       float e=aExcite;
-      float near=0.18+0.82*exp(-abs(aEra-uEra)*0.8);
+      float near=0.07+0.93*exp(-abs(aEra-uEra)*2.2);
       float s=aSize*(tw*near+e*2.1);
       gl_PointSize=min(s*uPixelRatio*uFit*(150.0/max(1.0,-mv.z)),110.0);
       vColor=mix(aColor,vec3(1.0),min(1.0,e*0.75));
@@ -1601,7 +1601,7 @@ const haloMat=new THREE.ShaderMaterial({
       vec4 mv=modelViewMatrix*vec4(position,1.0);
       float pulse=0.5+0.5*sin(uTime*2.0+aPhase);
       vP=pulse; vH=aH; vN=aNuc; vC=aColor; vIcon=aIcon; vE=aExcite; vPh=aPhase;
-      vAct=0.10+0.90*exp(-abs(aEra-uEra)*1.6);
+      vAct=0.06+0.94*exp(-abs(aEra-uEra)*3.0);
       vRot=uTime*(0.10+0.06*sin(aPhase*3.1));
       float s=aSize*(1.0+aH*0.22+vE*0.30)*(1.0+aNuc*0.05);
       gl_PointSize=min(s*uPixelRatio*uFit*(150.0/max(1.0,-mv.z)),140.0);
@@ -1633,12 +1633,12 @@ const haloMat=new THREE.ShaderMaterial({
         float halo=exp(-r*r*3.2)*0.22;
         float ring=smoothstep(0.06,0.0,abs(r-(0.52+vP*0.14)))*(0.18+0.22*vP);
         col=mix(vC,vec3(1.0),clamp(vH*0.35+core*0.22+vE*0.30,0.0,1.0));
-        a=(core+halo+ring)*(0.70+0.25*vP+vH*0.30+vE*0.35)*(0.30+0.70*vAct);
+        a=(core+halo+ring)*(0.70+0.25*vP+vH*0.30+vE*0.35)*(0.16+0.84*vAct);
       }else{
         /* событие эпохи — прежняя мягко пульсирующая точка */
         float core=smoothstep(0.32,0.08,r);
         float halo=exp(-r*r*3.8)*0.36;
-        a=(core+halo)*(0.70+0.25*vP+vH*0.30+vE*0.35)*(0.30+0.70*vAct);
+        a=(core+halo)*(0.70+0.25*vP+vH*0.30+vE*0.35)*(0.16+0.84*vAct);
         col=mix(vC,vec3(1.0),clamp(vH*0.35+core*0.22+vE*0.30,0.0,1.0));
       }
       if(a<0.02) discard;
@@ -1709,7 +1709,7 @@ const edgeMat=new THREE.ShaderMaterial({
     varying vec3 vC; varying float vR; varying float vB;
     void main(){
       vC=aColor; vR=aRand;
-      vB=0.30+1.30*exp(-abs(aEra-uEra)*1.2);
+      vB=0.10+1.50*exp(-abs(aEra-uEra)*2.6);
       gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);
     }`,
   fragmentShader:`
