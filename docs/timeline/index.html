@@ -338,6 +338,20 @@ body.no-webgl #loader{display:none}
   #intro .i-fs{margin-top:16px;padding:12px 20px;letter-spacing:.22em}
   #intro .i-cr{left:0;right:0;text-align:center;font-size:9.5px;letter-spacing:.06em}
 }
+/* телефон в горизонтали: строка браузера + статус-бар съедают высоту —
+   ужимаем интро, чтобы кнопки не налезали на копирайт и «На весь экран» был виден */
+@media (max-width:760px) and (orientation:landscape){
+  #intro{padding:12px calc(14px + env(safe-area-inset-right)) 12px calc(14px + env(safe-area-inset-left))}
+  #intro .i-eyebrow{margin-bottom:10px;letter-spacing:.2em}
+  #intro h1{font-size:clamp(24px,9vh,44px)}
+  #intro h1 em{display:inline}      /* заголовок одной строкой */
+  #intro .i-sub{display:none}       /* вертикали нет — описание прячем */
+  #intro .i-start{margin-top:18px;padding:11px 26px;letter-spacing:.24em}
+  #intro .i-fs{margin-top:10px;padding:9px 18px;letter-spacing:.2em}
+  #intro .i-cr{position:static;margin-top:16px;font-size:8.5px;line-height:1.4} /* в потоке — перекрытий нет */
+  #controls{bottom:calc(10px + env(safe-area-inset-bottom));left:calc(10px + env(safe-area-inset-left))}
+  #navZone{bottom:calc(10px + env(safe-area-inset-bottom));right:calc(10px + env(safe-area-inset-right))}
+}
 </style>
 </head>
 <body>
