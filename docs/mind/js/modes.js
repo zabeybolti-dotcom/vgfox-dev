@@ -6,8 +6,15 @@
 
 // ---------- Тюнинг ----------
 const FADE_MS = 500;      // мс: затухание/появление строки текста (синхронно с CSS)
-const OUTRO_PAUSE = 6.5;  // с: сколько висит финальная строка перед авто-выходом
+const OUTRO_PAUSE = 8;    // с: сколько висит финальная строка перед авто-выходом
 const FLY_SHARE = 0.5;    // полёт камеры занимает не больше этой доли паузы шага
+const READ_BASE = 1.5;    // с: фикс. время на появление строки (пр.20)
+const READ_CPS = 18;      // симв/с: темп неспешного чтения — пауза не короче чтения
+
+// Пр.20: шаг держится, пока строку успеешь прочитать, даже если автор паузы скромнее
+function hold(s) {
+  return Math.max(s.pause || 4, READ_BASE + (s.text ? s.text.length : 0) / READ_CPS);
+}
 
 export function createModes({ modes, rig, regions, markers, audio, dock, overlay, onActive, onStep }) {
   // ---------- DOM ----------
@@ -51,13 +58,14 @@ export function createModes({ modes, rig, regions, markers, audio, dock, overlay
   function showStep(i) {
     const s = cur.mode.steps[i];
     cur.stepIdx = i;
-    if (s.cam) rig.flyTo(s.cam, Math.max(1.2, (s.pause || 4) * FLY_SHARE));
+    const dt = hold(s); // пр.20: пауза шага не короче времени чтения строки
+    if (s.cam) rig.flyTo(s.cam, Math.max(1.2, dt * FLY_SHARE));
     regions.glowSet(s.regions || []);
     markers.setModeSet(s.markers || null);
     if (onStep) onStep(s); // пр.17: шаг с deep-зоной сам включает рентген (main.js)
     setText(s.text);
     const g = gen;
-    timer = setTimeout(() => { if (g === gen) advance(); }, (s.pause || 4) * 1000);
+    timer = setTimeout(() => { if (g === gen) advance(); }, dt * 1000);
   }
 
   // Тап или таймер: следующий шаг; на финальной строке тап — сразу выход.

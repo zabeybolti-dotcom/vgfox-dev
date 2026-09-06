@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#05060a">
   <meta name="description" content="MIND — интерактивный 3D-атлас мозга: 200 фактов и историй о том, как работает то, чем вы обо всём этом думаете.">
   <meta property="og:title" content="MIND — интерактивный мозг">
-  <meta property="og:description" content="Процедурный 3D-атлас мозга: 200 фактов и историй, 5 живых режимов. Ни одной скачанной модели — всё генерирует код.">
+  <meta property="og:description" content="Процедурный 3D-атлас мозга: 200 фактов и историй, 8 живых режимов. Ни одной скачанной модели — всё генерирует код.">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='6' fill='%236fd6ff'/%3E%3Ccircle cx='16' cy='16' r='12.5' fill='none' stroke='%236fd6ff' stroke-opacity='.4' stroke-width='2'/%3E%3C/svg%3E">
   <title>MIND — интерактивный мозг</title>
@@ -15,6 +15,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <!-- пр.22: критический путь модулей — грузим заранее, параллельно со стилями -->
+  <link rel="modulepreload" href="js/main.js">
+  <link rel="modulepreload" href="lib/three.module.min.js">
 </head>
 <body>
 
@@ -49,7 +52,8 @@
       <button id="btnSound" class="btn" type="button" data-action="sound" aria-pressed="false" title="Звук">звук</button>
       <button id="btnXray" class="btn" type="button" data-action="xray" aria-pressed="false" title="Режим глубины">глубина</button>
       <button id="btnTour" class="btn" type="button" data-action="tour" title="Автоэкскурсия — нажми, если лень кликать самому">экскурсия</button>
-      <button id="btnAbout" class="btn btn--round" type="button" data-action="about" title="О проекте">о</button>
+      <button id="btnFull" class="btn" type="button" data-action="fullscreen" title="На весь экран">весь экран</button>
+      <button id="btnAbout" class="btn" type="button" data-action="about" title="О проекте">о проекте</button>
     </nav>
   </header>
 

@@ -245,6 +245,19 @@ aboutModal.addEventListener('click', (e) => {
   }
 });
 
+// ---------- «На весь экран» (пр.21): где API нет (iPhone) — кнопка прячется ----------
+const btnFull = document.getElementById('btnFull');
+const fsRoot = document.documentElement;
+if (fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen) {
+  btnFull.addEventListener('click', () => {
+    const on = document.fullscreenElement || document.webkitFullscreenElement;
+    if (on) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else (fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen).call(fsRoot);
+  });
+} else {
+  btnFull.classList.add('is-hidden'); // iOS iPhone: полноэкранного API нет
+}
+
 // ---------- Экскурсия (S15): 12 лучших карточек рассказывают сами себя ----------
 const TOUR_CARDS = TOUR_IDS.map((id) => CARDS.find((c) => c.id === id)).filter(Boolean);
 const tour = createTour({
@@ -384,8 +397,14 @@ function frame(now) {
 
   if (!firstFrameDone) {
     firstFrameDone = true;
-    loader.classList.add('done');
-    setTimeout(() => loader.classList.add('is-hidden'), 700);
+    // пр.22: прячем загрузчик, когда готовы и первый кадр, и шрифты (запас 1.2 с) —
+    // иначе на телефоне после «загрузки» текст прыгает от подмены шрифта
+    const hideLoader = () => {
+      loader.classList.add('done');
+      setTimeout(() => loader.classList.add('is-hidden'), 700);
+    };
+    const fonts = (document.fonts && document.fonts.ready) || Promise.resolve();
+    Promise.race([fonts, new Promise((r) => setTimeout(r, 1200))]).then(hideLoader);
     dragHint.classList.add('show');
   }
 
@@ -429,5 +448,9 @@ window.addEventListener('keydown', (e) => {
     }
   }
 });
+
+// пр.22: собираем шейдеры заранее, пока висит загрузчик, — первый кадр на телефоне
+// без фриза (тот же труд, что обычно падает на первое рисование)
+renderer.compile(scene, camera);
 
 start();

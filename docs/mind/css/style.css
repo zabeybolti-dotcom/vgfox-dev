@@ -512,15 +512,45 @@ body.mode-on #dragHint { display: none; }
   .mode__text { font-size: 15px; }
 }
 
-/* Пр.18: вертикальный смартфон — компактная шапка, карточка не съедает сцену */
+/* Пр.18/24: вертикальный смартфон — компактная шапка в 5 кнопок, чипы областей
+   скрыты (десктопная навигация), док режимов встаёт на место чипов */
 @media (max-width: 640px) {
   .hud--top { padding-top: calc(8px + var(--safe-top)); }
-  .btn { min-height: 40px; padding: 7px 12px; font-size: 13px; }
-  .hud__btns { gap: 6px; }
+  .btn { min-height: 40px; padding: 5px 10px; font-size: 12px; }
+  .hud__btns { gap: 5px; }
   .card { max-height: 55vh; }
+  #chipsBar { display: none; }
+  #modeDock { bottom: calc(56px + var(--safe-bottom)); }
+  .hint { bottom: calc(212px + var(--safe-bottom)); } /* над доком в три ряда */
 }
 @media (max-width: 430px) {
   .tour { top: calc(96px + var(--safe-top)); } /* шапка на очень узких — в два ряда */
+}
+
+/* Пр.25: телефон лёжа — вся навигация компактнее, карточка узкой панелью справа */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hud--top { padding-top: calc(6px + var(--safe-top)); }
+  .btn { min-height: 34px; padding: 4px 9px; font-size: 12px; }
+  .hud__btns { gap: 4px; }
+  .logo__main { font-size: 15px; }
+  .progress__svg { width: 28px; height: 28px; }
+  #chipsBar { display: none; } /* пр.24: чипов нет и лёжа */
+  .tour { top: calc(44px + var(--safe-top)); }
+  .tour .btn { min-height: 30px; min-width: 30px; padding: 2px 6px; font-size: 13px; }
+  .hint { display: none; } /* в узком кадре нечем дышать, не то что подсказывать */
+  #modeDock { bottom: calc(10px + var(--safe-bottom)); }
+  .mode-btn { min-height: 34px; padding: 4px 10px 4px 8px; font-size: 12px; }
+  .mode { width: min(520px, 62vw); bottom: calc(10px + var(--safe-bottom)); padding: 14px 18px 10px; }
+  .mode__text { font-size: 14px; }
+  .card {
+    top: calc(8px + var(--safe-top));
+    bottom: calc(8px + var(--safe-bottom));
+    left: auto;
+    right: calc(8px + var(--safe-right));
+    width: min(320px, 58vw);
+    max-height: none;
+    padding: 8px 18px 18px;
+  }
 }
 
 /* ---------- Движение ---------- */
