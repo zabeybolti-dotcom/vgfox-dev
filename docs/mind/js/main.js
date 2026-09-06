@@ -273,13 +273,8 @@ const tour = createTour({
   open: openCard,          // полный цикл: полёт, волна, панель, прогресс, нота
   close: () => cards.hide(),
 });
-const btnTour = document.getElementById('btnTour');
-btnTour.addEventListener('click', () => {
-  audio.unlock(); // клик — жест: экскурсию могли включить раньше звука
-  if (tour.active()) { tour.stop(); return; }
-  if (modes.active()) modes.exit();
-  tour.start();
-});
+// Пр.26: кнопку «экскурсия» убрали — экскурсия (tour) спит: без кнопки её start()
+// недостижим, все tour.active()/pause() в обработчиках просто ложные
 // Ручной выбор области чипом — тоже ручное взаимодействие
 document.getElementById('chipsBar').addEventListener('click', () => tour.pause());
 

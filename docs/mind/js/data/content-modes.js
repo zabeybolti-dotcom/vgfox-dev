@@ -216,7 +216,7 @@ export const MODES = [
   },
 
   {
-    key: 'focus', name: 'Концентрация', color: 0xbfe0ff,
+    key: 'focus', name: 'Фокус', color: 0xbfe0ff,
     steps: [
       { cam: { r: 2.4 },
         regions: ['prefrontal'],
