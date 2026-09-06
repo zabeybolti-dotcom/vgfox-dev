@@ -412,7 +412,6 @@ body {
   font-size: 14px;
   letter-spacing: 0.02em;
 }
-.modal__foot { margin-top: 12px; color: var(--ink-dim); font-size: 12.5px; }
 
 /* ---------- FPS-оверлей (отладка, клавиша F) ---------- */
 .fps {
@@ -518,14 +517,57 @@ body.mode-on #dragHint { display: none; }
   .progress__count { font-size: 11px; }
   .card { max-height: 55vh; }
   #chipsBar { display: none; }
-  #modeDock { bottom: calc(56px + var(--safe-bottom)); gap: 6px; padding: 0 10px; }
-  .mode-btn { min-height: 34px; padding: 4px 9px 4px 8px; font-size: 12px; }
+  /* пр.29: режимы — ОДНА строка, листается свайпом вбок, стрелки-подсказки по краям */
+  #modeDock {
+    bottom: calc(56px + var(--safe-bottom));
+    pointer-events: auto; /* свайп ловит вся полоса, а не только кнопки */
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 0 36px; /* края свободны — под стрелки */
+  }
+  #modeDock::-webkit-scrollbar { display: none; }
+  .mode-btn { flex: none; min-height: 34px; padding: 4px 9px 4px 8px; font-size: 12px; }
+  #modeDock::before,
+  #modeDock::after {
+    position: fixed;
+    bottom: calc(56px + var(--safe-bottom));
+    z-index: 11; /* над кнопками, уезжающими под стрелку */
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink-dim);
+    pointer-events: none;
+  }
+  #modeDock::before {
+    content: '‹';
+    left: 0;
+    background: linear-gradient(90deg, rgba(2, 3, 8, 0.92) 40%, rgba(2, 3, 8, 0));
+  }
+  #modeDock::after {
+    content: '›';
+    right: 0;
+    background: linear-gradient(270deg, rgba(2, 3, 8, 0.92) 40%, rgba(2, 3, 8, 0));
+  }
   .mode__text { font-size: 15px; }
-  .hint { bottom: calc(150px + var(--safe-bottom)); } /* над двухрядным доком */
+  .hint { bottom: calc(104px + var(--safe-bottom)); } /* над однострочным доком */
 }
 @media (max-width: 430px) {
   .progress__count { display: none; } /* узкая линия: прогресс — только кольцо */
-  .tour { top: calc(96px + var(--safe-top)); } /* шапка на очень узких — в два ряда */
+  /* пр.30: на узких жмём шапку сильнее — «о проекте» влезает целиком */
+  .hud--top { gap: 6px; padding-left: calc(8px + var(--safe-left)); padding-right: calc(8px + var(--safe-right)); }
+  .logo__main { font-size: 13px; letter-spacing: 0.15em; }
+  .progress { gap: 4px; }
+  .progress__svg { width: 22px; height: 22px; }
+  .btn { padding: 4px 6px; font-size: 10.5px; }
+  .hud__btns { gap: 3px; }
 }
 
 /* Пр.25: телефон лёжа — вся навигация компактнее, карточка узкой панелью справа */
@@ -539,8 +581,42 @@ body.mode-on #dragHint { display: none; }
   .tour { top: calc(44px + var(--safe-top)); }
   .tour .btn { min-height: 30px; min-width: 30px; padding: 2px 6px; font-size: 13px; }
   .hint { display: none; } /* в узком кадре нечем дышать, не то что подсказывать */
-  #modeDock { bottom: calc(10px + var(--safe-bottom)); }
-  .mode-btn { min-height: 34px; padding: 4px 10px 4px 8px; font-size: 12px; }
+  #modeDock {
+    bottom: calc(10px + var(--safe-bottom));
+    pointer-events: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 30px;
+  }
+  #modeDock::-webkit-scrollbar { display: none; }
+  .mode-btn { flex: none; min-height: 34px; padding: 4px 10px 4px 8px; font-size: 12px; }
+  #modeDock::before,
+  #modeDock::after {
+    position: fixed;
+    bottom: calc(10px + var(--safe-bottom));
+    z-index: 11;
+    width: 28px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink-dim);
+    pointer-events: none;
+  }
+  #modeDock::before {
+    content: '‹';
+    left: 0;
+    background: linear-gradient(90deg, rgba(2, 3, 8, 0.92) 40%, rgba(2, 3, 8, 0));
+  }
+  #modeDock::after {
+    content: '›';
+    right: 0;
+    background: linear-gradient(270deg, rgba(2, 3, 8, 0.92) 40%, rgba(2, 3, 8, 0));
+  }
   .mode { width: min(520px, 62vw); bottom: calc(10px + var(--safe-bottom)); padding: 14px 18px 10px; }
   .mode__text { font-size: 14px; }
   .card {
