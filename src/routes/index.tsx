@@ -18,6 +18,8 @@ import guitarImg from "/guitar-v2.webp";
 import nedvizhImg from "/nedvizh-hero-v3.webp";
 import denteraImg from "/portfolio-dentera.webp";
 import musicImg from "/portfolio-music.webp";
+import timelineImg from "/timeline-hero.webp";
+import mindImg from "/portfolio-mind.webp";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -55,6 +57,15 @@ type Project = {
 };
 
 const PROJECTS_DATA: Project[] = [
+  {
+    id: 7,
+    category: "site",
+    title: "НЕЙРОХРОНИКА — нейросеть времени",
+    subtitle: "Сайт · Интерактивный таймлайн",
+    result: "Двести лет технологий — от первого полёта до века ИИ — в форме живой нейросети. 32 эпохи и сотни кликабельных событий с историями.",
+    image: timelineImg,
+    link: "https://vgfox.ru/timeline/",
+  },
   // ——— ПРИЛОЖЕНИЯ ———
   {
     id: 2,
@@ -103,11 +114,11 @@ const PROJECTS_DATA: Project[] = [
   {
     id: 6,
     category: "site",
-    title: "Камертон — музыкальная школа",
-    subtitle: "Сайт · Образование",
-    result: "Сайт музшколы с направлениями, преподавателями и записью на занятие.",
-    image: musicImg,
-    link: "https://vgfox.ru/music",
+    title: "MIND — интерактивный мозг",
+    subtitle: "Сайт · 3D-атлас мозга",
+    result: "Процедурный 3D-мозг в браузере: 200 кликабельных фактов, 10 живых режимов, звук без единого аудиофайла — всё генерирует код.",
+    image: mindImg,
+    link: "https://vgfox.ru/mind/",
   },
 ];
 
