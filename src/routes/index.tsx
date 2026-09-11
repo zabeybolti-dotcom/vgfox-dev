@@ -20,6 +20,7 @@ import denteraImg from "/portfolio-dentera.webp";
 import musicImg from "/portfolio-music.webp";
 import timelineImg from "/timeline-hero.webp";
 import mindImg from "/portfolio-mind.webp";
+import aeroImg from "/portfolio-aero.webp";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -67,6 +68,16 @@ const PROJECTS_DATA: Project[] = [
     link: "https://vgfox.ru/timeline/",
   },
   // ——— ПРИЛОЖЕНИЯ ———
+  {
+    id: 8,
+    category: "app",
+    title: "АЭРО-9 — неоновый шутер",
+    subtitle: "Браузерная игра · Аркада",
+    result:
+      "Неоновый воздушный шутер прямо в браузере: главы, четыре босса, 22 модуля прокачки и двухэшелонные волны — без установки.",
+    image: aeroImg,
+    link: "https://vgfox.ru/aero/",
+  },
   {
     id: 2,
     category: "app",
@@ -470,7 +481,7 @@ function Portfolio() {
       <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-10 text-center">
         {title}
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {items.map((p, i) => (
           <motion.div
             key={p.id}
