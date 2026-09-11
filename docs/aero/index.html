@@ -45,10 +45,16 @@
   #novaBtn:active{background:#ff9a3c;color:#1a0c05}
   @keyframes npulse{0%,100%{box-shadow:0 0 0 0 rgba(255,154,60,.45)}
     50%{box-shadow:0 0 0 16px rgba(255,154,60,0)}}
+  @media (pointer:coarse){#novaBtn{width:96px;height:96px;
+    right:calc(14px + env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));
+    font:500 12px 'IBM Plex Mono'}}
 
-  .ovl{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
-    padding:18px;background:rgba(4,6,16,.6);backdrop-filter:blur(6px);
+  .ovl{position:fixed;inset:0;z-index:40;display:flex;justify-content:center;
+    padding:max(18px,env(safe-area-inset-top)) 18px max(18px,env(safe-area-inset-bottom));
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    background:rgba(4,6,16,.6);backdrop-filter:blur(6px);
     opacity:0;pointer-events:none;transition:opacity .45s}
+  .ovl>*{margin:auto}
   .ovl.on{opacity:1;pointer-events:auto}
   .card{width:min(580px,94vw);background:rgba(9,10,26,.9);
     border:1px solid rgba(0,229,255,.16);border-top:2px solid #ff9a3c;
@@ -83,7 +89,20 @@
     color:rgba(220,215,255,.55)}
   .stats b{color:#eef2ff;font-weight:500}
   .stats b.gold{color:#ffb45e}
-  @media (max-width:640px){.rules{columns:1}}
+  @media (max-width:640px){
+    .rules{columns:1}
+    .card{padding:22px 18px 20px}
+    .rules li{font-size:11px;line-height:1.9}
+    .btn{padding:14px 24px;margin:0 8px 8px 0}
+    .upgGrid{gap:10px}
+    .upgCard{width:140px;padding:16px 10px 14px}
+  }
+  @media (orientation:landscape) and (max-height:500px){
+    .card{padding:16px 22px}
+    .card h1{font-size:2.6rem}
+    .sub{margin:4px 0 12px}
+    .rules{columns:2;column-gap:18px;margin-bottom:14px}
+  }
 
   #upgOvl{z-index:42}
   .upgGrid{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:18px}
@@ -119,7 +138,7 @@
       <li><b>мышь / палец</b> — ракета идёт за курсором</li>
       <li><b>WASD / стрелки</b> — полёт с клавиатуры</li>
       <li>пушка бьёт <b>строго вперёд</b></li>
-      <li><b>пробел / ПКМ</b> — большая ракета</li>
+      <li id="rBig"><b>пробел / ПКМ</b> — большая ракета</li>
       <li>волны идут <b>двумя эшелонами</b> — ждите подкрепление</li>
       <li>враги <b>быстрее и бронированнее</b> каждую волну</li>
       <li><b>22 модуля · 62 уровня</b> прокачки</li>
@@ -147,7 +166,7 @@
       <div><span>рекорд</span><b id="oBest">—</b></div>
     </div>
     <button class="btn" id="bAgain">снова в полёт</button>
-    <p class="small">пробел или клик — заново</p>
+    <p class="small" id="rAgain">пробел или клик — заново</p>
   </div>
 </div>
 
@@ -192,12 +211,13 @@ function hash(n){var x=Math.sin(n)*43758.5453;return x-Math.floor(x)}
 
 var cv=document.getElementById('game'),ctx=cv.getContext('2d');
 var gcv=document.getElementById('glow'),gctx=gcv.getContext('2d');
-var W=innerWidth,H=innerHeight,DPR=1,GDPR=1;
+var W=innerWidth,H=innerHeight,DPR=1,GDPR=1,NARROW=false;
 var stars=[],shoots=[],rain=[],cloudsFar=[],cloudsNear=[],mountSeed=Math.random()*99;
 var scrollX=0,scanPat=null;
 
 function resize(){
   W=innerWidth;H=innerHeight;
+  NARROW=W<640;
   DPR=Math.min(devicePixelRatio||1,2);
   cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
   GDPR=Math.min(devicePixelRatio||1,1)/2;
@@ -239,6 +259,7 @@ var aurC=['80,220,255','255,120,220','120,255,180'];
 /* ==================== состояние ==================== */
 var state='menu';
 var paused=false,choosing=false,sndOn=true;
+var TOUCH=(navigator.maxTouchPoints||0)>0&&window.matchMedia&&matchMedia('(pointer:coarse)').matches;
 var T=0,score=0,kills=0,best=0,upgCount=0;
 try{best=+localStorage.getItem('aero9_v3')||0}catch(e){}
 
@@ -363,7 +384,7 @@ function dmgNum(x,y,n,crit){
 /* ==================== ввод ==================== */
 function setTarget(x,y,touch){
   lastPtrT=T;
-  P.tx=x;P.ty=touch?y-70:y;
+  P.tx=x;P.ty=touch?y-Math.min(70,H*.14):y;
 }
 addEventListener('pointermove',function(e){
   setTarget(e.clientX,e.clientY,e.pointerType==='touch');
@@ -2600,14 +2621,16 @@ function flameIcon(x,y,on){
 }
 
 /* ==================== HUD ==================== */
-function effectRow(y,name,c,frac){
-  ctx.font='500 10px monospace';
+function effectRow(y,name,c,frac,w){
+  w=w||150;
+  var x=NARROW?14:20;
+  ctx.font=NARROW?'500 9px monospace':'500 10px monospace';
   ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+',.95)';
-  ctx.fillText(name,20,y);
+  ctx.fillText(name,x,y);
   ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+',.22)';
-  ctx.fillRect(20,y+5,150,3);
+  ctx.fillRect(x,y+5,w,3);
   ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+',.9)';
-  ctx.fillRect(20,y+5,150*clamp(frac,0,1),3);
+  ctx.fillRect(x,y+5,w*clamp(frac,0,1),3);
 }
 function drawCorners(){
   ctx.strokeStyle='rgba(0,229,255,.28)';
@@ -2629,56 +2652,59 @@ var USHORT={fr:'ЗАЛП',spd:'ДУГА',dmg:'УРОН',pier:'ПРОБ',crit:'К
   mult:'ЦЕПЬ',rage:'ЯРСТ',wing:'ДРОН',start:'АРСН'};
 function drawHUD(){
   if(state==='menu')return;
+  var nr=NARROW;
   ctx.textAlign='left';
   ctx.fillStyle='#eef2ff';
-  ctx.font='bold 24px monospace';
-  ctx.fillText(String(score).padStart(7,'0'),22,40);
+  ctx.font=nr?'bold 16px monospace':'bold 24px monospace';
+  ctx.fillText(String(score).padStart(7,'0'),nr?12:22,nr?26:40);
   var m=mult();
   if(m>1&&comboT>0){
     ctx.font='500 11px monospace';
     ctx.fillStyle=m>4?'#ffd60a':'#00e5ff';
-    ctx.fillText('×'+m+' · ЦЕПЬ '+combo,22,60);
+    ctx.fillText('×'+m+' · ЦЕПЬ '+combo,nr?12:22,nr?42:60);
     ctx.fillStyle='rgba(0,229,255,.3)';
-    ctx.fillRect(22,66,120*(comboT/comboWin()),2);
+    ctx.fillRect(nr?12:22,nr?47:66,120*(comboT/comboWin()),2);
   }
   if(killStreak>=5&&killStreakT>0){
     ctx.font='500 10px monospace';
     ctx.fillStyle='rgba(255,214,10,.7)';
-    ctx.fillText('СЕРИЯ '+killStreak,22,60+(m>1?14:0));
+    ctx.fillText('СЕРИЯ '+killStreak,nr?12:22,nr?60:60+(m>1?14:0));
   }
   ctx.textAlign='right';
-  ctx.font='400 10px monospace';
+  ctx.font=nr?'400 9px monospace':'400 10px monospace';
   ctx.fillStyle='rgba(0,229,255,.55)';
+  var txr=nr?W-10:W-20;
   var phaseTag=(waveKind!=='boss'&&wavePhase===1&&waveState==='active')?' · ЭШЕЛОН 1/2':'';
-  ctx.fillText('ВОЛНА '+wave+' · '+KINDN[waveKind]+phaseTag,W-20,26);
+  ctx.fillText('ВОЛНА '+wave+' · '+KINDN[waveKind]+phaseTag,txr,nr?16:26);
   ctx.fillStyle='rgba('+(glowC[0]|0)+','+(glowC[1]|0)+','+(glowC[2]|0)+',.6)';
-  ctx.fillText('ГЛАВА '+(chapIdx+1)+' · '+CHAP[chapIdx].name,W-20,42);
+  ctx.fillText('ГЛАВА '+(chapIdx+1)+' · '+CHAP[chapIdx].name,txr,nr?28:42);
   ctx.fillStyle='rgba(255,90,78,.6)';
-  ctx.fillText('УГРОЗА ×'+threatMul().toFixed(2)+' · РЕКОРД '+best.toLocaleString('ru-RU'),W-20,58);
+  ctx.fillText('УГРОЗА ×'+threatMul().toFixed(2)+' · РЕКОРД '+best.toLocaleString('ru-RU'),txr,nr?40:58);
   ctx.fillStyle='rgba(0,229,255,.3)';
-  ctx.fillText('ПРОКАЧКА '+upgCount+' / '+UPG_TOTAL,W-20,74);
+  ctx.fillText('ПРОКАЧКА '+upgCount+' / '+UPG_TOTAL,txr,nr?52:74);
   if(modsLabel){
     ctx.fillStyle='rgba(255,214,10,.45)';
-    ctx.fillText(modsLabel,W-20,90);
+    ctx.fillText(modsLabel,txr,nr?64:90);
   }
   ctx.textAlign='left';
   var i;
-  for(i=0;i<maxHP();i++)flameIcon(28+i*22,104,i<P.hp);
-  var ey=132;
-  if(weapon){effectRow(ey,PICK[weapon].n,PICK[weapon].c,weaponT/12);ey+=24}
-  if(P.shield){effectRow(ey,'ЭКРАН',PICK.SHIELD.c,1);ey+=24}
-  if(wingT>0){effectRow(ey,'НАПАРНИКИ',PICK.WING.c,wingT/14);ey+=24}
-  if(chronoT>0){effectRow(ey,'ХРОНО-ПОЛЕ',PICK.CHRONO.c,chronoT/6);ey+=24}
+  for(i=0;i<maxHP();i++)flameIcon((nr?20:28)+i*(nr?17:22),nr?50:104,i<P.hp);
+  var ey=nr?74:132,edy=nr?19:24,erw=nr?80:150;
+  if(weapon){effectRow(ey,PICK[weapon].n,PICK[weapon].c,weaponT/12,erw);ey+=edy}
+  if(P.shield){effectRow(ey,'ЭКРАН',PICK.SHIELD.c,1,erw);ey+=edy}
+  if(wingT>0){effectRow(ey,'НАПАРНИКИ',PICK.WING.c,wingT/14,erw);ey+=edy}
+  if(chronoT>0){effectRow(ey,'ХРОНО-ПОЛЕ',PICK.CHRONO.c,chronoT/6,erw);ey+=edy}
   if(upgCount>0){
     ctx.font='400 9px monospace';
     ctx.fillStyle='rgba(0,229,255,.35)';
     var upStr=[];
     for(var uk in USHORT)if(UPG[uk])upStr.push(USHORT[uk]+UPG[uk]);
-    ctx.fillText(upStr.slice(0,7).join(' · '),20,ey+4);
-    if(upStr.length>7)ctx.fillText(upStr.slice(7,14).join(' · '),20,ey+16);
-    if(upStr.length>14)ctx.fillText(upStr.slice(14,22).join(' · '),20,ey+28);
+    var ux=nr?12:20,per=nr?5:7;
+    ctx.fillText(upStr.slice(0,per).join(' · '),ux,ey+4);
+    if(upStr.length>per)ctx.fillText(upStr.slice(per,per*2).join(' · '),ux,ey+16);
+    if(upStr.length>per*2)ctx.fillText(upStr.slice(per*2,per*3).join(' · '),ux,ey+28);
   }
-  var bw=210,bx=(W-bw)/2,by=H-34;
+  var bw=nr?170:210,bx=(W-bw)/2,by=nr?H-28:H-34;
   ctx.fillStyle='rgba(255,154,60,.12)';ctx.fillRect(bx,by,bw,5);
   var g=ctx.createLinearGradient(bx,0,bx+bw,0);
   g.addColorStop(0,'#ff7a3c');g.addColorStop(1,'#ffd090');
@@ -2691,7 +2717,7 @@ function drawHUD(){
   ctx.textAlign='center';
   if(charge>=100){
     ctx.fillStyle='rgba(255,205,150,'+(.6+.4*Math.sin(T*6)).toFixed(3)+')';
-    ctx.fillText(maxCharge()>100&&charge>=200?'ДВОЙНОЙ ЗАРЯД ГОТОВ':'РАКЕТА ГОТОВА · ПРОБЕЛ / ПКМ',W/2,by-8);
+    ctx.fillText(maxCharge()>100&&charge>=200?'ДВОЙНОЙ ЗАРЯД ГОТОВ':TOUCH?(nr?'РАКЕТА ГОТОВА':'РАКЕТА ГОТОВА · КНОПКА'):'РАКЕТА ГОТОВА · ПРОБЕЛ / ПКМ',W/2,by-8);
   }else{
     ctx.fillStyle='rgba(225,232,255,.35)';
     ctx.fillText('ЗАРЯД РАКЕТЫ',W/2,by-8);
@@ -2700,7 +2726,7 @@ function drawHUD(){
   for(i=0;i<enemies.length;i++){
     var e=enemies[i];
     if(e.type!=='boss')continue;
-    var w2=Math.min(340,W-160),x2=(W-w2)/2,y2=34;
+    var w2=nr?Math.min(190,W-210):Math.min(340,W-160),x2=(W-w2)/2,y2=nr?196:34;
     ctx.fillStyle='rgba(225,232,255,.7)';
     ctx.font='500 9px monospace';ctx.textAlign='center';
     ctx.fillText(BOSSES[e.bossKind],W/2,y2-6);
@@ -2906,6 +2932,12 @@ resize();
 addEventListener('resize',resize);
 P.x=W*0.28;P.y=H*0.5;P.tx=P.x;P.ty=P.y;
 if(best>0)document.getElementById('mBest').textContent='рекорд: '+best.toLocaleString('ru-RU');
+if(TOUCH){
+  var rb=document.getElementById('rBig');
+  if(rb)rb.innerHTML='<b>кнопка «РАКЕТА»</b> — большая ракета';
+  var ra=document.getElementById('rAgain');
+  if(ra)ra.textContent='коснитесь экрана — заново';
+}
 
 var last=0,frameErrShown=false;
 function reportFrameErr(ex){
