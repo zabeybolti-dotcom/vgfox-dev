@@ -38,16 +38,22 @@
     opacity:0;transition:opacity .6s .3s;pointer-events:none}
   #bossTitle.on{opacity:1}
 
-  #novaBtn{position:fixed;right:22px;bottom:26px;z-index:35;width:86px;height:86px;
+  #novaBtn{position:fixed;right:22px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:35;width:86px;height:86px;
     border-radius:50%;border:1px solid #ff9a3c;background:rgba(20,10,26,.55);
     color:#ffd9a0;font:500 11px 'IBM Plex Mono';letter-spacing:.2em;cursor:pointer;
     backdrop-filter:blur(4px);animation:npulse 1.2s ease-in-out infinite}
   #novaBtn:active{background:#ff9a3c;color:#1a0c05}
   @keyframes npulse{0%,100%{box-shadow:0 0 0 0 rgba(255,154,60,.45)}
     50%{box-shadow:0 0 0 16px rgba(255,154,60,0)}}
+  #fsBtn{position:fixed;right:calc(16px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));
+    z-index:34;width:56px;height:56px;border-radius:50%;border:1px solid rgba(0,229,255,.4);
+    background:rgba(8,14,26,.55);color:rgba(220,235,255,.8);font:400 8px/1.3 'IBM Plex Mono';
+    letter-spacing:.12em;cursor:pointer;backdrop-filter:blur(4px)}
+  #fsBtn:active{background:#00e5ff;color:#06121a}
   @media (pointer:coarse){#novaBtn{width:96px;height:96px;
-    right:calc(14px + env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));
-    font:500 12px 'IBM Plex Mono'}}
+    right:calc(14px + env(safe-area-inset-right));bottom:calc(94px + env(safe-area-inset-bottom));
+    font:500 12px 'IBM Plex Mono'}
+    #fsBtn{width:64px;height:64px;font-size:9px}}
 
   .ovl{position:fixed;inset:0;z-index:40;display:flex;justify-content:center;
     padding:max(18px,env(safe-area-inset-top)) 18px max(18px,env(safe-area-inset-bottom));
@@ -128,6 +134,7 @@
 <div id="banner"></div>
 <div id="lbTop"></div><div id="lbBot"></div><div id="bossTitle">СТРАЖ НОЧИ</div>
 <button id="novaBtn" hidden>РАКЕТА</button>
+<button id="fsBtn" hidden>ВЕСЬ ЭКРАН</button>
 
 <div class="ovl on" id="menu">
   <div class="card">
@@ -151,6 +158,7 @@
       <li>ядро <b>«Сердца»</b> уязвимо только открытым</li>
     </ul>
     <button class="btn" id="bStart">в полёт</button>
+    <button class="btn ghost" id="bFull">на весь экран</button>
     <p class="small" id="mBest"></p>
   </div>
 </div>
@@ -439,6 +447,18 @@ document.getElementById('bMenu').addEventListener('click',function(){
   showOvl('menu');
 });
 document.getElementById('novaBtn').addEventListener('click',launchMissile);
+
+/* ==================== весь экран ==================== */
+var fsRoot=document.documentElement;
+var fsSupported=!!(fsRoot.requestFullscreen||fsRoot.webkitRequestFullscreen);
+function toggleFS(){
+  var on=document.fullscreenElement||document.webkitFullscreenElement;
+  if(on){(document.exitFullscreen||document.webkitExitFullscreen).call(document);}
+  else if(fsSupported){(fsRoot.requestFullscreen||fsRoot.webkitRequestFullscreen).call(fsRoot);}
+}
+document.getElementById('bFull').addEventListener('click',toggleFS);
+document.getElementById('fsBtn').addEventListener('click',toggleFS);
+if(!fsSupported)document.getElementById('bFull').style.display='none';
 document.addEventListener('visibilitychange',function(){
   if(document.hidden&&state==='play'&&!paused&&!choosing)togglePause();
 });
@@ -2918,12 +2938,19 @@ function render(){
 }
 
 /* ==================== кнопка ракеты ==================== */
-var novaShown=false;
+var novaShown=false,fsShown=false;
 function updNovaBtn(){
   var show=(state==='play'&&!paused&&!choosing&&charge>=100&&!missile);
   if(show!==novaShown){
     novaShown=show;
     document.getElementById('novaBtn').hidden=!show;
+  }
+  if(fsSupported){
+    var fsShow=(state==='play'&&!paused&&!choosing);
+    if(fsShow!==fsShown){
+      fsShown=fsShow;
+      document.getElementById('fsBtn').hidden=!fsShow;
+    }
   }
 }
 
