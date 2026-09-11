@@ -38,21 +38,21 @@
     opacity:0;transition:opacity .6s .3s;pointer-events:none}
   #bossTitle.on{opacity:1}
 
-  #novaBtn{position:fixed;right:22px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:35;width:86px;height:86px;
+  #novaBtn{position:fixed;left:calc(16px + env(safe-area-inset-left));bottom:calc(16px + env(safe-area-inset-bottom));z-index:35;width:56px;height:56px;
     border-radius:50%;border:1px solid #ff9a3c;background:rgba(20,10,26,.55);
-    color:#ffd9a0;font:500 11px 'IBM Plex Mono';letter-spacing:.2em;cursor:pointer;
+    color:#ffd9a0;font:400 9px 'IBM Plex Mono';letter-spacing:.12em;cursor:pointer;
     backdrop-filter:blur(4px);animation:npulse 1.2s ease-in-out infinite}
   #novaBtn:active{background:#ff9a3c;color:#1a0c05}
-  @keyframes npulse{0%,100%{box-shadow:0 0 0 0 rgba(255,154,60,.45)}
-    50%{box-shadow:0 0 0 16px rgba(255,154,60,0)}}
+  @keyframes npulse{0%,100%{box-shadow:0 0 0 0 rgba(255,154,60,.4)}
+    50%{box-shadow:0 0 0 10px rgba(255,154,60,0)}}
   #fsBtn{position:fixed;right:calc(16px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));
     z-index:34;width:56px;height:56px;border-radius:50%;border:1px solid rgba(0,229,255,.4);
     background:rgba(8,14,26,.55);color:rgba(220,235,255,.8);font:400 8px/1.3 'IBM Plex Mono';
     letter-spacing:.12em;cursor:pointer;backdrop-filter:blur(4px)}
   #fsBtn:active{background:#00e5ff;color:#06121a}
-  @media (pointer:coarse){#novaBtn{width:96px;height:96px;
-    right:calc(14px + env(safe-area-inset-right));bottom:calc(94px + env(safe-area-inset-bottom));
-    font:500 12px 'IBM Plex Mono'}
+  @media (pointer:coarse){#novaBtn{width:64px;height:64px;
+    left:calc(14px + env(safe-area-inset-left));bottom:calc(14px + env(safe-area-inset-bottom));
+    font:500 10px 'IBM Plex Mono'}
     #fsBtn{width:64px;height:64px;font-size:9px}}
 
   .ovl{position:fixed;inset:0;z-index:40;display:flex;justify-content:center;
@@ -159,6 +159,7 @@
     </ul>
     <button class="btn" id="bStart">в полёт</button>
     <button class="btn ghost" id="bFull">на весь экран</button>
+    <p class="small" id="rLand" hidden style="color:rgba(0,229,255,.6)">лучше играть в горизонтальном режиме — переверните телефон</p>
     <p class="small" id="mBest"></p>
   </div>
 </div>
@@ -2737,7 +2738,7 @@ function drawHUD(){
   ctx.textAlign='center';
   if(charge>=100){
     ctx.fillStyle='rgba(255,205,150,'+(.6+.4*Math.sin(T*6)).toFixed(3)+')';
-    ctx.fillText(maxCharge()>100&&charge>=200?'ДВОЙНОЙ ЗАРЯД ГОТОВ':TOUCH?(nr?'РАКЕТА ГОТОВА':'РАКЕТА ГОТОВА · КНОПКА'):'РАКЕТА ГОТОВА · ПРОБЕЛ / ПКМ',W/2,by-8);
+    ctx.fillText(maxCharge()>100&&charge>=200?'ДВОЙНОЙ ЗАРЯД ГОТОВ':TOUCH?(nr?'РАКЕТА ГОТОВА':'РАКЕТА ГОТОВА · КНОПКА СЛЕВА'):'РАКЕТА ГОТОВА · ПРОБЕЛ / ПКМ',W/2,by-8);
   }else{
     ctx.fillStyle='rgba(225,232,255,.35)';
     ctx.fillText('ЗАРЯД РАКЕТЫ',W/2,by-8);
@@ -2964,6 +2965,8 @@ if(TOUCH){
   if(rb)rb.innerHTML='<b>кнопка «РАКЕТА»</b> — большая ракета';
   var ra=document.getElementById('rAgain');
   if(ra)ra.textContent='коснитесь экрана — заново';
+  var rl=document.getElementById('rLand');
+  if(rl)rl.hidden=false;
 }
 
 var last=0,frameErrShown=false;
