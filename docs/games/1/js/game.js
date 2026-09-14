@@ -14,7 +14,7 @@ function buildHoles(){
   HOLE_CFG.forEach((cfg,i)=>{
     const h=document.createElement('div');h.className='hole';
     h.style.cssText=`left:${cfg.x}%;top:${cfg.y}%;width:${cfg.s}vmin;aspect-ratio:1/0.72;z-index:${cfg.z}`;
-    h.innerHTML=`<div class="hole-shadow"></div>${holeBack(i)}
+    h.innerHTML=`${holeBack(i)}
      <div class="pet-clip"><div class="pet"></div></div>
      ${holeFront(i)}
      <div class="hit-area"></div>`;

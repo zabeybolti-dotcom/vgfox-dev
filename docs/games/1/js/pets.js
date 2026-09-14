@@ -165,13 +165,8 @@ function holeBack(i){return `<svg class="hole-back" viewBox="0 0 200 144">
 <defs>
 <radialGradient id="dG${i}" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7a5a35"/><stop offset="58%" stop-color="#6f5233"/><stop offset="76%" stop-color="#5a4025"/><stop offset="100%" stop-color="#6f5233" stop-opacity="0"/></radialGradient>
 <linearGradient id="pG${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b3016"/><stop offset="30%" stop-color="#26160a"/><stop offset="64%" stop-color="#100902"/><stop offset="100%" stop-color="#040201"/></linearGradient>
-<filter id="sB${i}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
 </defs>
 <ellipse cx="100" cy="66" rx="98" ry="60" fill="url(#dG${i})"/>
-<g filter="url(#sB${i})">
-<ellipse cx="62" cy="106" rx="34" ry="10" fill="#3c2a15" opacity=".22"/>
-<ellipse cx="146" cy="102" rx="30" ry="9" fill="#3c2a15" opacity=".16"/>
-</g>
 <ellipse cx="100" cy="62" rx="76" ry="42" fill="url(#pG${i})"/>
 <path d="M38 47 A74 41 0 0 1 162 47" fill="none" stroke="#6b4a2a" stroke-width="5" opacity=".35"/>
 <path d="M32 43 A76 42 0 0 1 168 43" fill="none" stroke="rgba(255,238,200,.32)" stroke-width="2.6"/>
