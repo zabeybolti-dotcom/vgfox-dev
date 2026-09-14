@@ -163,52 +163,59 @@ let unlocked=Object.keys(PETS).filter(k=>!NEW_QUEUE.includes(k));
 /* ================= НОРЫ (органический SVG) ================= */
 function holeBack(i){return `<svg class="hole-back" viewBox="0 0 200 144">
 <defs>
-<radialGradient id="mG${i}" cx="38%" cy="26%"><stop offset="0" stop-color="#b78f60"/><stop offset="55%" stop-color="#93704a"/><stop offset="100%" stop-color="#5b4025"/></radialGradient>
-<radialGradient id="pG${i}" cx="50%" cy="26%"><stop offset="0" stop-color="#33200f"/><stop offset="60%" stop-color="#180d06"/><stop offset="100%" stop-color="#070402"/></radialGradient>
+<radialGradient id="dG${i}" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7a5a35"/><stop offset="58%" stop-color="#6f5233"/><stop offset="76%" stop-color="#5a4025"/><stop offset="100%" stop-color="#6f5233" stop-opacity="0"/></radialGradient>
+<linearGradient id="pG${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b3016"/><stop offset="30%" stop-color="#26160a"/><stop offset="64%" stop-color="#100902"/><stop offset="100%" stop-color="#040201"/></linearGradient>
+<filter id="sB${i}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
 </defs>
-<g stroke-linecap="round" fill="none">
-<path d="M24 42 Q19 28 12 19" stroke="#3f7a2a" stroke-width="4.5"/>
-<path d="M33 35 Q30 21 25 12" stroke="#4e8a35" stroke-width="4.5"/>
-<path d="M43 30 Q42 18 40 8" stroke="#3f7a2a" stroke-width="4"/>
-<path d="M174 38 Q179 26 186 17" stroke="#3f7a2a" stroke-width="4.5"/>
-<path d="M165 31 Q167 19 172 10" stroke="#4e8a35" stroke-width="4.5"/>
-<path d="M155 27 Q155 16 157 7" stroke="#3f7a2a" stroke-width="4"/>
-<path d="M88 9 Q86 2 83 -3" stroke="#4e8a35" stroke-width="4"/>
-<path d="M112 9 Q114 3 118 -2" stroke="#3f7a2a" stroke-width="4"/>
-</g>
-<path d="M100 6 C144 3 182 19 191 49 C200 78 186 107 156 122 C128 136 72 136 44 122 C14 107 0 78 9 49 C18 19 56 9 100 6 Z" fill="url(#mG${i})"/>
-<ellipse cx="62" cy="34" rx="24" ry="8" fill="#fff" opacity=".08" transform="rotate(-8 62 34)"/>
-<ellipse cx="148" cy="102" rx="26" ry="10" fill="#000" opacity=".09" transform="rotate(-6 148 102)"/>
-<ellipse cx="50" cy="98" rx="20" ry="8" fill="#000" opacity=".08" transform="rotate(8 50 98)"/>
-<ellipse cx="160" cy="38" rx="16" ry="7" fill="#000" opacity=".06" transform="rotate(-10 160 38)"/>
-<g>
-<ellipse cx="37" cy="84" rx="9.5" ry="6.2" fill="#a3a396" transform="rotate(-15 37 84)"/>
-<ellipse cx="35" cy="82" rx="4" ry="2.3" fill="#fff" opacity=".35" transform="rotate(-15 35 82)"/>
-<ellipse cx="167" cy="62" rx="7" ry="4.6" fill="#97978b" transform="rotate(12 167 62)"/>
-<ellipse cx="146" cy="121" rx="8.5" ry="5.2" fill="#8f8f83" transform="rotate(-8 146 121)"/>
-<ellipse cx="62" cy="124" rx="6.5" ry="4" fill="#9a9a8e" transform="rotate(6 62 124)"/>
+<ellipse cx="100" cy="66" rx="98" ry="60" fill="url(#dG${i})"/>
+<g filter="url(#sB${i})">
+<ellipse cx="62" cy="106" rx="34" ry="10" fill="#3c2a15" opacity=".22"/>
+<ellipse cx="146" cy="102" rx="30" ry="9" fill="#3c2a15" opacity=".16"/>
 </g>
 <ellipse cx="100" cy="62" rx="76" ry="42" fill="url(#pG${i})"/>
-<ellipse cx="100" cy="62" rx="76" ry="42" fill="none" stroke="#4a3218" stroke-width="3.5" opacity=".9"/>
-<path d="M32 43 A76 42 0 0 1 168 43" fill="none" stroke="rgba(255,238,200,.3)" stroke-width="3"/>
+<path d="M38 47 A74 41 0 0 1 162 47" fill="none" stroke="#6b4a2a" stroke-width="5" opacity=".35"/>
+<path d="M32 43 A76 42 0 0 1 168 43" fill="none" stroke="rgba(255,238,200,.32)" stroke-width="2.6"/>
+<g stroke-linecap="round" fill="none">
+<path d="M40 28 Q36 30 44 36" stroke="#2f6220" stroke-width="4"/>
+<path d="M50 24 Q47 27 54 33" stroke="#3f7a2a" stroke-width="3.6"/>
+<path d="M62 20 Q60 23 66 28" stroke="#2f6220" stroke-width="3.4"/>
+<path d="M160 28 Q164 30 156 36" stroke="#2f6220" stroke-width="4"/>
+<path d="M150 24 Q153 27 146 33" stroke="#3f7a2a" stroke-width="3.6"/>
+<path d="M138 20 Q140 23 134 28" stroke="#2f6220" stroke-width="3.4"/>
+<path d="M26 58 Q21 49 16 44" stroke="#3f7a2a" stroke-width="4"/>
+<path d="M27 58 Q26 47 24 40" stroke="#4e8a35" stroke-width="4"/>
+<path d="M28 58 Q32 49 36 45" stroke="#3f7a2a" stroke-width="3.6"/>
+<path d="M174 58 Q179 49 184 44" stroke="#3f7a2a" stroke-width="4"/>
+<path d="M173 58 Q174 47 176 40" stroke="#4e8a35" stroke-width="4"/>
+<path d="M172 58 Q168 49 164 45" stroke="#3f7a2a" stroke-width="3.6"/>
+</g>
 </svg>`}
 
 function holeFront(i){return `<svg class="hole-front" viewBox="0 0 200 144">
 <defs><linearGradient id="rG${i}" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#c9a473"/><stop offset="35%" stop-color="#a37e52"/><stop offset="100%" stop-color="#6e5133"/></linearGradient></defs>
 <path d="M24 62 A76 42 0 0 0 176 62 C176 90 150 110 100 110 C50 110 24 90 24 62 Z" fill="url(#rG${i})"/>
-<path d="M24 62 A76 42 0 0 0 176 62" fill="none" stroke="rgba(255,240,205,.5)" stroke-width="3"/>
+<path d="M24 62 A76 42 0 0 0 176 62" fill="none" stroke="rgba(255,244,210,.55)" stroke-width="3"/>
 <ellipse cx="70" cy="88" rx="14" ry="6" fill="#000" opacity=".1"/>
 <ellipse cx="132" cy="96" rx="16" ry="6" fill="#000" opacity=".09"/>
-<ellipse cx="57" cy="100" rx="5.2" ry="3.4" fill="#9a9a8e" transform="rotate(-10 57 100)"/>
-<ellipse cx="141" cy="103" rx="4.6" ry="3" fill="#8f8f83" transform="rotate(8 141 103)"/>
 <g stroke-linecap="round" fill="none">
+<path d="M70 101 Q69 92 66 86" stroke="#2f6220" stroke-width="3.8"/>
+<path d="M128 101 Q129 92 132 86" stroke="#3a6f24" stroke-width="3.8"/>
 <path d="M33 103 Q28 92 22 86" stroke="#3f7a2a" stroke-width="4"/>
 <path d="M44 111 Q41 100 36 92" stroke="#4e8a35" stroke-width="4"/>
 <path d="M166 103 Q171 93 178 87" stroke="#3f7a2a" stroke-width="4"/>
 <path d="M154 111 Q158 101 164 94" stroke="#4e8a35" stroke-width="4"/>
 <path d="M96 112 Q94 102 90 95" stroke="#3f7a2a" stroke-width="3.5"/>
 <path d="M107 112 Q109 102 114 96" stroke="#4e8a35" stroke-width="3.5"/>
+</g>
+<g>
+<ellipse cx="76" cy="113" rx="3.2" ry="2.1" fill="#7a5535" transform="rotate(-14 76 113)"/>
+<ellipse cx="88" cy="117" rx="2.5" ry="1.7" fill="#6b4a2a" transform="rotate(10 88 117)"/>
+<ellipse cx="101" cy="118.5" rx="2.8" ry="1.8" fill="#7a5535" transform="rotate(-8 101 118.5)"/>
+<ellipse cx="113" cy="116" rx="2.4" ry="1.6" fill="#6b4a2a" transform="rotate(14 113 116)"/>
+<ellipse cx="124" cy="112.5" rx="2.2" ry="1.5" fill="#7a5535" transform="rotate(-12 124 112.5)"/>
+<ellipse cx="58" cy="108" rx="4.2" ry="2.8" fill="#9a9a8e" transform="rotate(-10 58 108)"/>
+<ellipse cx="56.6" cy="107" rx="1.6" ry=".9" fill="#fff" opacity=".35" transform="rotate(-10 56.6 107)"/>
 </g>
 </svg>`}
 
