@@ -6,14 +6,15 @@ let cycleT=0.05;             /* 0..1, старт — утро */
 let curStars=0;
 
 /* опорные точки неба: t, цвет верха, цвет низа, затемнение, звёзды */
+/* ночь короткая и мягкая: лёгкие сумерки, экран не темнеет сильно */
 const SKY_STOPS=[
   {t:0.00,s1:'#7ec8f2',s2:'#d7eefb',tint:0,   stars:0},
-  {t:0.42,s1:'#8ecdf2',s2:'#eaf7fe',tint:0,   stars:0},
-  {t:0.50,s1:'#ff9d6f',s2:'#ffe0b0',tint:.10, stars:.05},
-  {t:0.57,s1:'#2a3a76',s2:'#5a6bb0',tint:.38, stars:.9},
-  {t:0.62,s1:'#16215c',s2:'#43539b',tint:.45, stars:1},
-  {t:0.88,s1:'#16215c',s2:'#43539b',tint:.45, stars:1},
-  {t:0.95,s1:'#7e9be0',s2:'#ffc9d9',tint:.18, stars:.35},
+  {t:0.60,s1:'#8ecdf2',s2:'#eaf7fe',tint:0,   stars:0},
+  {t:0.66,s1:'#ff9d6f',s2:'#ffe0b0',tint:.06, stars:.05},
+  {t:0.72,s1:'#5f6fba',s2:'#9aa8e6',tint:.18, stars:.9},
+  {t:0.75,s1:'#5767b2',s2:'#8d9ce0',tint:.20, stars:1},
+  {t:0.82,s1:'#5767b2',s2:'#8d9ce0',tint:.20, stars:1},
+  {t:0.88,s1:'#8fb0e8',s2:'#ffd3dd',tint:.10, stars:.3},
   {t:1.00,s1:'#7ec8f2',s2:'#d7eefb',tint:0,   stars:0}
 ];
 
@@ -71,19 +72,19 @@ function updateScenery(){
   R.setProperty('--tintOp',st.tint.toFixed(2));
   R.setProperty('--starsOp',st.stars.toFixed(2));
 
-  /* солнце: день 0..0.56 */
+  /* солнце: день 0..0.65 */
   const sun=$('#sun');
-  if(cycleT<0.56){
-    const p=cycleT/0.56;
+  if(cycleT<0.65){
+    const p=cycleT/0.65;
     sun.style.left=(8+84*p)+'%';
     sun.style.top=(30-Math.sin(p*Math.PI)*24)+'%';
     sun.style.opacity=clamp(Math.sin(p*Math.PI)*4,0,1);
   }else sun.style.opacity=0;
 
-  /* луна: ночь 0.56..0.98 */
+  /* луна: ночь 0.68..0.90 */
   const moon=$('#moon');
-  if(cycleT>0.56&&cycleT<0.98){
-    const p=(cycleT-0.56)/0.42;
+  if(cycleT>0.68&&cycleT<0.90){
+    const p=(cycleT-0.68)/0.22;
     moon.style.left=(10+78*p)+'%';
     moon.style.top=(32-Math.sin(p*Math.PI)*24)+'%';
     moon.style.opacity=clamp(Math.sin(p*Math.PI)*4,0,1)*clamp(st.stars*1.2,0,1);
