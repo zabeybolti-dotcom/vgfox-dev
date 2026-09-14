@@ -196,21 +196,19 @@ function holeBack(i){return `<svg class="hole-back" viewBox="0 0 200 144">
 function holeFront(i){return `<svg class="hole-front" viewBox="0 0 200 144">
 <defs><linearGradient id="rG${i}" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#c9a473"/><stop offset="35%" stop-color="#a37e52"/><stop offset="100%" stop-color="#6e5133"/></linearGradient></defs>
-<path d="M6 74 Q100 92 194 74 C196 104 162 126 100 126 C38 126 4 104 6 74 Z" fill="url(#rG${i})"/>
-<path d="M6 74 Q100 92 194 74" fill="none" stroke="rgba(255,240,205,.55)" stroke-width="3.5"/>
-<path d="M12 79 Q100 96 188 79" fill="none" stroke="rgba(60,35,12,.22)" stroke-width="2"/>
-<ellipse cx="70" cy="102" rx="14" ry="6" fill="#000" opacity=".12"/>
-<ellipse cx="132" cy="108" rx="16" ry="6" fill="#000" opacity=".1"/>
-<ellipse cx="57" cy="106" rx="5.2" ry="3.4" fill="#9a9a8e" transform="rotate(-10 57 106)"/>
-<ellipse cx="141" cy="112" rx="4.6" ry="3" fill="#8f8f83" transform="rotate(8 141 112)"/>
-<ellipse cx="100" cy="115" rx="6" ry="3.6" fill="#8f8f83" transform="rotate(-4 100 115)"/>
+<path d="M24 62 A76 42 0 0 0 176 62 C176 90 150 110 100 110 C50 110 24 90 24 62 Z" fill="url(#rG${i})"/>
+<path d="M24 62 A76 42 0 0 0 176 62" fill="none" stroke="rgba(255,240,205,.5)" stroke-width="3"/>
+<ellipse cx="70" cy="88" rx="14" ry="6" fill="#000" opacity=".1"/>
+<ellipse cx="132" cy="96" rx="16" ry="6" fill="#000" opacity=".09"/>
+<ellipse cx="57" cy="100" rx="5.2" ry="3.4" fill="#9a9a8e" transform="rotate(-10 57 100)"/>
+<ellipse cx="141" cy="103" rx="4.6" ry="3" fill="#8f8f83" transform="rotate(8 141 103)"/>
 <g stroke-linecap="round" fill="none">
-<path d="M22 84 Q17 74 12 68" stroke="#3f7a2a" stroke-width="4"/>
-<path d="M32 88 Q29 78 25 71" stroke="#4e8a35" stroke-width="4"/>
-<path d="M178 84 Q183 74 188 68" stroke="#3f7a2a" stroke-width="4"/>
-<path d="M168 88 Q171 78 175 71" stroke="#4e8a35" stroke-width="4"/>
-<path d="M88 92 Q86 84 82 78" stroke="#3f7a2a" stroke-width="3.5"/>
-<path d="M112 92 Q114 84 118 78" stroke="#4e8a35" stroke-width="3.5"/>
+<path d="M33 103 Q28 92 22 86" stroke="#3f7a2a" stroke-width="4"/>
+<path d="M44 111 Q41 100 36 92" stroke="#4e8a35" stroke-width="4"/>
+<path d="M166 103 Q171 93 178 87" stroke="#3f7a2a" stroke-width="4"/>
+<path d="M154 111 Q158 101 164 94" stroke="#4e8a35" stroke-width="4"/>
+<path d="M96 112 Q94 102 90 95" stroke="#3f7a2a" stroke-width="3.5"/>
+<path d="M107 112 Q109 102 114 96" stroke="#4e8a35" stroke-width="3.5"/>
 </g>
 </svg>`}
 
