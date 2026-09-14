@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#6EC6F5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Катись, шарик!</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="ui">
+  <!-- HUD во время игры -->
+  <div id="hud" class="hidden">
+    <button id="pauseBtn" aria-label="Пауза">
+      <svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16" rx="2"/><rect x="14" y="4" width="5" height="16" rx="2"/></svg>
+    </button>
+    <div id="starBox">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+      <span id="starN">0</span>
+    </div>
+  </div>
+
+  <div id="banner" class="hidden"></div>
+  <div id="toast" class="hidden"></div>
+  <div id="modeBadge" class="hidden"><span id="modeIc">&#129522;</span><i id="modeBar"></i></div>
+
+  <!-- обучающая подсказка при первом запуске -->
+  <div id="tut" class="hidden">
+    <div class="ta">&#9664;</div>
+    <div class="tb">&#9654;</div>
+    <div class="tt">Свайпай!</div>
+  </div>
+
+  <div id="hint">Свайпай — объехать &middot; Тапай — лопнуть!</div>
+
+  <!-- главное меню -->
+  <div id="menu" class="overlay">
+    <div class="ball-icon"></div>
+    <div class="ttl">Катись, шарик!</div>
+    <div class="sub">Объезжай звериков или хлопай по ним!<br>&#128640; Трамплины &mdash; прыжок, &#9889; стрелочки &mdash; ускорение.<br>Бонусы: &#129522; магнит, &#10024;&times;2 и &#127752; радуга!</div>
+    <div id="totalStars" class="total">&#11088; <span>0</span></div>
+    <button class="btn big" id="playBtn">КАТИТЬСЯ!</button>
+    <div class="row">
+      <button class="mini" id="soundBtn" aria-label="Звук">&#128266;</button>
+      <button class="mini" id="fsBtn" aria-label="Во весь экран">&#x26F6;</button>
+    </div>
+  </div>
+
+  <!-- пауза -->
+  <div id="pauseOv" class="overlay hidden">
+    <div class="ttl small">Пауза</div>
+    <button class="btn big" id="resumeBtn">&#9654; Играть</button>
+    <div class="row">
+      <button class="mini" id="soundBtn2" aria-label="Звук">&#128266;</button>
+      <button class="btn small2" id="menuBtn">В меню</button>
+    </div>
+  </div>
+</div>
+
+<script src="audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
