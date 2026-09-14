@@ -18,6 +18,7 @@ function initAudio(){
   }
   if(ctx&&ctx.state==='suspended')ctx.resume();
 }
+document.addEventListener('pointerdown',initAudio,{once:true});
 document.addEventListener('pointerdown',()=>{if(ctx&&ctx.state==='suspended')ctx.resume()});
 
 function setSndOn(v){sndOn=v;saveBool('krot_snd',v);if(master)master.gain.value=v?.5:0}

@@ -69,12 +69,11 @@ function celebrateRainbow(){
 }
 function showUnlock(sp){
   const ov=document.getElementById('unlockOv');
-  ov.innerHTML=`<div class="u-rays"></div>
-   <div class="u-card"><div class="u-pet">${PETS[sp]}</div>
-   <div class="u-title">Новый друг! 🎉</div><div class="u-name">${PET_NAMES[sp]}</div></div>`;
-  ov.classList.add('show');
+  ov.innerHTML=`<div class="u-pet">${PETS[sp]}</div>
+   <div class="u-txt"><div class="u-title">Новый друг! 🎉</div><div class="u-name">${PET_NAMES[sp]}</div></div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('show')));
   sSparkle();
-  setTimeout(()=>{ov.classList.remove('show');setTimeout(()=>ov.innerHTML='',600)},4600);
+  setTimeout(()=>{ov.classList.remove('show');setTimeout(()=>ov.innerHTML='',800)},4200);
 }
 
 /* ================= ЛОВЛЯ ЗВЕРЯТ ================= */
@@ -293,35 +292,17 @@ function wireUI(){
   });
 }
 
-function fillStartAnimals(){
-  const box=document.getElementById('stAnimals');
-  ['mole','bunny','fox'].forEach((sp,i)=>{
-    const a=document.createElement('div');a.className='a';
-    a.style.setProperty('--bd',`-${i*.25}s`);
-    a.innerHTML=PETS[sp];
-    box.appendChild(a);
-  });
-}
-
-function onPlay(){
-  if(G.started)return;
-  initAudio();
-  G.started=true;
-  document.getElementById('startOv').classList.add('hide');
-  document.getElementById('intro').classList.add('run');
-  setTimeout(scheduleSpawn,600);
-  startSpecials();
-  startLeafLoop();
-}
-
 document.addEventListener('visibilitychange',()=>{G.paused=document.hidden});
 
-/* ================= СТАРТ ================= */
+/* ================= СТАРТ (без стартового экрана — игра идёт сразу) ================= */
 buildDecor();
 buildStars();
 buildHoles();
 buildRBar();
 initScenery();
 wireUI();
-fillStartAnimals();
-document.getElementById('playBtn').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();onPlay()});
+G.started=true;
+document.getElementById('intro').classList.add('run');
+setTimeout(scheduleSpawn,700);
+startSpecials();
+startLeafLoop();
