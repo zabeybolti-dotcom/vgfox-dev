@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#7ec8f2">
+<title>Весёлая лужайка — зверята, шарики и пузыри!</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="game">
+  <div class="field" id="field">
+
+    <div class="sky" id="sky">
+      <div id="stars"></div>
+      <svg class="sun" id="sun" viewBox="0 0 100 100">
+        <circle class="glow" cx="50" cy="50" r="46" fill="#fff59d" opacity=".6"/>
+        <g class="rays" stroke="#ffd54f" stroke-width="5" stroke-linecap="round">
+          <line x1="50" y1="2" x2="50" y2="12"/><line x1="50" y1="88" x2="50" y2="98"/>
+          <line x1="2" y1="50" x2="12" y2="50"/><line x1="88" y1="50" x2="98" y2="50"/>
+          <line x1="16" y1="16" x2="23" y2="23"/><line x1="77" y1="77" x2="84" y2="84"/>
+          <line x1="84" y1="16" x2="77" y2="23"/><line x1="23" y1="77" x2="16" y2="84"/>
+        </g>
+        <circle cx="50" cy="50" r="32" fill="#ffca28"/>
+        <circle cx="50" cy="50" r="32" fill="url(#gSun)"/>
+        <path d="M38 46 Q42 41 46 46" stroke="#b26a00" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M54 46 Q58 41 62 46" stroke="#b26a00" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M40 56 Q50 66 60 56" stroke="#b26a00" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="55" r="4.5" fill="#ff8a65" opacity=".65"/>
+        <circle cx="67" cy="55" r="4.5" fill="#ff8a65" opacity=".65"/>
+      </svg>
+      <svg class="moon" id="moon" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="#fff9c4" opacity=".22"/>
+        <circle cx="50" cy="50" r="32" fill="#fff59d"/>
+        <circle cx="40" cy="42" r="5" fill="#f0e382"/><circle cx="61" cy="58" r="7" fill="#f0e382"/><circle cx="59" cy="35" r="3.5" fill="#f0e382"/>
+        <path d="M36 51 Q40 47 44 51" stroke="#c99b23" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M56 51 Q60 47 64 51" stroke="#c99b23" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M42 60 Q50 66 58 60" stroke="#c99b23" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <circle cx="34" cy="58" r="4" fill="#ffd54f" opacity=".5"/><circle cx="66" cy="58" r="4" fill="#ffd54f" opacity=".5"/>
+      </svg>
+    </div>
+
+    <svg class="horizon" viewBox="0 0 1440 170" preserveAspectRatio="none">
+      <path d="M-60 170 Q180 40 440 170 Z" fill="#a7cd8b"/>
+      <path d="M300 170 Q640 15 1000 170 Z" fill="#98c17c"/>
+      <path d="M900 170 Q1200 45 1500 170 Z" fill="#a7cd8b"/>
+      <g fill="#6f9e55">
+        <rect x="128" y="112" width="14" height="58" rx="5" fill="#8a6a46"/>
+        <circle cx="135" cy="96" r="34"/><circle cx="108" cy="112" r="26"/><circle cx="162" cy="112" r="26"/>
+        <rect x="1268" y="104" width="16" height="66" rx="5" fill="#8a6a46"/>
+        <circle cx="1276" cy="86" r="38"/><circle cx="1244" cy="104" r="28"/><circle cx="1308" cy="104" r="28"/>
+      </g>
+      <g fill="#79a85c">
+        <ellipse cx="30" cy="168" rx="55" ry="26"/><ellipse cx="130" cy="170" rx="50" ry="24"/>
+        <ellipse cx="235" cy="166" rx="60" ry="28"/><ellipse cx="345" cy="170" rx="50" ry="24"/>
+        <ellipse cx="455" cy="167" rx="58" ry="27"/><ellipse cx="565" cy="170" rx="48" ry="23"/>
+        <ellipse cx="672" cy="166" rx="60" ry="28"/><ellipse cx="782" cy="170" rx="50" ry="24"/>
+        <ellipse cx="890" cy="167" rx="58" ry="27"/><ellipse cx="1000" cy="170" rx="48" ry="23"/>
+        <ellipse cx="1105" cy="166" rx="60" ry="28"/><ellipse cx="1215" cy="170" rx="50" ry="24"/>
+        <ellipse cx="1325" cy="167" rx="58" ry="27"/><ellipse cx="1425" cy="170" rx="52" ry="24"/>
+      </g>
+      <g fill="#8a6a46">
+        <rect x="620" y="128" width="9" height="42" rx="3"/><rect x="678" y="128" width="9" height="42" rx="3"/><rect x="736" y="128" width="9" height="42" rx="3"/>
+        <rect x="612" y="136" width="142" height="7" rx="3.5" fill="#a9825b"/><rect x="612" y="152" width="142" height="7" rx="3.5" fill="#a9825b"/>
+      </g>
+    </svg>
+
+    <svg class="rainbow" id="rainbow" viewBox="0 0 1440 420" preserveAspectRatio="none">
+      <path d="M320 420 A400 400 0 0 1 1120 420" fill="none" stroke="#ff5252" stroke-width="30"/>
+      <path d="M350 420 A370 370 0 0 1 1090 420" fill="none" stroke="#ff9d47" stroke-width="30"/>
+      <path d="M380 420 A340 340 0 0 1 1060 420" fill="none" stroke="#ffd54f" stroke-width="30"/>
+      <path d="M410 420 A310 310 0 0 1 1030 420" fill="none" stroke="#7ac74f" stroke-width="30"/>
+      <path d="M440 420 A280 280 0 0 1 1000 420" fill="none" stroke="#42a5f5" stroke-width="30"/>
+      <path d="M470 420 A250 250 0 0 1 970 420" fill="none" stroke="#7986cb" stroke-width="30"/>
+      <path d="M500 420 A220 220 0 0 1 940 420" fill="none" stroke="#ba68c8" stroke-width="30"/>
+    </svg>
+
+    <div id="decoLayer"></div>
+    <div id="holeLayer"></div>
+    <div id="tint"></div>
+    <div id="fxLayer"></div>
+
+    <div class="bfly bfly1"><svg width="34" height="24" viewBox="0 0 34 24"><ellipse class="wingL" cx="9" cy="10" rx="8" ry="7" fill="#ff80ab" opacity=".9"/><ellipse class="wingL" cx="10" cy="17" rx="6" ry="5" fill="#f48fb1" opacity=".9"/><ellipse class="wingR" cx="25" cy="10" rx="8" ry="7" fill="#ff80ab" opacity=".9"/><ellipse class="wingR" cx="24" cy="17" rx="6" ry="5" fill="#f48fb1" opacity=".9"/><ellipse cx="17" cy="13" rx="2.4" ry="9" fill="#5d4037"/><circle cx="17" cy="4" r="2.6" fill="#5d4037"/></svg></div>
+    <div class="bfly bfly2" style="top:0"><svg width="28" height="20" viewBox="0 0 34 24"><ellipse class="wingL" cx="9" cy="10" rx="8" ry="7" fill="#ffe082" opacity=".95"/><ellipse class="wingL" cx="10" cy="17" rx="6" ry="5" fill="#ffca28" opacity=".95"/><ellipse class="wingR" cx="25" cy="10" rx="8" ry="7" fill="#ffe082" opacity=".95"/><ellipse class="wingR" cx="24" cy="17" rx="6" ry="5" fill="#ffca28" opacity=".95"/><ellipse cx="17" cy="13" rx="2.4" ry="9" fill="#6d4c41"/><circle cx="17" cy="4" r="2.6" fill="#6d4c41"/></svg></div>
+
+  </div>
+
+  <div class="ui">
+    <div class="left">
+      <div class="sign"><span class="ic">⭐</span><span class="num" id="score">0</span></div>
+      <div class="rbar" id="rbar"></div>
+    </div>
+    <div class="btns">
+      <div class="sndbtn" id="musicBtn" title="Музыка">🎵</div>
+      <div class="sndbtn" id="sndBtn" title="Звуки">🔊</div>
+      <div class="sndbtn" id="fsBtn" title="На весь экран">⛶</div>
+    </div>
+  </div>
+
+  <div class="intro" id="intro">Лови зверят! 👆</div>
+  <div id="unlockOv"></div>
+
+  <div id="startOv">
+    <div class="st-sky">
+      <div class="st-cloud c1"></div><div class="st-cloud c2"></div>
+    </div>
+    <div class="st-title">Весёлая<br>лужайка</div>
+    <div class="st-animals" id="stAnimals"></div>
+    <div class="playBtn" id="playBtn">▶</div>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+  <radialGradient id="gSun" cx="38%" cy="32%"><stop offset="0" stop-color="#fff176" stop-opacity=".9"/><stop offset="1" stop-color="#ffb300" stop-opacity=".35"/></radialGradient>
+  <radialGradient id="gMoleBody" cx="35%" cy="28%"><stop offset="0" stop-color="#ab8b7c"/><stop offset="55%" stop-color="#8d6e63"/><stop offset="100%" stop-color="#5d4037"/></radialGradient>
+  <radialGradient id="gMoleBelly" cx="50%" cy="35%"><stop offset="0" stop-color="#e7d9cf"/><stop offset="100%" stop-color="#c4ad9c"/></radialGradient>
+  <radialGradient id="gMoleNose" cx="35%" cy="30%"><stop offset="0" stop-color="#ff9db0"/><stop offset="100%" stop-color="#ec5f7d"/></radialGradient>
+  <radialGradient id="gBunBody" cx="35%" cy="28%"><stop offset="0" stop-color="#ffffff"/><stop offset="65%" stop-color="#f4f4f4"/><stop offset="100%" stop-color="#d6d6d6"/></radialGradient>
+  <radialGradient id="gBunEar" cx="50%" cy="30%"><stop offset="0" stop-color="#ffcdd6"/><stop offset="100%" stop-color="#f497ab"/></radialGradient>
+  <radialGradient id="gHogBody" cx="35%" cy="28%"><stop offset="0" stop-color="#c4a99c"/><stop offset="55%" stop-color="#a1887f"/><stop offset="100%" stop-color="#7a5d53"/></radialGradient>
+  <linearGradient id="gHogSpikes" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d5a45"/><stop offset="100%" stop-color="#4e342e"/></linearGradient>
+  <radialGradient id="gFoxBody" cx="35%" cy="28%"><stop offset="0" stop-color="#ffb08a"/><stop offset="55%" stop-color="#ff8a50"/><stop offset="100%" stop-color="#e86a2a"/></radialGradient>
+  <radialGradient id="gFoxFace" cx="50%" cy="30%"><stop offset="0" stop-color="#fffaf3"/><stop offset="100%" stop-color="#ffe8d2"/></radialGradient>
+  <radialGradient id="gHamBody" cx="35%" cy="28%"><stop offset="0" stop-color="#ffd699"/><stop offset="55%" stop-color="#ffb04d"/><stop offset="100%" stop-color="#ef8f1e"/></radialGradient>
+  <radialGradient id="gHamBelly" cx="50%" cy="32%"><stop offset="0" stop-color="#fff6e8"/><stop offset="100%" stop-color="#ffe3bb"/></radialGradient>
+  <radialGradient id="gHamCheek" cx="40%" cy="35%"><stop offset="0" stop-color="#ffc4a8"/><stop offset="100%" stop-color="#ff9a70"/></radialGradient>
+  <radialGradient id="gSqBody" cx="35%" cy="28%"><stop offset="0" stop-color="#d99e6d"/><stop offset="55%" stop-color="#b5774a"/><stop offset="100%" stop-color="#8a5530"/></radialGradient>
+  <radialGradient id="gSqBelly" cx="50%" cy="32%"><stop offset="0" stop-color="#fbe8cf"/><stop offset="100%" stop-color="#eed4b0"/></radialGradient>
+  <linearGradient id="gSqTail" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c98a5b"/><stop offset="100%" stop-color="#8d552f"/></linearGradient>
+  <radialGradient id="gMouseBody" cx="35%" cy="28%"><stop offset="0" stop-color="#dfe8ec"/><stop offset="60%" stop-color="#b0bfc8"/><stop offset="100%" stop-color="#8fa3ae"/></radialGradient>
+  <radialGradient id="gMouseEar" cx="50%" cy="35%"><stop offset="0" stop-color="#fce4ec"/><stop offset="100%" stop-color="#f48fb1"/></radialGradient>
+  <radialGradient id="gBearBody" cx="35%" cy="28%"><stop offset="0" stop-color="#cd9064"/><stop offset="55%" stop-color="#a96f45"/><stop offset="100%" stop-color="#8a5433"/></radialGradient>
+  <radialGradient id="gBearMuzzle" cx="50%" cy="35%"><stop offset="0" stop-color="#ffeddc"/><stop offset="100%" stop-color="#f2c896"/></radialGradient>
+  <radialGradient id="gOwlBody" cx="35%" cy="28%"><stop offset="0" stop-color="#b39286"/><stop offset="55%" stop-color="#94705f"/><stop offset="100%" stop-color="#6e4d41"/></radialGradient>
+  <radialGradient id="gOwlBelly" cx="50%" cy="32%"><stop offset="0" stop-color="#f8ecd9"/><stop offset="100%" stop-color="#e4c9a4"/></radialGradient>
+  <radialGradient id="gFrogBody" cx="35%" cy="28%"><stop offset="0" stop-color="#a8d96a"/><stop offset="55%" stop-color="#7cb84a"/><stop offset="100%" stop-color="#5f9e34"/></radialGradient>
+  <radialGradient id="gFrogBelly" cx="50%" cy="32%"><stop offset="0" stop-color="#f0f7d8"/><stop offset="100%" stop-color="#d6e8a8"/></radialGradient>
+  <radialGradient id="gBeeBody" cx="38%" cy="30%"><stop offset="0" stop-color="#ffe066"/><stop offset="60%" stop-color="#fcc422"/><stop offset="100%" stop-color="#f5a300"/></radialGradient>
+</defs></svg>
+
+<script src="js/core.js"></script>
+<script src="js/pets.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/world.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
