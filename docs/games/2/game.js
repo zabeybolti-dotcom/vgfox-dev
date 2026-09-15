@@ -16,7 +16,7 @@ const ROAD_W=272,CX=VW/2,SIDE=(VW-ROAD_W)/2;
 const BALL_Y=586,BALL_R=31;
 const SPD0=195,SPD_MAX=340,BOUNCE_V=-250;
 const CYCLE=45,TRANS=4;                          // сек на биом / на переход
-const GRAV=1600,JUMP_V=-560;                     // физика прыжка
+const GRAV=1350,JUMP_V=-720;                     // физика прыжка (высокий и дальний)
 
 const clamp01=v=>v<0?0:v>1?1:v;
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -85,20 +85,18 @@ function blendPal(){
   night:lerp(A.night,B.night,k),amb:k<.5?A.amb:B.amb};
 }
 
-/* ═══════════ ЗВЕРИКИ — 6 видов (спрайты с деталями + живые глазки) ═══════════ */
+/* ═══════════ ЗВЕРИКИ — 6 видов ═══════════
+   Готовые профессиональные ассеты: системные эмодзи-шрифты
+   (Noto Color Emoji на Android / Segoe UI Emoji на Windows) —
+   рендерятся 1 раз в спрайт-кэш, анимация живая: прыжки,
+   покачивание, радостное кувыркание при столкновении. */
 const SPECIES={
- bunny:{w:68,h:78,pitch:980,pal:{m:'#F3EFE7',d:'#C4BAA8',l:'#FFFEFA',in:'#FFB0C6'},
-  conf:['#FFFDF6','#FFB7C9','#E8E4DC'],eyes:[{x:-11,y:-8,r:5.5},{x:11,y:-8,r:5.5}]},
- bear:{w:78,h:74,pitch:520,pal:{m:'#C09066',d:'#8F6236',l:'#EBD3AE'},
-  conf:['#E3C8A4','#B98A5F','#FFD93D'],eyes:[{x:-13,y:-8,r:5.5},{x:13,y:-8,r:5.5}]},
- fox:{w:78,h:72,pitch:760,pal:{m:'#F49B4A',d:'#C5671F',l:'#FCD3A0',w:'#FDF0DF'},
-  conf:['#F08C3C','#FBC98F','#FF6B4A'],eyes:[{x:-12,y:-9,r:5.5},{x:12,y:-9,r:5.5}]},
- frog:{w:88,h:62,pitch:1150,pal:{m:'#85D367',d:'#529F3B',l:'#D2F2BA'},
-  conf:['#C8ECB0','#7CC95E','#FFD93D'],eyes:[{x:-18,y:-24,r:6.5},{x:18,y:-24,r:6.5}]},
- chick:{w:58,h:60,pitch:1350,pal:{m:'#FFD84F',d:'#EFA639',l:'#FFF6BC'},
-  conf:['#FFF3B0','#FFD54F','#FF9F43'],eyes:[{x:-10,y:-7,r:5},{x:10,y:-7,r:5}]},
- owl:{w:74,h:76,pitch:640,pal:{m:'#B49AE0',d:'#8260C4',l:'#DACCF2'},
-  conf:['#D7C8F0','#B39DDB','#FFB300'],eyes:[{x:-11,y:-10,r:7.5},{x:11,y:-10,r:7.5}]}
+ bunny:{em:'🐰',size:76,pitch:980,conf:['#FFFDF6','#FFB7C9','#E8E4DC'],hop:true},
+ bear:{em:'🐻',size:82,pitch:520,conf:['#E3C8A4','#B98A5F','#FFD93D']},
+ fox:{em:'🦊',size:82,pitch:760,conf:['#F08C3C','#FBC98F','#FF6B4A']},
+ frog:{em:'🐸',size:80,pitch:1150,conf:['#C8ECB0','#7CC95E','#FFD93D'],hop:true},
+ chick:{em:'🐥',size:70,pitch:1350,conf:['#FFF3B0','#FFD54F','#FF9F43']},
+ owl:{em:'🦉',size:80,pitch:640,conf:['#D7C8F0','#B39DDB','#FFB300']}
 };
 const SP_NAMES=Object.keys(SPECIES);
 
@@ -188,7 +186,7 @@ function spawnAnimal(lane){
  while(sp===G.lastSp&&Math.random()<.7);
  G.lastSp=sp;
  G.obstacles.push({sp,lane,y:-90,dodgeT:0,dodgeFrom:lane,dodgeTo:lane,
-  seed:Math.random()*6.28,squash:0,react:0,happy:0,blink:0,blinkT:2+Math.random()*3,alive:true});}
+  seed:Math.random()*6.28,squash:0,react:0,noHit:0,alive:true});}
 function spawnStar(lane,y,type){
  G.collectibles.push({lane,x:laneX(lane),y:y===undefined?-40:y,
   r:type?19:15,type:type||'star',rot:0,pulse:Math.random()*6.28,alive:true});}
@@ -295,7 +293,7 @@ addEventListener('keydown',e=>{
 
 function tryJump(){
  if(!G.run||G.paused||G.airY!==0)return;
- G.airY=-1;G.airV=JUMP_V*.85;G.squash=.4;
+ G.airY=-16;G.airV=JUMP_V;G.squash=.4;
  Aud.sfx('jump');vib(10);dust(G.ballX,BALL_Y+BALL_R*.8,5);
  G.bonkStreak=0;}
 
@@ -501,11 +499,9 @@ function update(dt){
 
  /* зверики */
  for(const o of G.obstacles){o.y+=dW;
+  if(o.noHit>0)o.noHit-=dt;
   if(o.squash>0)o.squash*=Math.pow(.01,dt);
   if(o.react>0)o.react=Math.max(0,o.react-dt*2);
-  if(o.happy>0)o.happy=Math.max(0,o.happy-dt*1.25);
-  o.blinkT-=dt;if(o.blinkT<0)o.blinkT=2.2+Math.random()*3;
-  o.blink=o.blinkT<.13?1:0;
   if(o.dodgeT>0&&o.dodgeT<1){
    o.dodgeT=Math.min(1,o.dodgeT+dt*3);
    if(o.dodgeT>=1)o.lane=o.dodgeTo;}}
@@ -523,7 +519,7 @@ function update(dt){
  for(const r of G.ramps){r.y+=dW;
   if(r.animT>0)r.animT-=dt;
   if(!r.used&&r.lane===G.lane&&Math.abs(BALL_Y-r.y)<26&&G.airY===0){
-   r.used=1;r.animT=.4;G.airY=-1;G.airV=JUMP_V;
+   r.used=1;r.animT=.4;G.airY=-16;G.airV=JUMP_V*1.15;
    G.squash=.5;Aud.sfx('jump');vib([10,30,10]);
    burst(laneX(r.lane),r.y,'#4D96FF',10);}}
  /* ускорители */
@@ -571,8 +567,8 @@ function update(dt){
  if(G.nextBfly<=0){if(pal.night<.6)spawnButterfly();G.nextBfly=8+Math.random()*6;}
 
  /* столкновения со звериками */
- const airborne=G.airY<-40;
- for(const o of G.obstacles){if(!o.alive)continue;
+ const airborne=G.airY<-16;                       // почти сразу после отрыва
+ for(const o of G.obstacles){if(!o.alive||o.noHit>0)continue;
   const oxx=ox(o);
   const dx=Math.abs(G.ballX-oxx),dy=Math.abs(BALL_Y-o.y);
   if(dx<42&&dy<44){
@@ -583,10 +579,12 @@ function update(dt){
      o.dodgeFrom=o.lane;o.dodgeTo=freeLane(o.lane);o.dodgeT=.01;
      Aud.sfx('dodge');}}
    else if(G.bonkStreak>=2){                        // 3-й удар — шар сам перепрыгивает!
-    G.bonkStreak=0;G.bonkTimer=0;
-    G.airY=-1;G.airV=JUMP_V*.95;G.squash=.5;
+    G.bonkStreak=0;G.bonkTimer=0;G.bounceCd=.6;
+    G.airY=-16;G.airV=JUMP_V;G.squash=.5;         // уже «в воздухе» — зверик не помешает
+    o.noHit=1.5;                                  // этот зверик больше не сталкивается
+    o.squash=.7;                                  // радостно приседает (не подпрыгивает!)
     Aud.sfx('jump');vib([10,25,10]);
-    o.happy=1;hearts(oxx,o.y-14,8);
+    hearts(oxx,o.y-SPECIES[o.sp].size*.55,8);
     burst(oxx,o.y,'#FFD93D',12);}
    else if(G.vel>0&&G.bounceCd<=0){doBounce(o);}}}
 
@@ -885,156 +883,49 @@ function drawFriend(f,now){
  const spr=animalSprite(f.sp==='bear'?'bear':'bunny');
  const hop=f.happy>0?Math.abs(Math.sin(now*10))*16:0;
  const bob=Math.sin(now*2.2+f.wave)*2.5;
+ const sz=46,dw=sz*spr.W/spr.H;
  cx.save();cx.translate(f.x,f.y+bob-hop);
- cx.fillStyle='rgba(0,0,0,.18)';
+ cx.fillStyle='rgba(0,0,0,.16)';
  cx.beginPath();cx.ellipse(0,20,12,4,0,0,6.28);cx.fill();
- cx.scale(.52,.52);
- cx.drawImage(spr.img,-(spr.W/2+spr.pad),-(spr.H/2+spr.pad),spr.W+spr.pad*2,spr.H+spr.pad*2);
+ cx.drawImage(spr.img,-dw/2,-sz/2,dw,sz);
  cx.restore();
 }
 
-/* ── ЗВЕРИКИ: детальные спрайты (рисуются 1 раз) + живые глазки ── */
+/* ── ЗВЕРИКИ: готовые эмодзи-ассеты, кэш спрайтов 2x ── */
 const spriteCache={};
+const EMOJI_FONT='"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';
 function animalSprite(sp){
  if(spriteCache[sp])return spriteCache[sp];
- const S=SPECIES[sp],W=S.w,H=S.h,p=S.pal,PAD=30;
+ const S=SPECIES[sp],FS=150;
+ const m=document.createElement('canvas').getContext('2d');
+ m.font=FS+'px '+EMOJI_FONT;
+ const w=Math.max(FS,Math.ceil(m.measureText(S.em).width));
  const c=document.createElement('canvas');
- c.width=(W+PAD*2)*2;c.height=(H+PAD*2)*2;
- const g=c.getContext('2d');
- g.scale(2,2);g.translate(W/2+PAD,H/2+PAD);g.lineJoin='round';
- const OUT='rgba(60,42,26,.45)';
- const E=(x,y,rx,ry,rot)=>{g.beginPath();g.ellipse(x,y,rx,ry,rot||0,0,6.28);};
- const bodyPath=()=>E(0,0,W/2,H/2);
- const drawBody=()=>{
-  const gr=g.createLinearGradient(0,-H/2,0,H/2);
-  gr.addColorStop(0,p.l);gr.addColorStop(1,p.d);
-  bodyPath();g.fillStyle=gr;g.fill();
-  g.lineWidth=3;g.strokeStyle=OUT;g.stroke();};
- const gloss=()=>{E(-W*.12,-H*.17,W*.3,H*.17);g.fillStyle='rgba(255,255,255,.32)';g.fill();};
- const blush=(y)=>{g.fillStyle='rgba(255,120,130,.42)';
-  for(const s of[-1,1]){g.beginPath();g.arc(s*W*.3,y,4.6,0,6.28);g.fill();}};
- const eyeW=()=>{g.fillStyle='#fff';
-  for(const e of S.eyes){g.beginPath();g.arc(e.x,e.y,e.r,0,6.28);g.fill();}};
-
- if(sp==='bunny'){
-  for(const s of[-1,1]){ // длинные ушки
-   g.save();g.translate(s*12,-H*.4);g.rotate(s*.13);
-   E(0,-20,9.5,21);g.fillStyle=p.m;g.fill();g.lineWidth=3;g.strokeStyle=OUT;g.stroke();
-   E(0,-20,4.6,15);g.fillStyle=p.in;g.fill();
-   g.restore();}
-  drawBody();gloss();
-  E(0,3,3.6,2.6);g.fillStyle='#FF8FA5';g.fill();          // носик
-  g.strokeStyle='#4a3b30';g.lineWidth=2;g.lineCap='round';
-  g.beginPath();g.arc(0,6,4.5,.25,Math.PI-.25);g.stroke(); // улыбка
-  blush(9);eyeW();
- }
- else if(sp==='bear'){
-  for(const s of[-1,1]){ // круглые ушки
-   g.beginPath();g.arc(s*27,-27,11,0,6.28);g.fillStyle=p.m;g.fill();
-   g.lineWidth=3;g.strokeStyle=OUT;g.stroke();
-   g.beginPath();g.arc(s*27,-27,5.5,0,6.28);g.fillStyle=p.l;g.fill();}
-  drawBody();gloss();
-  E(0,11,17,12.5);g.fillStyle=p.l;g.fill();               // мордочка
-  E(0,6,4.2,3.2);g.fillStyle='#5D4037';g.fill();          // нос
-  g.strokeStyle='#5D4037';g.lineWidth=2;g.lineCap='round';
-  g.beginPath();g.moveTo(0,9);g.lineTo(0,13);g.stroke();
-  g.beginPath();g.arc(-4.5,12.5,4.5,.4,Math.PI-.4);g.stroke();
-  g.beginPath();g.arc(4.5,12.5,4.5,.4,Math.PI-.4);g.stroke();
-  blush(11);eyeW();
- }
- else if(sp==='fox'){
-  g.save();g.translate(W*.4,H*.26);g.rotate(.5);          // хвост
-  E(0,0,15,9);g.fillStyle=p.m;g.fill();g.lineWidth=3;g.strokeStyle=OUT;g.stroke();
-  E(9,0,6.5,5.5);g.fillStyle=p.w;g.fill();
-  g.restore();
-  for(const s of[-1,1]){ // острые ушки
-   g.save();g.translate(s*19,-H*.32);g.rotate(s*.38);
-   E(0,-9,9,16);g.fillStyle=p.m;g.fill();g.lineWidth=3;g.strokeStyle=OUT;g.stroke();
-   E(0,-9,4.4,10);g.fillStyle=p.d;g.fill();
-   g.restore();}
-  drawBody();gloss();
-  g.save();bodyPath();g.clip();                           // белая грудка
-  E(0,H*.32,W*.32,H*.22);g.fillStyle=p.w;g.fill();g.restore();
-  E(0,9,13,9.5);g.fillStyle=p.w;g.fill();                 // мордочка
-  E(0,3.5,4,3);g.fillStyle='#5D4037';g.fill();
-  g.strokeStyle='#4a3b30';g.lineWidth=2;g.lineCap='round';
-  g.beginPath();g.arc(0,6,5,.3,Math.PI-.3);g.stroke();
-  blush(9);eyeW();
- }
- else if(sp==='frog'){
-  for(const s of[-1,1]){ // глазки-бугорки
-   g.beginPath();g.arc(s*18,-24,10.5,0,6.28);g.fillStyle=p.m;g.fill();
-   g.lineWidth=3;g.strokeStyle=OUT;g.stroke();}
-  drawBody();gloss();
-  g.strokeStyle='#2b5b1e';g.lineWidth=3;g.lineCap='round'; // широкий рот
-  g.beginPath();g.arc(0,-2,W*.24,.3,Math.PI-.3);g.stroke();
-  blush(2);
-  for(const s of[-1,1]){E(s*W*.36,H*.42,10,5);g.fillStyle=p.d;g.fill();} // лапки
-  eyeW();
- }
- else if(sp==='chick'){
-  g.strokeStyle=p.d;g.lineWidth=2.2;g.lineCap='round';     // хохолок
-  for(let i=-1;i<=1;i++){g.beginPath();g.moveTo(i*4,-H*.42);
-   g.quadraticCurveTo(i*7,-H*.6,i*9,-H*.55);g.stroke();}
-  drawBody();gloss();
-  for(const s of[-1,1]){ // крылышки
-   E(s*W*.36,4,9.5,6,s*.55);g.fillStyle=p.d;g.fill();}
-  g.beginPath();g.moveTo(-6,1);g.lineTo(6,1);g.lineTo(0,11);g.closePath(); // клювик
-  g.fillStyle='#FF8A3D';g.fill();g.lineWidth=2;g.strokeStyle='rgba(60,42,26,.35)';g.stroke();
-  g.strokeStyle='#FF8A3D';g.lineWidth=2.5;g.lineCap='round'; // лапки
-  for(const s of[-1,1]){g.beginPath();
-   g.moveTo(s*9,H*.46);g.lineTo(s*9,H*.57);
-   g.moveTo(s*9-5,H*.57);g.lineTo(s*9,H*.57);g.lineTo(s*9+5,H*.57);g.stroke();}
-  blush(6);eyeW();
- }
- else{ // owl
-  for(const s of[-1,1]){ // кисточки
-   g.save();g.translate(s*15,-H*.4);g.rotate(s*.5);
-   E(0,0,5.5,9);g.fillStyle=p.d;g.fill();g.lineWidth=3;g.strokeStyle=OUT;g.stroke();
-   g.restore();}
-  drawBody();gloss();
-  g.save();bodyPath();g.clip();                           // грудка
-  E(0,15,19,15);g.fillStyle=p.l;g.fill();
-  g.strokeStyle=p.d;g.lineWidth=2;g.lineCap='round';
-  for(let i=0;i<3;i++){g.beginPath();
-   g.arc(-8+i*8,14+(i%2)*5,5,.3,Math.PI-.3);g.stroke();}
-  g.restore();
-  g.beginPath();g.moveTo(-4.5,1);g.lineTo(4.5,1);g.lineTo(0,10);g.closePath();
-  g.fillStyle='#FFB300';g.fill();
-  blush(4);eyeW();
- }
- spriteCache[sp]={img:c,pad:PAD,W,H,eyes:S.eyes};
+ c.width=w*2;c.height=(FS+8)*2;
+ const g=c.getContext('2d');g.scale(2,2);
+ g.font=m.font;g.textAlign='center';g.textBaseline='middle';
+ g.fillText(S.em,w/2,(FS+8)/2+FS*.04);
+ spriteCache[sp]={img:c,W:w,H:FS+8};
  return spriteCache[sp];
 }
 
 function drawAnimal(o,now){
  const S=SPECIES[o.sp],spr=animalSprite(o.sp);
  const x=ox(o);
- const hopY=(o.sp==='bunny'||o.sp==='frog')?Math.abs(Math.sin(now*4+o.seed))*6:0;
+ const hopY=S.hop?Math.abs(Math.sin(now*3.4+o.seed))*7:0; // зайка и лягушонок в движении
  const dodgeLift=o.dodgeT>0&&o.dodgeT<1?Math.sin(Math.PI*o.dodgeT)*40:0;
- const rLift=o.react>0?Math.sin(o.react*Math.PI)*16:0;
- const hLift=o.happy>0?Math.sin(o.happy*Math.PI)*26:0;
- const tilt=o.react>0?Math.sin(o.react*18)*.2*o.react:0;
- const rSq=o.react>0?1-.28*Math.sin(o.react*Math.PI):1;
+ const rLift=o.react>0?Math.sin(o.react*Math.PI)*14:0;    // радостный подскок после удара
+ const tilt=o.react>0?Math.sin(o.react*16)*.3*o.react:0;  // кувыркается от удовольствия
+ const br=1+Math.sin(now*2.6+o.seed)*.028;                // дыхание
+ const s=(o.squash||0)*.22;                               // приседание (в т.ч. при автопрыжке)
+ const sz=S.size,dw=sz*spr.W/spr.H;
  /* тень на земле */
- cx.fillStyle='rgba(0,0,0,.18)';
- cx.beginPath();cx.ellipse(x,o.y+S.h*.44,S.w*.36,6,0,0,6.28);cx.fill();
- cx.save();cx.translate(x,o.y-hopY-dodgeLift-rLift-hLift);
- const br=1+Math.sin(now*3+o.seed)*.03;
- cx.scale(br,br*rSq);
- cx.rotate(tilt+Math.sin(now*1.5+o.seed)*.04);
- cx.drawImage(spr.img,-(spr.W/2+spr.pad),-(spr.H/2+spr.pad),spr.W+spr.pad*2,spr.H+spr.pad*2);
- /* живые глазки: следят за шаром, моргают */
- const look=Math.max(-1,Math.min(1,(G.ballX-x)/130));
- for(const e of spr.eyes){
-  if(o.blink){
-   cx.strokeStyle='#3a2c22';cx.lineWidth=2.2;cx.lineCap='round';
-   cx.beginPath();cx.moveTo(e.x-e.r*.8,e.y);cx.lineTo(e.x+e.r*.8,e.y);cx.stroke();}
-  else{
-   cx.fillStyle='#2b2b2b';
-   cx.beginPath();cx.arc(e.x+look*e.r*.35,e.y+e.r*.18,e.r*.52,0,6.28);cx.fill();
-   cx.fillStyle='#fff';
-   cx.beginPath();cx.arc(e.x+look*e.r*.35-e.r*.16,e.y-e.r*.05,e.r*.17,0,6.28);cx.fill();}}
+ cx.fillStyle='rgba(0,0,0,.16)';
+ cx.beginPath();cx.ellipse(x,o.y+sz*.44,dw*.4,6,0,0,6.28);cx.fill();
+ cx.save();cx.translate(x,o.y-hopY-dodgeLift-rLift);
+ cx.rotate(tilt+Math.sin(now*1.4+o.seed)*.045);
+ cx.scale((1+s)*br,(1-s)*br);
+ cx.drawImage(spr.img,-dw/2,-sz/2,dw,sz);
  cx.restore();
 }
 /* ── звёзды/цветы/бонусы ── */
@@ -1126,7 +1017,7 @@ function drawBall(now){
  const dark=skin?skin.dark:`hsl(${(now*95+35)%360},80%,45%)`;
  const shK=Math.max(.6,1-Math.abs(G.squash)*.4);
  /* тень на земле (уменьшается в полёте) */
- const airF=clamp01(1+G.airY/160);
+ const airF=clamp01(1+G.airY/220);
  cx.fillStyle='rgba(0,0,0,'+(.22*airF+.06)+')';
  cx.beginPath();cx.ellipse(bx+1,BALL_Y+r*.82,r*.85*shK*airF,r*.3*shK*airF,0,0,6.28);cx.fill();
  cx.save();cx.translate(bx,by);
