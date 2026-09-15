@@ -16,7 +16,7 @@ const ROAD_W=272,CX=VW/2,SIDE=(VW-ROAD_W)/2;
 const BALL_Y=586,BALL_R=31;
 const SPD0=195,SPD_MAX=340,BOUNCE_V=-250;
 const CYCLE=45,TRANS=4;                          // сек на биом / на переход
-const GRAV=1450,JUMP_V=-640;                      // физика прыжка (умеренная высота, дальний)
+const GRAV=1550,JUMP_V=-600;                      // физика прыжка (компактная дуга)
 
 const clamp01=v=>v<0?0:v>1?1:v;
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -207,7 +207,7 @@ function popObstacle(o,byPower){
  confetti(laneX(o.lane),o.y,sp.conf.concat(['#FFD93D','#FF6B9D']),18);
  if(o.sp==='frog')Aud.sfx('croak');else Aud.sfx('pop',sp.pitch);
  vib(15);G.pops++;
- if(G.pops%6===0){Aud.sfx('celebrate');G.flash=.3;rain(POWER_COLS,26);}
+ if(G.pops%6===0){Aud.sfx('celebrate');rain(POWER_COLS,26);}
 }
 
 /* ═══════════ ВИБРАЦИЯ ═══════════ */
@@ -233,7 +233,7 @@ function addStar(n){
 const bannerEl=document.getElementById('banner'),toastEl=document.getElementById('toast');
 let bannerTo=null,toastTo=null;
 function milestone(n){
- Aud.sfx('fanfare');vib([30,40,30]);G.flash=.35;
+ Aud.sfx('fanfare');vib([30,40,30]);
  bannerEl.innerHTML='УРА!<div class="stars">⭐ '+n+'</div>';
  bannerEl.classList.remove('hidden');
  clearTimeout(bannerTo);bannerTo=setTimeout(()=>bannerEl.classList.add('hidden'),1800);
@@ -257,7 +257,7 @@ function applyMode(type){
  modeIc.textContent=MODES[type].ic+(type==='gold'?' ×2':'');
  modeBadge.classList.remove('hidden');
  Aud.sfx(type==='magnet'?'magnet':type==='gold'?'gold':'power');
- G.flash=.2;vib([15,30,15]);
+ vib([15,30,15]);
  burst(G.ballX,BALL_Y+G.airY,type==='magnet'?'#4D96FF':type==='gold'?'#FFD93D':'#FF6B9D',22);}
 function endMode(){G.mode=null;modeBadge.classList.add('hidden');}
 
@@ -338,7 +338,7 @@ const menuEl=document.getElementById('menu'),pauseOv=document.getElementById('pa
  hudEl=document.getElementById('hud'),hintEl=document.getElementById('hint');
 function reset(){
  G.run=true;G.paused=false;G.vel=SPD0;G.progress=0;
- G.lane=1;G.ballX=laneX(1);G.lean=0;G.squash=0;G.shake=0;G.flash=0;G.bounceCd=0;
+ G.lane=1;G.ballX=laneX(1);G.lean=0;G.squash=0;G.shake=0;G.bounceCd=0;
  G.airY=0;G.airV=0;G.boost=0;endMode();
  G.bonkStreak=0;G.bonkTimer=0;
  G.pops=0;G.stars=0;G.lastMile=0;G.diff=1;G.noBonkDist=0;
@@ -431,7 +431,7 @@ function spawnPattern(){
 
 /* ═══════════ ЛОГИКА ═══════════ */
 function doBounce(o){
- G.vel=BOUNCE_V;G.squash=.6;G.shake=5;G.flash=.12;G.bounceCd=.4;
+ G.vel=BOUNCE_V;G.squash=.6;G.shake=5;G.bounceCd=.4;
  G.diff=Math.max(.62,G.diff*.9);G.noBonkDist=0;
  G.bonkStreak++;G.bonkTimer=4;
  o.react=1;                                   // зверик радостно кувыркается
@@ -491,7 +491,6 @@ function update(dt){
  G.lean=Math.max(-.22,Math.min(.22,dxl*.012));
  G.squash*=Math.pow(.002,dt);
  if(G.shake>0)G.shake=Math.max(0,G.shake-dt*14);
- if(G.flash>0)G.flash-=dt;
 
  /* зверики */
  for(const o of G.obstacles){o.y+=dW;
@@ -707,10 +706,6 @@ function render(){
    cx.beginPath();cx.moveTo(-5,0);cx.quadraticCurveTo(0,-5,5,0);cx.quadraticCurveTo(0,5,-5,0);
    cx.fill();cx.restore();}}
  cx.globalAlpha=1;
-
- /* вспышка */
- if(G.flash>0){cx.fillStyle=`rgba(255,255,255,${Math.min(.5,G.flash)})`;
-  cx.fillRect(0,0,VW,VH);}
 }
 
 function drawGrass(pal,now){
@@ -1000,7 +995,6 @@ function drawBall(now){
  const stretch=G.boost>0?[1.12,.92]:[1+G.squash*.3,1-G.squash*.3];
  cx.scale(stretch[0],stretch[1]);
  cx.rotate(G.lean);
- if(G.flash>0)cx.globalAlpha=.6+Math.sin(G.flash*40)*.25;
  /* аура режима */
  if(G.mode==='magnet'){
   drawGlow(0,0,r+22,'#4D96FF',.65);
