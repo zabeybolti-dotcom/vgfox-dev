@@ -73,10 +73,10 @@ function stepLift(g,s,t){return Math.max(0,Math.sin(t*6+(s>0?0:Math.PI)))*3;}
 /* ═════════ ЗАЙКА ═════════ */
 function bunny(g,t,st){
  const P=PAL.bunny;
- for(const s of[-1,1]){                      // ушки качаются
-  g.save();g.translate(s*12,-31);g.rotate(s*(.16+Math.sin(t*2.6)*.06));
-  ell(g,0,-16,9.5,17);shape(g,P.m,P.out);
-  ell(g,0,-15,4.7,11.5);g.fillStyle=P.in;g.fill();
+ for(const s of[-1,1]){                      // короткие пухлые ушки качаются
+  g.save();g.translate(s*10,-29);g.rotate(s*(.2+Math.sin(t*2.6)*.06));
+  ell(g,0,-12,10.5,14);shape(g,P.m,P.out);
+  ell(g,0,-11,5.2,9.5);g.fillStyle=P.in;g.fill();
   g.restore();}
  for(const s of[-1,1]){                      // лапки шагают
   const l=stepLift(g,s,t);
@@ -85,17 +85,8 @@ function bunny(g,t,st){
  ell(g,0,26,11,9);g.fillStyle='#FFFDF8';g.fill();
  arms(g,t,st,12,P);
  circle(g,0,-9,27);shape(g,P.m,P.out);       // голова
- g.fillStyle=P.nose;ell(g,0,-6,4,3);g.fill();// носик
- g.fillStyle='#FFFFFF';g.strokeStyle='rgba(67,48,43,.35)';g.lineWidth=1;
- if(st.react>0){                              // смеётся: открытый ротик + зубки
-  smile(g,0,3,16,1);
-  g.fillRect(-3.8,0,3.6,6);g.strokeRect(-3.8,0,3.6,6);
-  g.fillRect(.2,0,3.6,6);g.strokeRect(.2,0,3.6,6);}
- else{                                        // зубки растут из улыбки
-  g.fillRect(-3.8,1,3.6,7);g.strokeRect(-3.8,1,3.6,7);
-  g.fillRect(.2,1,3.6,7);g.strokeRect(.2,1,3.6,7);
-  g.strokeStyle=EYE;g.lineWidth=2.6;g.lineCap='round';
-  g.beginPath();g.moveTo(-9,5);g.quadraticCurveTo(0,10.5,9,5);g.stroke();}
+ g.fillStyle=P.nose;ell(g,0,-5,4,3);g.fill();// носик-точечка
+ smile(g,0,6,14,st.react>0?1:0);             // простая милая улыбка, без зубок
  eye(g,-11,-13,5.8,(t%3.7)<.13,st.look);
  eye(g,11,-13,5.8,(t%3.7)<.13,st.look);
  blush(g,17,-3);}
@@ -123,13 +114,13 @@ function bear(g,t,st){
 /* ═════════ ЛИСЁНОК ═════════ */
 function fox(g,t,st){
  const P=PAL.fox;
- g.save();g.translate(20,25);g.rotate(.55+Math.sin(t*6)*.2);   // хвост виляет
+ g.save();g.translate(13,30);g.rotate(Math.sin(t*5)*.13);   // хвост из-за спины, виляет
  g.lineCap='round';
  g.strokeStyle=P.out;g.lineWidth=24;
- g.beginPath();g.moveTo(0,-4);g.lineTo(0,24);g.stroke();
+ g.beginPath();g.moveTo(0,2);g.quadraticCurveTo(20,14,26,-8);g.stroke();
  g.strokeStyle=P.m;g.lineWidth=18;
- g.beginPath();g.moveTo(0,-4);g.lineTo(0,24);g.stroke();
- circle(g,0,25,11);shape(g,P.w,P.out,2.4);   // пушистый кончик
+ g.beginPath();g.moveTo(0,2);g.quadraticCurveTo(20,14,26,-8);g.stroke();
+ circle(g,27,-9,10.5);shape(g,P.w,P.out,2.4);   // пушистый кончик
  g.restore();
  for(const s of[-1,1]){                      // острые ушки
   g.save();g.translate(s*16,-30);g.rotate(s*(.24+Math.sin(t*2.4)*.05));

@@ -16,7 +16,7 @@ const ROAD_W=272,CX=VW/2,SIDE=(VW-ROAD_W)/2;
 const BALL_Y=586,BALL_R=31;
 const SPD0=195,SPD_MAX=340,BOUNCE_V=-250;
 const CYCLE=45,TRANS=4;                          // сек на биом / на переход
-const GRAV=1350,JUMP_V=-720;                     // физика прыжка (высокий и дальний)
+const GRAV=1450,JUMP_V=-640;                      // физика прыжка (умеренная высота, дальний)
 
 const clamp01=v=>v<0?0:v>1?1:v;
 const lerp=(a,b,t)=>a+(b-a)*t;
