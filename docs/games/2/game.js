@@ -85,18 +85,14 @@ function blendPal(){
   night:lerp(A.night,B.night,k),amb:k<.5?A.amb:B.amb};
 }
 
-/* ═══════════ ЗВЕРИКИ — 6 видов ═══════════
-   Готовые профессиональные ассеты: системные эмодзи-шрифты
-   (Noto Color Emoji на Android / Segoe UI Emoji на Windows) —
-   рендерятся 1 раз в спрайт-кэш, анимация живая: прыжки,
-   покачивание, радостное кувыркание при столкновении. */
+/* ═══════════ ЗВЕРИКИ — 6 видов (отрисовка в animals.js) ═══════════ */
 const SPECIES={
- bunny:{em:'🐰',size:76,pitch:980,conf:['#FFFDF6','#FFB7C9','#E8E4DC'],hop:true},
- bear:{em:'🐻',size:82,pitch:520,conf:['#E3C8A4','#B98A5F','#FFD93D']},
- fox:{em:'🦊',size:82,pitch:760,conf:['#F08C3C','#FBC98F','#FF6B4A']},
- frog:{em:'🐸',size:80,pitch:1150,conf:['#C8ECB0','#7CC95E','#FFD93D'],hop:true},
- chick:{em:'🐥',size:70,pitch:1350,conf:['#FFF3B0','#FFD54F','#FF9F43']},
- owl:{em:'🦉',size:80,pitch:640,conf:['#D7C8F0','#B39DDB','#FFB300']}
+ bunny:{pitch:980,conf:['#FFFDF6','#FFB7C9','#E8E4DC'],hop:true},
+ bear:{pitch:520,conf:['#E3C8A4','#B98A5F','#FFD93D']},
+ fox:{pitch:760,conf:['#F08C3C','#FBC98F','#FF6B4A']},
+ frog:{pitch:1150,conf:['#C8ECB0','#7CC95E','#FFD93D'],hop:true},
+ chick:{pitch:1350,conf:['#FFF3B0','#FFD54F','#FF9F43']},
+ owl:{pitch:640,conf:['#D7C8F0','#B39DDB','#FFB300']}
 };
 const SP_NAMES=Object.keys(SPECIES);
 
@@ -584,7 +580,7 @@ function update(dt){
     o.noHit=1.5;                                  // этот зверик больше не сталкивается
     o.squash=.7;                                  // радостно приседает (не подпрыгивает!)
     Aud.sfx('jump');vib([10,25,10]);
-    hearts(oxx,o.y-SPECIES[o.sp].size*.55,8);
+    hearts(oxx,o.y-52,8);
     burst(oxx,o.y,'#FFD93D',12);}
    else if(G.vel>0&&G.bounceCd<=0){doBounce(o);}}}
 
@@ -880,52 +876,32 @@ function drawDecoItem(d,pal,now){
 
 /* ── зверик-друг на обочине ── */
 function drawFriend(f,now){
- const spr=animalSprite(f.sp==='bear'?'bear':'bunny');
  const hop=f.happy>0?Math.abs(Math.sin(now*10))*16:0;
  const bob=Math.sin(now*2.2+f.wave)*2.5;
- const sz=46,dw=sz*spr.W/spr.H;
  cx.save();cx.translate(f.x,f.y+bob-hop);
  cx.fillStyle='rgba(0,0,0,.16)';
- cx.beginPath();cx.ellipse(0,20,12,4,0,0,6.28);cx.fill();
- cx.drawImage(spr.img,-dw/2,-sz/2,dw,sz);
+ cx.beginPath();cx.ellipse(0,26,15,5,0,0,6.28);cx.fill();
+ cx.scale(.6,.6);
+ Animals.draw(cx,f.sp,now+f.wave,{react:f.happy>0?.8:0,look:0});
  cx.restore();
 }
 
-/* ── ЗВЕРИКИ: готовые эмодзи-ассеты, кэш спрайтов 2x ── */
-const spriteCache={};
-const EMOJI_FONT='"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';
-function animalSprite(sp){
- if(spriteCache[sp])return spriteCache[sp];
- const S=SPECIES[sp],FS=150;
- const m=document.createElement('canvas').getContext('2d');
- m.font=FS+'px '+EMOJI_FONT;
- const w=Math.max(FS,Math.ceil(m.measureText(S.em).width));
- const c=document.createElement('canvas');
- c.width=w*2;c.height=(FS+8)*2;
- const g=c.getContext('2d');g.scale(2,2);
- g.font=m.font;g.textAlign='center';g.textBaseline='middle';
- g.fillText(S.em,w/2,(FS+8)/2+FS*.04);
- spriteCache[sp]={img:c,W:w,H:FS+8};
- return spriteCache[sp];
-}
-
+/* ── ЗВЕРИКИ: живая отрисовка (animals.js) — лапки машут, ушки шевелятся ── */
 function drawAnimal(o,now){
- const S=SPECIES[o.sp],spr=animalSprite(o.sp);
+ const S=SPECIES[o.sp];
  const x=ox(o);
  const hopY=S.hop?Math.abs(Math.sin(now*3.4+o.seed))*7:0; // зайка и лягушонок в движении
  const dodgeLift=o.dodgeT>0&&o.dodgeT<1?Math.sin(Math.PI*o.dodgeT)*40:0;
  const rLift=o.react>0?Math.sin(o.react*Math.PI)*14:0;    // радостный подскок после удара
  const tilt=o.react>0?Math.sin(o.react*16)*.3*o.react:0;  // кувыркается от удовольствия
- const br=1+Math.sin(now*2.6+o.seed)*.028;                // дыхание
  const s=(o.squash||0)*.22;                               // приседание (в т.ч. при автопрыжке)
- const sz=S.size,dw=sz*spr.W/spr.H;
  /* тень на земле */
  cx.fillStyle='rgba(0,0,0,.16)';
- cx.beginPath();cx.ellipse(x,o.y+sz*.44,dw*.4,6,0,0,6.28);cx.fill();
+ cx.beginPath();cx.ellipse(x,o.y+46,34,7,0,0,6.28);cx.fill();
  cx.save();cx.translate(x,o.y-hopY-dodgeLift-rLift);
- cx.rotate(tilt+Math.sin(now*1.4+o.seed)*.045);
- cx.scale((1+s)*br,(1-s)*br);
- cx.drawImage(spr.img,-dw/2,-sz/2,dw,sz);
+ cx.rotate(tilt+Math.sin(now*1.4+o.seed)*.04);
+ cx.scale(1+s,1-s);
+ Animals.draw(cx,o.sp,now+o.seed,{react:o.react,look:Math.max(-1,Math.min(1,(G.ballX-x)/130))});
  cx.restore();
 }
 /* ── звёзды/цветы/бонусы ── */
