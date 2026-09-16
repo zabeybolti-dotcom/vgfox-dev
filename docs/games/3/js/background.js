@@ -1,12 +1,12 @@
 /* ============================================================
    background.js — небо, солнце, облака (параллакс), холмы,
-   радуга-арка, птички и бабочки, блёстки
+   радуга-арка, бабочки, блёстки
    ============================================================ */
 
 var W = 0, H = 0;
 var bgGrad = null;
 var cloudsFar = [], cloudsNear = [], sparkles = [], flowers = [];
-var flyers = [];          /* птички и бабочки */
+var flyers = [];          /* бабочки */
 var nextFlyer = 5;        /* секунд до следующего пролёта */
 var rainbowT = 0;         /* сколько ещё секунд радуга видна */
 var TAU = Math.PI * 2;
@@ -44,11 +44,8 @@ export function update(dt) {
   if (nextFlyer <= 0) {
     nextFlyer = 6 + Math.random() * 9;
     var dir = Math.random() < 0.5 ? 1 : -1;
-    if (Math.random() < 0.55) { /* птичка */
-      flyers.push({ tp: 'bird', x: dir > 0 ? -40 : W + 40, y: H * (0.08 + Math.random() * 0.3), v: (55 + Math.random() * 40) * dir, ph: Math.random() * TAU });
-    } else { /* бабочка */
-      flyers.push({ tp: 'fly', x: dir > 0 ? -40 : W + 40, y: H * (0.25 + Math.random() * 0.4), v: (35 + Math.random() * 25) * dir, ph: Math.random() * TAU, hue: Math.random() * 360 });
-    }
+    /* только бабочки: птички-«галочки» убраны — выглядели как стрелки */
+    flyers.push({ tp: 'fly', x: dir > 0 ? -40 : W + 40, y: H * (0.25 + Math.random() * 0.4), v: (35 + Math.random() * 25) * dir, ph: Math.random() * TAU, hue: Math.random() * 360 });
   }
   for (i = 0; i < flyers.length; i++) {
     var f = flyers[i];
@@ -126,26 +123,17 @@ export function draw(ctx, t) {
     ctx.restore();
   }
 
-  /* птички и бабочки */
+  /* бабочки */
   for (i = 0; i < flyers.length; i++) {
     var f = flyers[i];
     ctx.save(); ctx.translate(f.x, f.y + Math.sin(f.ph * 2) * 8);
-    if (f.tp === 'bird') {
-      var flap = Math.sin(f.ph * 9) * 5;
-      ctx.strokeStyle = 'rgba(70,80,110,.75)'; ctx.lineWidth = 2.2; ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(-8, -flap); ctx.quadraticCurveTo(-4, 2, 0, 0);
-      ctx.quadraticCurveTo(4, 2, 8, -flap);
-      ctx.stroke();
-    } else {
-      var fl = Math.sin(f.ph * 12) * 0.85;
-      ctx.rotate(Math.sin(f.ph * 1.7) * 0.2);
-      ctx.fillStyle = 'hsla(' + f.hue + ',85%,70%,.9)';
-      ctx.beginPath(); ctx.ellipse(-4, 0, 5, 3.5, -0.5 - fl, 0, TAU); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(4, 0, 5, 3.5, 0.5 + fl, 0, TAU); ctx.fill();
-      ctx.fillStyle = 'rgba(60,60,90,.8)';
-      ctx.beginPath(); ctx.ellipse(0, 0, 1.6, 3.4, 0, 0, TAU); ctx.fill();
-    }
+    var fl = Math.sin(f.ph * 12) * 0.85;
+    ctx.rotate(Math.sin(f.ph * 1.7) * 0.2);
+    ctx.fillStyle = 'hsla(' + f.hue + ',85%,70%,.9)';
+    ctx.beginPath(); ctx.ellipse(-4, 0, 5, 3.5, -0.5 - fl, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(4, 0, 5, 3.5, 0.5 + fl, 0, TAU); ctx.fill();
+    ctx.fillStyle = 'rgba(60,60,90,.8)';
+    ctx.beginPath(); ctx.ellipse(0, 0, 1.6, 3.4, 0, 0, TAU); ctx.fill();
     ctx.restore();
   }
 
