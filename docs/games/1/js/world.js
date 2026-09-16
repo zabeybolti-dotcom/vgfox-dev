@@ -99,15 +99,6 @@ function updateScenery(){
 
 function initScenery(){updateScenery();setInterval(updateScenery,400)}
 
-/* --- радуга-награда --- */
-let rainbowTimer=null;
-function showRainbow(){
-  const el=$('#rainbow');
-  el.classList.add('show');
-  clearTimeout(rainbowTimer);
-  rainbowTimer=setTimeout(()=>el.classList.remove('show'),16000);
-}
-
 /* --- кружащиеся листочки (днём) --- */
 let leafCount=0;
 function spawnLeaf(){

@@ -60,7 +60,7 @@ function addScore(pts,x,y,gold){
 }
 
 function celebrateRainbow(){
-  confetti(55);sJingle();sFanfare();showRainbow();
+  confetti(55);sJingle();sFanfare();
   if(NEW_QUEUE.length){
     const sp=NEW_QUEUE.shift();
     unlocked.push(sp);

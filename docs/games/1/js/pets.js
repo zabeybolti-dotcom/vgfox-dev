@@ -227,7 +227,7 @@ const BUSH=`<svg viewBox="0 0 70 44"><ellipse cx="20" cy="32" rx="19" ry="12" fi
 
 function buildDecor(){
   const decoLayer=$('#decoLayer');
-  for(let i=0;i<34;i++){const y=rnd(26,97),x=rnd(1,97);const sc=(.4+y/100*.95)*rnd(.75,1.25);
+  for(let i=0;i<62;i++){const y=rnd(26,97),x=rnd(1,97);const sc=(.4+y/100*.95)*rnd(.75,1.25);
     const d=document.createElement('div');d.className='deco tuft'+(y>91?' front':'');
     d.style.cssText=`top:${y}%;left:${x}%;width:${34*sc}px;animation-delay:${-rnd(0,3)}s`;d.innerHTML=pick(TUFTS);decoLayer.appendChild(d);}
   for(let i=0;i<13;i++){const y=rnd(28,96),x=rnd(2,95);const sc=(.45+y/100*1)*rnd(.7,1.2);
