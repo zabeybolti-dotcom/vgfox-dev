@@ -45,6 +45,26 @@ function beep(t, f0, f1, dur, type, vol, dest) {
   o.start(t); o.stop(t + dur + 0.03);
 }
 
+/* Нота ксилофона: очень быстрая атака + негармонические обертоны
+   настоящих пластинок (1 : 3.93 : 9.2) + стук молоточка */
+function xylo(t, f, vol) {
+  var parts = [[1, 1, 0.5], [3.93, 0.32, 0.16], [9.2, 0.16, 0.08]];
+  for (var i = 0; i < parts.length; i++) {
+    var o = AC.createOscillator(), g = AC.createGain();
+    o.type = 'sine';
+    o.frequency.value = f * parts[i][0] * (0.996 + Math.random() * 0.008);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol * parts[i][1], t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + parts[i][2]);
+    o.connect(g); g.connect(sfx);
+    o.start(t); o.stop(t + parts[i][2] + 0.05);
+  }
+  beep(t, f * 2.4, f * 1.9, 0.03, 'square', vol * 0.1);
+}
+
+/* Случайная нота пентатоники — каждый раз другая */
+function rndNote() { return PENT[(Math.random() * PENT.length) | 0]; }
+
 /* ---------------- ПУБЛИЧНОЕ ---------------- */
 
 export function vibrate(ms) {
@@ -59,40 +79,42 @@ export function unlock() {
 export function setSound(on) { soundOn = on; }
 export function setMusic(on) { musicOn = on; if (on) startMusic(); else stopMusic(); }
 
-/* Хлопок лопания — свой оттенок у каждого режима */
+/* Хлопок лопания + ксилофонная нотка — всегда случайная */
 export function popSound(kind, num, score) {
   var a = ac(); if (!a || !soundOn) return;
   var t = a.currentTime, i;
 
-  /* база: сам «хлопок» */
-  beep(t, 480 + Math.random() * 280, 90, 0.13, 'triangle', 0.32);
-  /* весёлая нотка, растёт со счётом */
-  beep(t, PENT[score % PENT.length], 0, 0.3, 'sine', 0.10);
+  /* лёгкий «пик» самого хлопка */
+  beep(t, 320 + Math.random() * 240, 80, 0.09, 'triangle', 0.2);
+  /* ксилофон: случайная нота, иногда с отголоском октавой выше */
+  xylo(t + 0.015, rndNote(), 0.3);
+  if (Math.random() < 0.3) xylo(t + 0.09, rndNote() * 2, 0.11);
 
-  if (kind === 1) {                    /* фигурки: аккордик */
-    beep(t + 0.03, 659.25, 0, 0.15, 'triangle', 0.08);
-    beep(t + 0.03, 830.61, 0, 0.15, 'triangle', 0.08);
+  if (kind === 1) {                    /* фигурки: аккордик из двух нот */
+    xylo(t + 0.03, rndNote(), 0.14);
+    xylo(t + 0.03, rndNote(), 0.12);
   }
-  if (kind === 2 && num) {             /* цифры: N звонких ноток по возрастанию */
-    for (i = 0; i < num; i++) beep(t + 0.05 + i * 0.085, PENT[i], 0, 0.12, 'triangle', 0.12);
+  if (kind === 2 && num) {             /* цифры: N ноток-лесенка от случайной ступеньки */
+    var off = (Math.random() * 3) | 0;
+    for (i = 0; i < num; i++) xylo(t + 0.06 + i * 0.1, PENT[(off + i) % PENT.length], 0.2);
   }
   if (kind === 3) {                    /* зверята: «бо-о-инг» */
-    beep(t + 0.02, 260, 540, 0.12, 'sine', 0.14);
-    beep(t + 0.13, 520, 300, 0.16, 'sine', 0.12);
+    beep(t + 0.02, 260, 540, 0.12, 'sine', 0.12);
+    beep(t + 0.13, 520, 300, 0.16, 'sine', 0.1);
   }
-  if (kind === 4) {                    /* пузыри: «буль-буль» */
-    beep(t, 140, 560, 0.10, 'sine', 0.22);
-    beep(t + 0.05, 180, 700, 0.09, 'sine', 0.10);
+  if (kind === 4) {                    /* пузыри: «буль» */
+    beep(t, 140, 560, 0.1, 'sine', 0.2);
+    beep(t + 0.05, 180, 700, 0.09, 'sine', 0.09);
   }
 }
 
-/* Фанфара вехи: пробег по пентатонике + колокольчики */
+/* Фанфара вехи: пробег по пентатонике на ксилофоне + колокольчики */
 export function milestoneSound() {
   var a = ac(); if (!a || !soundOn) return;
   var t = a.currentTime, i;
-  for (i = 0; i < 5; i++) beep(t + i * 0.09, PENT[i + 2], 0, 0.18, 'triangle', 0.16);
-  beep(t + 0.5, 1567.98, 0, 0.5, 'sine', 0.09);
-  beep(t + 0.58, 2093.0, 0, 0.45, 'sine', 0.06);
+  for (i = 0; i < 5; i++) xylo(t + i * 0.09, PENT[i + 2], 0.22);
+  xylo(t + 0.5, 1567.98, 0.16);
+  xylo(t + 0.58, 2093.0, 0.12);
 }
 
 /* Улетающий шарик: мягкое «пока-а» */

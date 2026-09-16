@@ -158,27 +158,47 @@ function drawNumber(ctx, b) {
     -numCv.width / (2 * q), -numCv.height / (2 * q), numCv.width / q, numCv.height / q);
 }
 
+/* kind 4 — мыльный пузырь: прозрачная плёнка, радужный ободок, блики */
 function drawBubble(ctx, b) {
-  var r = b.r, s = 1 + Math.sin(b.t * 2.4 + b.ph) * 0.035, h = b.hue;
-  ctx.scale(s, s);
-  var g = ctx.createRadialGradient(0, 0, r * 0.2, 0, 0, r * 1.12);
-  g.addColorStop(0, 'hsla(' + h + ',90%,85%,.05)');
-  g.addColorStop(0.72, 'hsla(' + h + ',90%,75%,.12)');
-  g.addColorStop(0.92, 'hsla(' + ((h + 50) % 360) + ',90%,70%,.3)');
-  g.addColorStop(1, 'hsla(' + ((h + 90) % 360) + ',90%,70%,0)');
-  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r * 1.12, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'hsla(' + h + ',85%,80%,.7)'; ctx.lineWidth = r * 0.06;
-  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
-  for (var k = 0; k < 3; k++) {
-    ctx.strokeStyle = 'hsla(' + ((h + k * 70 + b.t * 40) % 360) + ',90%,75%,.4)'; ctx.lineWidth = r * 0.1;
-    ctx.beginPath(); ctx.arc(0, 0, r * (0.74 - k * 0.11), b.t * 1.2 + k * 2.1, b.t * 1.2 + k * 2.1 + 1.25); ctx.stroke();
-  }
-  ctx.fillStyle = 'rgba(255,255,255,.85)';
-  ctx.beginPath(); ctx.ellipse(-r * 0.34, -r * 0.4, r * 0.22, r * 0.32, -0.6, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,.9)';
-  ctx.beginPath(); ctx.arc(-r * 0.08, -r * 0.62, r * 0.07, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,.4)'; ctx.lineWidth = r * 0.06;
-  ctx.beginPath(); ctx.arc(0, 0, r * 0.86, 0.5, 1.9); ctx.stroke();
+  var r = b.r, h = b.hue;
+  var w = Math.sin(b.t * 2.2 + b.ph);
+  ctx.scale(1 + w * 0.03, 1 - w * 0.03); /* лёгкое «дыхание» плёнки */
+
+  /* тело: почти прозрачное, плотнее к краю, как у плёнки */
+  var g = ctx.createRadialGradient(0, 0, r * 0.5, 0, 0, r);
+  g.addColorStop(0, 'hsla(' + h + ',70%,90%,.02)');
+  g.addColorStop(0.8, 'hsla(' + h + ',80%,80%,.09)');
+  g.addColorStop(1, 'hsla(' + h + ',90%,74%,.26)');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+
+  /* радужный ободок, медленно переливается */
+  ctx.save();
+  ctx.rotate(Math.sin(b.t * 0.5 + b.ph) * 0.8);
+  var rim = ctx.createLinearGradient(-r, -r, r, r);
+  rim.addColorStop(0, 'hsla(' + h + ',95%,74%,.9)');
+  rim.addColorStop(0.3, 'hsla(' + ((h + 70) % 360) + ',95%,72%,.55)');
+  rim.addColorStop(0.55, 'hsla(' + ((h + 170) % 360) + ',90%,76%,.5)');
+  rim.addColorStop(0.8, 'hsla(' + ((h + 260) % 360) + ',95%,72%,.55)');
+  rim.addColorStop(1, 'hsla(' + h + ',95%,74%,.9)');
+  ctx.strokeStyle = rim;
+  ctx.lineWidth = Math.max(2, r * 0.085);
+  ctx.beginPath(); ctx.arc(0, 0, r * 0.96, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+
+  /* блики: широкий мягкий + яркая точка */
+  ctx.fillStyle = 'rgba(255,255,255,.4)';
+  ctx.beginPath(); ctx.ellipse(-r * 0.35, -r * 0.44, r * 0.32, r * 0.19, -0.75, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,.95)';
+  ctx.beginPath(); ctx.arc(-r * 0.1, -r * 0.62, r * 0.08, 0, Math.PI * 2); ctx.fill();
+
+  /* преломление снизу-справа + искорка на ободке */
+  ctx.strokeStyle = 'rgba(255,255,255,.55)';
+  ctx.lineWidth = Math.max(2, r * 0.07); ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(0, 0, r * 0.74, Math.PI * 0.22, Math.PI * 0.5); ctx.stroke();
+  ctx.strokeStyle = 'hsla(' + ((h + 40) % 360) + ',100%,88%,.9)';
+  ctx.lineWidth = Math.max(1.5, r * 0.045);
+  ctx.beginPath(); ctx.arc(0, 0, r * 0.96, -0.35, 0.25); ctx.stroke();
 }
 
 /* ---------------- зверята (8 видов) ---------------- */
