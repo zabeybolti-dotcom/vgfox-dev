@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#7FC9F5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Игры — vgfox.ru</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { height:100%; }
+  body {
+    min-height:100vh; min-height:100dvh;
+    display:flex; flex-direction:column; align-items:center;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:linear-gradient(180deg,#6FC2F2 0%,#9AD7F8 45%,#D6F2E3 100%);
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+    user-select:none; -webkit-user-select:none;
+  }
+
+  /* ===== декорации фона ===== */
+  .sun,.cloud,.bub { position:fixed; pointer-events:none; }
+
+  .sun {
+    top:max(4vh,env(safe-area-inset-top)); right:6vw;
+    width:clamp(64px,14vw,110px); height:clamp(64px,14vw,110px);
+    border-radius:50%;
+    background:radial-gradient(circle at 38% 34%,#FFF7C2,#FFD75E 62%,#FFC53D);
+    box-shadow:0 0 34px 10px rgba(255,214,90,.55);
+    animation:sunPulse 5s ease-in-out infinite;
+  }
+  @keyframes sunPulse { 50% { transform:scale(1.06); } }
+
+  .cloud {
+    width:120px; height:34px; border-radius:34px;
+    background:#fff; opacity:.85;
+  }
+  .cloud::before,.cloud::after {
+    content:""; position:absolute; background:#fff; border-radius:50%;
+  }
+  .cloud::before { width:52px; height:52px; top:-26px; left:20px; }
+  .cloud::after  { width:38px; height:38px; top:-17px; right:22px; }
+  .c1 { top:14%; left:-180px; animation:drift 75s linear infinite; }
+  .c2 { top:30%; left:-180px; transform:scale(.7); animation:drift 95s linear 18s infinite; opacity:.7; }
+  .c3 { top:7%;  left:-180px; transform:scale(1.15); animation:drift 110s linear 46s infinite; opacity:.75; }
+  @keyframes drift { to { transform:translateX(calc(100vw + 400px)); } }
+
+  .bub {
+    bottom:-70px; border-radius:50%;
+    background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.8),rgba(255,255,255,.06) 62%);
+    border:1px solid rgba(255,255,255,.4);
+    animation:rise linear infinite;
+  }
+  .bub:nth-child(1){ left:8%;  width:34px; height:34px; animation-duration:19s; }
+  .bub:nth-child(2){ left:26%; width:56px; height:56px; animation-duration:25s; animation-delay:5s; }
+  .bub:nth-child(3){ left:52%; width:24px; height:24px; animation-duration:16s; animation-delay:9s; }
+  .bub:nth-child(4){ left:74%; width:46px; height:46px; animation-duration:22s; animation-delay:3s; }
+  .bub:nth-child(5){ left:88%; width:30px; height:30px; animation-duration:18s; animation-delay:12s; }
+  @keyframes rise {
+    0%   { transform:translate(0,0); }
+    50%  { transform:translate(16px,-55vh); }
+    100% { transform:translate(-8px,-115vh); }
+  }
+
+  /* ===== контент ===== */
+  .wrap {
+    position:relative; z-index:2;
+    margin:auto; /* центрируем, когда влезает; листается, когда нет */
+    display:flex; flex-direction:column; align-items:center;
+    gap:clamp(20px,4.5vh,38px);
+    width:min(100%,920px);
+    padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right))
+            max(20px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  }
+
+  header { text-align:center; }
+  .logo {
+    display:inline-block; font-size:clamp(42px,11vw,60px); line-height:1;
+    animation:wob 2.6s ease-in-out infinite;
+  }
+  @keyframes wob { 50% { transform:rotate(8deg) scale(1.08); } }
+  h1 {
+    margin-top:8px;
+    font-size:clamp(27px,7.5vw,42px); font-weight:800; letter-spacing:.5px;
+    color:#fff;
+    text-shadow:0 3px 0 rgba(66,120,170,.35),0 10px 24px rgba(66,120,170,.4);
+  }
+
+  .list {
+    display:grid; grid-template-columns:1fr;
+    gap:clamp(14px,3.5vw,24px);
+    width:100%;
+  }
+
+  .card {
+    position:relative;
+    display:flex; align-items:center;
+    gap:clamp(12px,3vw,18px);
+    min-height:clamp(100px,27vw,136px);
+    padding:clamp(14px,3.5vw,22px);
+    text-decoration:none;
+    border-radius:28px;
+    background:rgba(255,255,255,.93);
+    box-shadow:0 10px 26px rgba(50,90,140,.20),inset 0 -4px 0 rgba(70,110,160,.08);
+    transition:transform .16s ease,box-shadow .16s ease;
+    touch-action:manipulation;
+    overflow:hidden;
+  }
+  .card:active { transform:scale(.96); }
+  @media (hover:hover) {
+    .card:hover { transform:translateY(-4px); box-shadow:0 16px 32px rgba(50,90,140,.28); }
+  }
+
+  .ico {
+    flex:0 0 auto;
+    display:grid; place-items:center;
+    width:clamp(66px,19vw,94px); height:clamp(66px,19vw,94px);
+    border-radius:50%;
+    font-size:clamp(38px,11vw,52px); line-height:1;
+    box-shadow:inset 0 -7px 12px rgba(0,0,0,.08),0 5px 12px rgba(50,90,140,.18);
+    animation:bob 3s ease-in-out infinite;
+  }
+  .g2 .ico { animation-delay:.45s; }
+  .g3 .ico { animation-delay:.9s; }
+  @keyframes bob { 50% { transform:translateY(-7px); } }
+  .g1 .ico { background:linear-gradient(160deg,#FFF6B7,#FFE08A); }
+  .g2 .ico { background:linear-gradient(160deg,#D9EDFF,#A9D4FF); }
+  .g3 .ico { background:linear-gradient(160deg,#FFD9E8,#FFB2CF); }
+
+  .txt b {
+    display:block;
+    font-size:clamp(19px,5vw,26px); font-weight:800; letter-spacing:.2px;
+    color:#2B3A55;
+  }
+  .txt small {
+    display:block; margin-top:4px;
+    font-size:clamp(13px,3.6vw,16px); font-weight:600;
+    color:#5B6B85;
+  }
+
+  /* номерок в уголке — родителям проще сказать «играй в вторую» */
+  .num {
+    position:absolute; top:12px; right:14px;
+    width:26px; height:26px; border-radius:50%;
+    display:grid; place-items:center;
+    font-size:14px; font-weight:800; color:#fff;
+    box-shadow:0 2px 6px rgba(50,90,140,.25);
+  }
+  .g1 .num { background:#F5A623; }
+  .g2 .num { background:#4A90D9; }
+  .g3 .num { background:#EC5E9D; }
+
+  /* планшеты и десктоп: три карточки в ряд, вертикальные */
+  @media (min-width:640px) {
+    .list { grid-template-columns:repeat(3,1fr); }
+    .card { flex-direction:column; justify-content:center; text-align:center; gap:14px; padding:28px 18px 24px; }
+    .txt b { font-size:clamp(20px,2.4vw,26px); }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    *,*::before,*::after { animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="cloud c1" aria-hidden="true"></div>
+  <div class="cloud c2" aria-hidden="true"></div>
+  <div class="cloud c3" aria-hidden="true"></div>
+  <div aria-hidden="true">
+    <i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i><i class="bub"></i>
+  </div>
+
+  <main class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">🎮</div>
+      <h1>Выбери игру!</h1>
+    </header>
+
+    <nav class="list" aria-label="Игры">
+      <a class="card g1" href="1/">
+        <span class="num">1</span>
+        <span class="ico" aria-hidden="true">🌼</span>
+        <span class="txt"><b>Весёлая лужайка</b><small>Зверята, шарики и пузыри</small></span>
+      </a>
+      <a class="card g2" href="2/">
+        <span class="num">2</span>
+        <span class="ico" aria-hidden="true">🌟</span>
+        <span class="txt"><b>Катись, шарик!</b><small>Катись и собирай звёздочки</small></span>
+      </a>
+      <a class="card g3" href="3/">
+        <span class="num">3</span>
+        <span class="ico" aria-hidden="true">🎈</span>
+        <span class="txt"><b>Лопаем шарики!</b><small>Лопай шарики и слушай музыку</small></span>
+      </a>
+    </nav>
+  </main>
+</body>
+</html>
