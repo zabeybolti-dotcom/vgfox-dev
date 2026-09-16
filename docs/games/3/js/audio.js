@@ -48,7 +48,7 @@ function beep(t, f0, f1, dur, type, vol, dest) {
 /* Нота ксилофона: очень быстрая атака + негармонические обертоны
    настоящих пластинок (1 : 3.93 : 9.2) + стук молоточка */
 function xylo(t, f, vol) {
-  var parts = [[1, 1, 0.5], [3.93, 0.32, 0.16], [9.2, 0.16, 0.08]];
+  var parts = [[1, 1, 0.36], [3.93, 0.32, 0.13], [9.2, 0.15, 0.07]];
   for (var i = 0; i < parts.length; i++) {
     var o = AC.createOscillator(), g = AC.createGain();
     o.type = 'sine';
@@ -79,33 +79,11 @@ export function unlock() {
 export function setSound(on) { soundOn = on; }
 export function setMusic(on) { musicOn = on; if (on) startMusic(); else stopMusic(); }
 
-/* Хлопок лопания + ксилофонная нотка — всегда случайная */
+/* Одно касание — одна чистая нота ксилофона, всегда случайная.
+   Никаких наслоений: хлопок, отголоски и аккорды убраны — их было слишком много */
 export function popSound(kind, num, score) {
   var a = ac(); if (!a || !soundOn) return;
-  var t = a.currentTime, i;
-
-  /* лёгкий «пик» самого хлопка */
-  beep(t, 320 + Math.random() * 240, 80, 0.09, 'triangle', 0.2);
-  /* ксилофон: случайная нота, иногда с отголоском октавой выше */
-  xylo(t + 0.015, rndNote(), 0.3);
-  if (Math.random() < 0.3) xylo(t + 0.09, rndNote() * 2, 0.11);
-
-  if (kind === 1) {                    /* фигурки: аккордик из двух нот */
-    xylo(t + 0.03, rndNote(), 0.14);
-    xylo(t + 0.03, rndNote(), 0.12);
-  }
-  if (kind === 2 && num) {             /* цифры: N ноток-лесенка от случайной ступеньки */
-    var off = (Math.random() * 3) | 0;
-    for (i = 0; i < num; i++) xylo(t + 0.06 + i * 0.1, PENT[(off + i) % PENT.length], 0.2);
-  }
-  if (kind === 3) {                    /* зверята: «бо-о-инг» */
-    beep(t + 0.02, 260, 540, 0.12, 'sine', 0.12);
-    beep(t + 0.13, 520, 300, 0.16, 'sine', 0.1);
-  }
-  if (kind === 4) {                    /* пузыри: «буль» */
-    beep(t, 140, 560, 0.1, 'sine', 0.2);
-    beep(t + 0.05, 180, 700, 0.09, 'sine', 0.09);
-  }
+  xylo(a.currentTime, rndNote(), 0.34);
 }
 
 /* Фанфара вехи: пробег по пентатонике на ксилофоне + колокольчики */
