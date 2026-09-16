@@ -12,22 +12,23 @@ export function shade(hex, t) {
   return 'rgb(' + Math.round(c[0] + (m - c[0]) * k) + ',' + Math.round(c[1] + (m - c[1]) * k) + ',' + Math.round(c[2] + (m - c[2]) * k) + ')';
 }
 
-/* Глянцевый радиальный градиент (в центре системы координат шарика) */
+/* Глянцевый радиальный градиент (в центре системы координат шарика):
+   свет сверху-слева, тело держит основной цвет, к краю — сочное затемнение */
 export function glossy(ctx, r, main, dark) {
-  var g = ctx.createRadialGradient(-r * 0.35, -r * 0.45, r * 0.12, 0, 0, r * 1.02);
-  g.addColorStop(0, shade(main, 0.6));
+  var g = ctx.createRadialGradient(-r * 0.38, -r * 0.42, r * 0.14, 0, 0, r * 1.04);
+  g.addColorStop(0, shade(main, 0.5));
   g.addColorStop(0.5, main);
+  g.addColorStop(0.8, shade(main, -0.06));
   g.addColorStop(1, dark);
   return g;
 }
 
-/* Блики */
+/* Блики: мягкий главный + маленькая искорка */
 export function highlight(ctx, r) {
-  ctx.fillStyle = 'rgba(255,255,255,.8)';
-  ctx.beginPath(); ctx.ellipse(-r * 0.34, -r * 0.42, r * 0.2, r * 0.3, -0.6, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,.9)';
-  ctx.beginPath(); ctx.arc(-r * 0.05, -r * 0.62, r * 0.07, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.arc(-r * 0.52, -r * 0.12, r * 0.05, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,.55)';
+  ctx.beginPath(); ctx.ellipse(-r * 0.34, -r * 0.44, r * 0.22, r * 0.32, -0.6, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,.75)';
+  ctx.beginPath(); ctx.arc(-r * 0.06, -r * 0.64, r * 0.07, 0, Math.PI * 2); ctx.fill();
 }
 
 /* Узелок и волнистая верёвочка */
@@ -38,12 +39,6 @@ export function knotString(ctx, b, r, dark) {
   ctx.beginPath(); ctx.moveTo(0, r * 1.12);
   for (var i = 1; i <= 10; i++) { ctx.lineTo(Math.sin(b.ph * 2 + i * 0.9) * r * 0.14, r * 1.12 + i * r * 0.11); }
   ctx.stroke();
-}
-
-/* Мягкая тень позади шарика — придаёт объём */
-export function softShadow(ctx, r) {
-  ctx.fillStyle = 'rgba(40,60,120,.10)';
-  ctx.beginPath(); ctx.ellipse(r * 0.10, r * 0.14, r * 1.02, r * 1.0, 0, 0, Math.PI * 2); ctx.fill();
 }
 
 /* ============================================================
@@ -83,7 +78,7 @@ export function face(ctx, r, dark, expr, blink, skipMouth) {
     ctx.stroke();
   }
   /* щёчки */
-  ctx.fillStyle = 'rgba(255,120,150,.45)';
+  ctx.fillStyle = 'rgba(255,120,150,.35)';
   ctx.beginPath();
   ctx.arc(-r * 0.5, r * 0.18, r * 0.12, 0, Math.PI * 2);
   ctx.arc(r * 0.5, r * 0.18, r * 0.12, 0, Math.PI * 2);
@@ -110,12 +105,16 @@ export function starPath(ctx, r) {
   ctx.closePath();
 }
 
-/* Путь сердечка */
-export function heartPath(ctx, r) {
+/* Многоугольник со скруглёнными углами (pts — [[x,y],...]) */
+export function roundedPoly(ctx, pts, rad) {
+  var n = pts.length;
   ctx.beginPath();
-  ctx.moveTo(0, r * 0.62);
-  ctx.bezierCurveTo(-r * 0.95, r * 0.05, -r * 0.72, -r * 0.75, 0, -r * 0.28);
-  ctx.bezierCurveTo(r * 0.72, -r * 0.75, r * 0.95, r * 0.05, 0, r * 0.62);
+  ctx.moveTo((pts[0][0] + pts[n - 1][0]) / 2, (pts[0][1] + pts[n - 1][1]) / 2);
+  for (var i = 0; i < n; i++) {
+    var p = pts[i], q = pts[(i + 1) % n];
+    ctx.arcTo(p[0], p[1], q[0], q[1], rad);
+    ctx.lineTo((p[0] + q[0]) / 2, (p[1] + q[1]) / 2);
+  }
   ctx.closePath();
 }
 

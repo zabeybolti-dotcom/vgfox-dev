@@ -59,21 +59,10 @@ export function unlock() {
 export function setSound(on) { soundOn = on; }
 export function setMusic(on) { musicOn = on; if (on) startMusic(); else stopMusic(); }
 
-/* Хлопок лопания — свой оттенок у каждого режима + спец-шарики */
-export function popSound(kind, num, special, score) {
+/* Хлопок лопания — свой оттенок у каждого режима */
+export function popSound(kind, num, score) {
   var a = ac(); if (!a || !soundOn) return;
   var t = a.currentTime, i;
-
-  if (special === 'rainbow') {
-    beep(t, 300, 1500, 0.28, 'sawtooth', 0.09);
-    [523.25, 659.25, 783.99].forEach(function (f, k) { beep(t + 0.07 + k * 0.05, f, f, 0.3, 'triangle', 0.12); });
-    return;
-  }
-  if (special === 'gold') {
-    [523.25, 659.25, 783.99, 1046.5].forEach(function (f, k) { beep(t + k * 0.07, f, f, 0.24, 'square', 0.09); });
-    beep(t, 600, 120, 0.14, 'triangle', 0.3);
-    return;
-  }
 
   /* база: сам «хлопок» */
   beep(t, 480 + Math.random() * 280, 90, 0.13, 'triangle', 0.32);
@@ -94,9 +83,6 @@ export function popSound(kind, num, special, score) {
   if (kind === 4) {                    /* пузыри: «буль-буль» */
     beep(t, 140, 560, 0.10, 'sine', 0.22);
     beep(t + 0.05, 180, 700, 0.09, 'sine', 0.10);
-  }
-  if (special === 'giant') {           /* гигантский: низкий солидный «БАМ» */
-    beep(t, 190, 55, 0.24, 'triangle', 0.28);
   }
 }
 

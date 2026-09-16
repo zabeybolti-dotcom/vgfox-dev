@@ -5,7 +5,6 @@ import { PAL, ANIMALS } from './config.js';
 import * as D from './draw.js';
 
 /* kind: 0 шарики, 1 фигурки, 2 цифры, 3 зверята, 4 пузыри
-   o.special: 'rainbow' | 'gold' | 'giant' | null
    o.speedMul / o.sizeMul — адаптивная сложность
    o.instant — появиться сразу в центре экрана */
 export function makeBalloon(W, H, kind, o) {
@@ -13,12 +12,10 @@ export function makeBalloon(W, H, kind, o) {
   var m = Math.min(W, H);
   var b = {
     kind: kind,
-    special: o.special || null,
-    r: m * (0.09 + Math.random() * 0.045) * (o.sizeMul || 1) * (o.special === 'giant' ? 1.9 : 1),
+    r: m * (0.085 + Math.random() * 0.035) * (o.sizeMul || 1),
     x: 0,
     y: o.instant ? H * 0.45 : H + m * 0.25,
-    v: H * (0.07 + Math.random() * 0.05) * (o.speedMul || 1) *
-       (o.special === 'giant' ? 0.55 : o.special === 'rainbow' ? 0.8 : 1),
+    v: H * (0.07 + Math.random() * 0.05) * (o.speedMul || 1),
     ph: Math.random() * 6.283, sw: 0.5 + Math.random() * 0.8,
     t: 0, rot: 0, dead: false,
     expr: Math.floor(Math.random() * 3),        /* 0 улыбка, 1 удивление, 2 подмигивание */
@@ -30,7 +27,7 @@ export function makeBalloon(W, H, kind, o) {
     b.pal = PAL[Math.floor(Math.random() * PAL.length)];
     b.cols = b.pal;
   }
-  if (kind === 1) b.shape = Math.floor(Math.random() * 3); /* 0 звезда, 1 сердце, 2 цветок */
+  if (kind === 1) b.shape = Math.floor(Math.random() * 5); /* 0 круг 1 квадрат 2 треугольник 3 ромб 4 звезда */
   if (kind === 2) b.num = 1 + Math.floor(Math.random() * 5);
   if (kind === 3) {
     b.an = Math.floor(Math.random() * ANIMALS.length);
@@ -40,8 +37,6 @@ export function makeBalloon(W, H, kind, o) {
     b.hue = Math.random() * 360;
     b.cols = ['hsla(' + Math.round(b.hue) + ',90%,70%,.95)', '#ffffff'];
   }
-  if (b.special === 'gold') b.cols = ['#ffd93d', '#e8a812'];
-  if (b.special === 'rainbow') b.cols = ['#ff5d6c', '#ffb03a', '#ffe14d', '#5ad469', '#4dc9ff', '#7a7bff', '#c77dff'];
   return b;
 }
 
@@ -69,10 +64,7 @@ export function drawBalloon(ctx, b) {
   ctx.save();
   ctx.translate(b.x, b.y - b.bounceOff);
   ctx.rotate(b.rot);
-  D.softShadow(ctx, b.r);
-  if (b.special === 'rainbow') drawRainbow(ctx, b);
-  else if (b.special === 'gold') drawGold(ctx, b);
-  else if (b.kind === 0) drawClassic(ctx, b);
+  if (b.kind === 0) drawClassic(ctx, b);
   else if (b.kind === 1) drawShape(ctx, b);
   else if (b.kind === 2) drawNumber(ctx, b);
   else if (b.kind === 3) drawAnimal(ctx, b);
@@ -87,52 +79,83 @@ function drawClassic(ctx, b) {
   D.knotString(ctx, b, r, b.pal[1]);
   ctx.fillStyle = D.glossy(ctx, r, b.pal[0], b.pal[1]);
   ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(0,0,0,.1)'; ctx.lineWidth = r * 0.05;
-  ctx.beginPath(); ctx.arc(0, 0, r * 0.98, 0, Math.PI * 2); ctx.stroke();
   D.highlight(ctx, r);
   D.face(ctx, r, b.pal[1], b.expr, b.blink);
-  if (b.special === 'giant') drawCrown(ctx, r); /* гигантский — с короной! */
 }
 
+/* kind 1 — геометрические фигуры: круг, квадрат, треугольник, ромб, звезда */
 function drawShape(ctx, b) {
   var r = b.r;
   D.knotString(ctx, b, r, b.pal[1]);
-  if (b.shape === 2) { /* цветочек */
-    ctx.fillStyle = b.pal[0]; ctx.strokeStyle = b.pal[1]; ctx.lineWidth = r * 0.06; ctx.lineJoin = 'round';
-    for (var i = 0; i < 6; i++) {
-      var a = i * Math.PI / 3;
-      ctx.beginPath();
-      ctx.arc(Math.cos(a) * r * 0.55, Math.sin(a) * r * 0.55, r * 0.42, 0, Math.PI * 2);
-      ctx.fill(); ctx.stroke();
-    }
-    var g = ctx.createRadialGradient(-r * 0.1, -r * 0.1, r * 0.05, 0, 0, r * 0.5);
-    g.addColorStop(0, '#fff7c9'); g.addColorStop(1, '#ffd93d');
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r * 0.42, 0, Math.PI * 2); ctx.fill();
-    D.highlight(ctx, r * 0.5);
-    return;
+  var build;
+  if (b.shape === 0) {
+    build = function (c) { c.beginPath(); c.arc(0, 0, r * 0.95, 0, Math.PI * 2); };
+  } else if (b.shape === 1) {
+    build = function (c) { D.roundedPoly(c, [[-r * 0.8, -r * 0.8], [r * 0.8, -r * 0.8], [r * 0.8, r * 0.8], [-r * 0.8, r * 0.8]], r * 0.26); };
+  } else if (b.shape === 2) {
+    build = function (c) { D.roundedPoly(c, [[0, -r * 1.02], [r * 0.98, r * 0.72], [-r * 0.98, r * 0.72]], r * 0.24); };
+  } else if (b.shape === 3) {
+    build = function (c) { D.roundedPoly(c, [[0, -r * 1.05], [r * 0.82, 0], [0, r * 1.05], [-r * 0.82, 0]], r * 0.24); };
+  } else {
+    build = function (c) { D.starPath(c, r); };
   }
-  var build = b.shape === 0 ? D.starPath : D.heartPath;
-  ctx.lineJoin = 'round'; ctx.strokeStyle = b.pal[1]; ctx.lineWidth = r * 0.18;
-  build(ctx, r); ctx.stroke();
+  ctx.lineJoin = 'round'; ctx.strokeStyle = b.pal[1]; ctx.lineWidth = r * 0.14;
+  build(ctx); ctx.stroke();
   ctx.fillStyle = D.glossy(ctx, r, b.pal[0], b.pal[1]);
-  build(ctx, r); ctx.fill();
-  ctx.save(); build(ctx, r); ctx.clip(); D.highlight(ctx, r); ctx.restore();
-  D.face(ctx, r * 0.62, b.pal[1], b.expr, b.blink);
+  build(ctx); ctx.fill();
+  ctx.save(); build(ctx); ctx.clip(); D.highlight(ctx, r); ctx.restore();
+  /* мордочка — меньше и с учётом формы фигуры */
+  var fr = r * (b.shape === 1 ? 0.68 : b.shape === 0 ? 0.78 : 0.52);
+  var fy = b.shape === 2 ? r * 0.2 : b.shape === 3 ? r * 0.04 : 0;
+  ctx.save(); ctx.translate(0, fy);
+  D.face(ctx, fr, b.pal[1], b.expr, b.blink);
+  ctx.restore();
 }
 
+/* ---------------- цифры: шарик в форме самой цифры ---------------- */
+var numCv = null, numCtx = null; /* общий офскрин-холст, DPR-чёткий */
+
 function drawNumber(ctx, b) {
-  var r = b.r;
-  D.knotString(ctx, b, r, b.pal[1]);
-  ctx.fillStyle = D.glossy(ctx, r, b.pal[0], b.pal[1]);
-  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(0,0,0,.1)'; ctx.lineWidth = r * 0.05;
-  ctx.beginPath(); ctx.arc(0, 0, r * 0.98, 0, Math.PI * 2); ctx.stroke();
-  D.highlight(ctx, r);
-  ctx.font = '900 ' + Math.round(r * 1.15) + 'px "Arial Rounded MT Bold","Comic Sans MS",system-ui,sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
-  ctx.strokeStyle = 'rgba(255,255,255,.95)'; ctx.lineWidth = r * 0.24;
-  ctx.strokeText(b.num, 0, r * 0.06);
-  ctx.fillStyle = b.pal[1]; ctx.fillText(b.num, 0, r * 0.06);
+  var r = b.r, main = b.pal[0], dark = b.pal[1];
+  var FONT = '"Arial Black","Arial Rounded MT Bold","Comic Sans MS",system-ui,sans-serif';
+  var q = Math.min(2, window.devicePixelRatio || 1);
+  var S = Math.ceil(r * 3.6 * q);
+
+  if (!numCv) { numCv = document.createElement('canvas'); numCtx = numCv.getContext('2d'); }
+  if (numCv.width < S) { numCv.width = S; numCv.height = S; }
+
+  var c = numCtx;
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  c.clearRect(0, 0, numCv.width, numCv.height);
+  c.setTransform(q, 0, 0, q, numCv.width / 2, numCv.height / 2);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.lineJoin = 'round'; c.lineCap = 'round'; c.miterLimit = 2;
+
+  var fs = r * 2.3;
+  c.font = '900 ' + Math.round(fs) + 'px ' + FONT;
+  var w = c.measureText(b.num).width;
+  if (w > r * 1.7) { /* широкие цифры чуть ужмём, чтобы влезали */
+    fs = fs * r * 1.7 / w;
+    c.font = '900 ' + Math.round(fs) + 'px ' + FONT;
+  }
+
+  /* жирный скруглённый контур — «тельце» шарика-цифры */
+  c.strokeStyle = dark; c.lineWidth = r * 0.34;
+  c.strokeText(b.num, 0, -r * 0.05);
+  /* глянцевая заливка точно по форме цифры */
+  c.fillStyle = D.glossy(c, r * 1.05, main, dark);
+  c.fillText(b.num, 0, -r * 0.05);
+  /* блик — только внутри цифры (source-atop не выходит за глиф) */
+  c.globalCompositeOperation = 'source-atop';
+  c.fillStyle = 'rgba(255,255,255,.5)';
+  c.beginPath(); c.ellipse(-r * 0.38, -r * 0.6, r * 0.24, r * 0.42, -0.5, 0, Math.PI * 2); c.fill();
+  c.fillStyle = 'rgba(255,255,255,.7)';
+  c.beginPath(); c.arc(-r * 0.02, -r * 0.88, r * 0.08, 0, Math.PI * 2); c.fill();
+  c.globalCompositeOperation = 'source-over';
+
+  D.knotString(ctx, b, r, dark);
+  ctx.drawImage(numCv, 0, 0, numCv.width, numCv.height,
+    -numCv.width / (2 * q), -numCv.height / (2 * q), numCv.width / q, numCv.height / q);
 }
 
 function drawBubble(ctx, b) {
@@ -206,8 +229,6 @@ function drawAnimal(ctx, b) {
   /* тело */
   ctx.fillStyle = D.glossy(ctx, r, A.body, A.dark);
   ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(0,0,0,.12)'; ctx.lineWidth = r * 0.05;
-  ctx.beginPath(); ctx.arc(0, 0, r * 0.98, 0, Math.PI * 2); ctx.stroke();
   D.highlight(ctx, r);
 
   /* детали «на» теле */
@@ -282,59 +303,4 @@ function drawAnimal(ctx, b) {
     ctx.fillStyle = '#ff5d84';
     ctx.beginPath(); ctx.moveTo(0, r * 0.06); ctx.lineTo(-r * 0.07, r * 0.14); ctx.lineTo(r * 0.07, r * 0.14); ctx.closePath(); ctx.fill();
   }
-}
-
-/* ---------------- спец-шарики ---------------- */
-
-/* Радужный: переливается всеми цветами, вокруг искорки */
-function drawRainbow(ctx, b) {
-  var r = b.r, t = b.t;
-  D.knotString(ctx, b, r, '#7a7bff');
-  var h = (t * 90 + b.ph * 57) % 360;
-  var g = ctx.createRadialGradient(-r * 0.35, -r * 0.45, r * 0.1, 0, 0, r * 1.02);
-  g.addColorStop(0, 'hsla(' + ((h + 40) % 360) + ',95%,80%,1)');
-  g.addColorStop(0.55, 'hsla(' + h + ',95%,65%,1)');
-  g.addColorStop(1, 'hsla(' + ((h + 80) % 360) + ',90%,45%,1)');
-  ctx.fillStyle = g;
-  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = r * 0.05;
-  ctx.beginPath(); ctx.arc(0, 0, r * 0.97, 0, Math.PI * 2); ctx.stroke();
-  D.highlight(ctx, r);
-  D.face(ctx, r, '#5b4bc4', b.expr, b.blink);
-  for (var i = 0; i < 3; i++) {
-    var a = t * 2 + i * 2.1;
-    D.sparkle(ctx, Math.cos(a) * r * 1.3, Math.sin(a * 1.3) * r * 1.15, r * 0.1, '#fff', 0.9);
-  }
-}
-
-/* Золотая звезда: сияет и искрится */
-function drawGold(ctx, b) {
-  var r = b.r;
-  D.knotString(ctx, b, r, '#c9971c');
-  ctx.lineJoin = 'round'; ctx.strokeStyle = '#c9971c'; ctx.lineWidth = r * 0.16;
-  D.starPath(ctx, r); ctx.stroke();
-  var g = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.05, 0, 0, r);
-  g.addColorStop(0, '#fff6c0'); g.addColorStop(0.55, '#ffd93d'); g.addColorStop(1, '#e8a812');
-  ctx.fillStyle = g;
-  D.starPath(ctx, r); ctx.fill();
-  ctx.save(); D.starPath(ctx, r); ctx.clip(); D.highlight(ctx, r * 0.8); ctx.restore();
-  D.face(ctx, r * 0.62, '#a87808', b.expr, b.blink);
-  D.sparkle(ctx, r * 0.95, -r * 0.8, r * 0.09, '#fff', 0.8 + Math.sin(b.t * 6) * 0.2);
-  D.sparkle(ctx, -r * 0.9, r * 0.5, r * 0.07, '#fff', 0.6 + Math.sin(b.t * 5 + 2) * 0.3);
-}
-
-/* Корона гигантского шарика */
-function drawCrown(ctx, r) {
-  ctx.fillStyle = '#ffd93d'; ctx.strokeStyle = '#e8a812'; ctx.lineWidth = r * 0.035; ctx.lineJoin = 'round';
-  ctx.beginPath();
-  ctx.moveTo(-r * 0.34, -r * 1.02);
-  ctx.lineTo(-r * 0.34, -r * 1.3);
-  ctx.lineTo(-r * 0.17, -r * 1.12);
-  ctx.lineTo(0, -r * 1.38);
-  ctx.lineTo(r * 0.17, -r * 1.12);
-  ctx.lineTo(r * 0.34, -r * 1.3);
-  ctx.lineTo(r * 0.34, -r * 1.02);
-  ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#ff5d6c';
-  ctx.beginPath(); ctx.arc(0, -r * 1.08, r * 0.05, 0, Math.PI * 2); ctx.fill();
 }

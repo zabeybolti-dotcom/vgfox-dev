@@ -51,24 +51,13 @@ mode = Math.min(4, parseInt(ls('b3_mode', '0'), 10) || 0);
 function speedMul() {
   return (0.8 + Math.min(0.5, score * 0.01)) * assist;
 }
-function pickSpecial() {
-  var r = Math.random();
-  var has = function (s) { return balloons.some(function (b) { return b.special === s; }); };
-  if (r < CFG.P_RAINBOW && !has('rainbow')) return 'rainbow';
-  if (r < CFG.P_RAINBOW + CFG.P_GOLD && !has('gold')) return 'gold';
-  if (r < CFG.P_RAINBOW + CFG.P_GOLD + CFG.P_GIANT && !has('giant')) return 'giant';
-  return null;
-}
 
 /* ---------------- лопание ---------------- */
 function pop(b) {
   b.dead = true;
   P.spawnPop(b, W, H);
-  A.popSound(b.kind, b.num, b.special, score);
-  A.vibrate(b.special ? 60 : 25);
-  if (b.special === 'rainbow') BG.showRainbow(8);
-  if (b.special === 'gold') P.spawnConfettiRain(W, H, 60);
-  if (b.special === 'giant') { P.spawnConfettiRain(W, H, 35); P.spawnStreamers(W, 4); }
+  A.popSound(b.kind, b.num, score);
+  A.vibrate(25);
   score++;
   missStreak = 0;
   assist = Math.min(1, assist + 0.04);
@@ -99,7 +88,7 @@ function toGame(cx, cy) {
 function hit(x, y, isMove) {
   for (var i = balloons.length - 1; i >= 0; i--) {
     var b = balloons[i], dx = x - b.x, dy = y - (b.y - b.bounceOff);
-    var rr = b.r * CFG.HIT_R;
+    var rr = b.r * (b.kind === 2 ? 1.55 : CFG.HIT_R); /* цифра шире круга */
     if (dx * dx + dy * dy < rr * rr) { pop(b); return true; }
   }
   if (!isMove) { /* промах считаем только по нажатию, не по проведению */
@@ -166,8 +155,7 @@ function frame(now) {
   if ((spawnAcc > interval && balloons.length < CFG.MAX_B) || balloons.length === 0) {
     balloons.push(B.makeBalloon(W, H, mode, {
       speedMul: speedMul(),
-      sizeMul: assist < 1 ? 1.2 : 1,  /* если трудно — шарики крупнее */
-      special: pickSpecial(),
+      sizeMul: assist < 1 ? 1.15 : 1,  /* если трудно — шарики чуть крупнее */
       instant: balloons.length === 0
     }));
     spawnAcc = 0;
@@ -182,7 +170,7 @@ function frame(now) {
   }
 
   B.updateBalloons(balloons, dt, W, H, {
-    onEscape: function (b) { A.byeSound(); P.spawnBye(b.x, Math.max(40, H * 0.06)); }
+    onEscape: function (b) { A.byeSound(); }
   });
   balloons = balloons.filter(function (x) { return !x.dead; });
 
