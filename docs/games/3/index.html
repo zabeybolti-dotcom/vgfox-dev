@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>🎈 Лопаем шарики!</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎈</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- датчик выреза сверху (safe-area) -->
+<div id="probe"></div>
+
+<!-- единственные две кнопки: настройки и полный экран -->
+<div id="topbar">
+  <button type="button" class="rbtn" id="btnFull" aria-label="Полный экран">⛶</button>
+  <button type="button" class="rbtn" id="btnSettings" aria-label="Настройки">⚙️</button>
+</div>
+
+<div id="menu" class="hidden">
+  <div class="card">
+    <h2>Настройки</h2>
+    <div id="modeGrid">
+      <button type="button" class="mbtn active" data-mode="0"><span class="ic">🎈</span><span class="lb">Шарики</span></button>
+      <button type="button" class="mbtn" data-mode="1"><span class="ic">⭐</span><span class="lb">Фигурки</span></button>
+      <button type="button" class="mbtn" data-mode="2"><span class="ic">🔢</span><span class="lb">Цифры</span></button>
+      <button type="button" class="mbtn" data-mode="3"><span class="ic">🐻</span><span class="lb">Зверята</span></button>
+      <button type="button" class="mbtn" data-mode="4"><span class="ic">🫧</span><span class="lb">Пузыри</span></button>
+    </div>
+    <div class="toggles">
+      <button type="button" class="tgl" id="tglSound">🔊 Звуки</button>
+      <button type="button" class="tgl" id="tglMusic">🎵 Музыка</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
