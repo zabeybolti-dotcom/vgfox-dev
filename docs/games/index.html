@@ -115,21 +115,13 @@
     .card:hover { transform:translateY(-4px); box-shadow:0 16px 32px rgba(50,90,140,.28); }
   }
 
-  .ico {
+  .shot {
     flex:0 0 auto;
-    display:grid; place-items:center;
-    width:clamp(66px,19vw,94px); height:clamp(66px,19vw,94px);
-    border-radius:50%;
-    font-size:clamp(38px,11vw,52px); line-height:1;
-    box-shadow:inset 0 -7px 12px rgba(0,0,0,.08),0 5px 12px rgba(50,90,140,.18);
-    animation:bob 3s ease-in-out infinite;
+    width:clamp(104px,28vw,132px); height:clamp(104px,28vw,132px);
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 6px 14px rgba(50,90,140,.28),inset 0 0 0 1px rgba(255,255,255,.55);
   }
-  .g2 .ico { animation-delay:.45s; }
-  .g3 .ico { animation-delay:.9s; }
-  @keyframes bob { 50% { transform:translateY(-7px); } }
-  .g1 .ico { background:linear-gradient(160deg,#FFF6B7,#FFE08A); }
-  .g2 .ico { background:linear-gradient(160deg,#D9EDFF,#A9D4FF); }
-  .g3 .ico { background:linear-gradient(160deg,#FFD9E8,#FFB2CF); }
 
   .txt b {
     display:block;
@@ -157,7 +149,8 @@
   /* планшеты и десктоп: три карточки в ряд, вертикальные */
   @media (min-width:640px) {
     .list { grid-template-columns:repeat(3,1fr); }
-    .card { flex-direction:column; justify-content:center; text-align:center; gap:14px; padding:28px 18px 24px; }
+    .card { flex-direction:column; justify-content:center; text-align:center; gap:12px; padding:14px 14px 20px; }
+    .shot { width:100%; height:auto; aspect-ratio:4/5; border-radius:16px; }
     .txt b { font-size:clamp(20px,2.4vw,26px); }
   }
 
@@ -184,17 +177,17 @@
     <nav class="list" aria-label="Игры">
       <a class="card g1" href="1/">
         <span class="num">1</span>
-        <span class="ico" aria-hidden="true">🌼</span>
+        <img class="shot" src="img/shot1.jpg" width="480" height="600" alt="Скриншот игры «Весёлая лужайка»" decoding="async">
         <span class="txt"><b>Весёлая лужайка</b><small>Зверята, шарики и пузыри</small></span>
       </a>
       <a class="card g2" href="2/">
         <span class="num">2</span>
-        <span class="ico" aria-hidden="true">🌟</span>
+        <img class="shot" src="img/shot2.jpg" width="480" height="600" alt="Скриншот игры «Катись, шарик!»" decoding="async">
         <span class="txt"><b>Катись, шарик!</b><small>Катись и собирай звёздочки</small></span>
       </a>
       <a class="card g3" href="3/">
         <span class="num">3</span>
-        <span class="ico" aria-hidden="true">🎈</span>
+        <img class="shot" src="img/shot3.jpg" width="480" height="600" alt="Скриншот игры «Лопаем шарики!»" decoding="async">
         <span class="txt"><b>Лопаем шарики!</b><small>Лопай шарики и слушай музыку</small></span>
       </a>
     </nav>
