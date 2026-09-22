@@ -17,7 +17,7 @@
   };
 
   const fCats = document.getElementById("f-cats");
-  const fStrip = document.getElementById("f-strip");
+  const fCatSelect = document.getElementById("f-cat-select");
   const fMin = document.getElementById("f-min");
   const fMax = document.getElementById("f-max");
   const sortSel = document.getElementById("sort");
@@ -31,18 +31,17 @@
       <div class="f-cat ${state.cat === c.slug ? "is-active" : ""}" data-cat="${c.slug}" role="button" tabindex="0">
         ${FR.esc(c.name)}<span>${c.count}</span>
       </div>`).join("");
-    renderStrip();
+    if (fCatSelect) fCatSelect.value = state.cat;
   }
 
-  /* мобильная полоска категорий над карточками */
-  function renderStrip() {
-    if (!fStrip) return;
+  /* выпадающая категория над карточками (мобильные) */
+  function initCatSelect() {
+    if (!fCatSelect) return;
     const all = [{ slug: "all", name: "Все товары" }]
       .concat(CATEGORIES.map((c) => ({ slug: c.slug, name: c.name })));
-    fStrip.innerHTML = all.map((c) => `
-      <button class="cat-strip__btn ${state.cat === c.slug ? "is-active" : ""}" data-cat="${c.slug}" type="button">
-        ${FR.esc(c.name)}
-      </button>`).join("");
+    fCatSelect.innerHTML = all.map((c) =>
+      `<option value="${c.slug}">${FR.esc(c.name)}</option>`).join("");
+    fCatSelect.value = state.cat;
   }
 
   /* ---------- применение ---------- */
@@ -141,10 +140,8 @@
   fCats.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && e.target.classList.contains("f-cat")) e.target.click();
   });
-  fStrip?.addEventListener("click", (e) => {
-    const el = e.target.closest(".cat-strip__btn");
-    if (!el) return;
-    state.cat = el.dataset.cat;
+  fCatSelect?.addEventListener("change", () => {
+    state.cat = fCatSelect.value;
     renderCatFilters();
     render();
     syncUrl();
@@ -215,5 +212,6 @@
   }
 
   renderCatFilters();
+  initCatSelect();
   render();
 })();
