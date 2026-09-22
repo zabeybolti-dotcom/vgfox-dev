@@ -1,4 +1,4 @@
-/* Мастерская РА — каталог: фильтры, сортировка, поиск */
+/* Мастерская РА — каталог: фильтры, категория, поиск */
 (function () {
   "use strict";
 
@@ -20,8 +20,6 @@
   const fCatSelect = document.getElementById("f-cat-select");
   const fMin = document.getElementById("f-min");
   const fMax = document.getElementById("f-max");
-  const sortSel = document.getElementById("sort");
-  const countEl = document.getElementById("grid-count");
 
   /* ---------- фильтры: рендер ---------- */
   function renderCatFilters() {
@@ -83,21 +81,12 @@
       grid.innerHTML = list.map((p) => FR.productCard(p)).join("");
     }
 
-    countEl.innerHTML = state.q
-      ? `По запросу «<b>${FR.esc(state.q)}</b>» — ${list.length} ${plural(list.length)}`
-      : `Показано <b>${list.length}</b> ${plural(list.length)} из ${PRODUCTS.length}`;
-
-    /* заголовок и описание */
+    /* заголовок вкладки браузера */
     const cat = CATEGORIES.find((c) => c.slug === state.cat);
-    const title = document.getElementById("page-title");
-    const desc = document.getElementById("page-desc");
     if (state.q) {
-      title.textContent = "Поиск: " + state.q;
       document.title = "Поиск: " + state.q + " — Мастерская РА";
     } else if (cat) {
-      title.textContent = cat.name;
       document.title = cat.name + " — каталог Мастерская РА";
-      desc.textContent = cat.desc + ". От " + FR.fmt(cat.minPrice) + ".";
     }
 
     /* подсветка активных чипов */
@@ -106,13 +95,6 @@
     document.querySelector("[data-sale]")?.classList.toggle("is-active", state.sale);
 
     if (FR.reveal) FR.reveal();
-  }
-
-  function plural(n) {
-    const m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return "товар";
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "товара";
-    return "товаров";
   }
 
   function syncUrl() {
@@ -160,13 +142,6 @@
   fMin.addEventListener("input", onPrice);
   fMax.addEventListener("input", onPrice);
 
-  sortSel.value = state.sort;
-  sortSel.addEventListener("change", () => {
-    state.sort = sortSel.value;
-    render();
-    syncUrl();
-  });
-
   document.querySelectorAll("[data-badge]").forEach((ch) =>
     ch.addEventListener("click", () => {
       state.badge = state.badge === ch.dataset.badge ? null : ch.dataset.badge;
@@ -182,7 +157,7 @@
   document.getElementById("f-reset").addEventListener("click", () => {
     state.cat = "all"; state.q = ""; state.min = null; state.max = null;
     state.badge = null; state.sale = false; state.sort = "pop";
-    fMin.value = ""; fMax.value = ""; sortSel.value = "pop";
+    fMin.value = ""; fMax.value = "";
     const search = document.querySelector(".header .search input");
     if (search) search.value = "";
     renderCatFilters();

@@ -557,15 +557,9 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 .range input:focus { outline: none; border-color: var(--fire); }
 .range span { color: var(--muted-2); }
 
-.catalog-top {
-  display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  flex-wrap: wrap; margin-bottom: 20px;
-}
-.catalog-top__count { color: var(--muted); font-size: 14px; }
-.catalog-top__count b { color: var(--text); }
+.catalog-top { display: flex; align-items: center; }
 
 /* выпадающая категория — только на мобильных (на десктопе фильтр в сайдбаре) */
-.catalog-top__filters { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .cat-top-cat { display: none; }
 
 .sort { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
@@ -953,6 +947,7 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
   .catalog-layout { grid-template-columns: 1fr; padding-top: 18px; }
   .filters { display: none; }
   .cat-top-cat { display: flex; }
+  .catalog-top { margin-bottom: 14px; }
   .product { grid-template-columns: 1fr; }
   .product__info { position: static; }
   .cart-layout, .checkout-layout { grid-template-columns: 1fr; }

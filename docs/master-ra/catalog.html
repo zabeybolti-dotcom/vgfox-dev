@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body data-page="catalog">
   <div id="app-header"></div>
@@ -18,13 +18,6 @@
     <nav class="crumbs" aria-label="Хлебные крошки">
       <a href="index.html">Главная</a><span>/</span><b>Каталог</b>
     </nav>
-
-    <div class="section page-top" style="padding-bottom:0">
-      <span class="kicker">Каталог</span>
-      <h1 id="page-title">Весь реквизит</h1>
-      <p class="page-top__lead" id="page-desc">Всё, что делает мастерская: от мягких нобов до сценических зонтов.
-        Используйте фильтры, чтобы найти своё пламя.</p>
-    </div>
 
     <div class="catalog-layout">
       <!-- фильтры -->
@@ -57,22 +50,9 @@
       <!-- сетка -->
       <div>
         <div class="catalog-top">
-          <div class="catalog-top__count" id="grid-count"></div>
-          <div class="catalog-top__filters">
-            <label class="sort cat-top-cat">Категория
-              <select id="f-cat-select" aria-label="Категория"></select>
-            </label>
-            <label class="sort">
-              Сортировка
-              <select id="sort" aria-label="Сортировка">
-                <option value="pop">По популярности</option>
-                <option value="price-asc">Сначала дешевле</option>
-                <option value="price-desc">Сначала дороже</option>
-                <option value="name">По названию</option>
-                <option value="new">Сначала новинки</option>
-              </select>
-            </label>
-          </div>
+          <label class="sort cat-top-cat">Категория
+            <select id="f-cat-select" aria-label="Категория"></select>
+          </label>
         </div>
         <section class="grid-products" id="catalog-grid" aria-live="polite"></section>
       </div>
@@ -82,10 +62,10 @@
   <div id="app-footer"></div>
   <div id="chat-root"></div>
 
-  <script src="js/data.js?v=3"></script>
-  <script src="js/cart.js?v=3"></script>
-  <script src="js/main.js?v=3"></script>
-  <script src="js/catalog.js?v=3"></script>
-  <script src="js/chat.js?v=3"></script>
+  <script src="js/data.js?v=4"></script>
+  <script src="js/cart.js?v=4"></script>
+  <script src="js/main.js?v=4"></script>
+  <script src="js/catalog.js?v=4"></script>
+  <script src="js/chat.js?v=4"></script>
 </body>
 </html>
