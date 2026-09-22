@@ -996,7 +996,8 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 }
 
 @media (max-width: 380px) {
-  .grid-products { grid-template-columns: 1fr; }
+  .grid-products { gap: 8px; }
+  .p-card__body { padding: 9px 10px; }
   .hero__stats { gap: 18px; }
 }
 
