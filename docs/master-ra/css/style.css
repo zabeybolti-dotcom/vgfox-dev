@@ -55,6 +55,7 @@ body {
     var(--bg);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 img { max-width: 100%; display: block; }
@@ -983,6 +984,13 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
   .hero__actions { width: 100%; gap: 10px; }
   .hero__row { gap: 20px; }
   .chat { right: 17px; bottom: 90px; }
+  .header__inner { gap: 10px; }
+  .cart-link, .burger { width: 40px; height: 40px; border-radius: 11px; }
+  .logo { flex-shrink: 1; min-width: 0; gap: 9px; }
+  .logo__mark { width: 40px; height: 40px; }
+  .logo__name { font-size: 14px; white-space: nowrap; }
+  .logo__sub { display: none; }
+  .logo > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .chat-fab { right: 17px; bottom: 17px; }
   .toasts { left: 17px; bottom: 17px; right: 88px; }
 }
