@@ -55,10 +55,9 @@
       <header class="header">
         <div class="container header__inner">
           <a class="logo" href="index.html" aria-label="Мастерская РА — на главную">
-            <img class="logo__mark" src="img/logo.png" alt="Эмблема мастерской РА" width="42" height="42">
+            <img class="logo__mark" src="img/hero.png" alt="Эмблема мастерской РА" width="64" height="64">
             <span>
-              <span class="logo__name">Мастерская&nbsp;РА</span><br>
-              <span class="logo__sub">огненный реквизит · с ${SHOP.since}</span>
+              <span class="logo__name">Мастерская&nbsp;РА</span><br>              <span class="logo__sub">огненный реквизит · с ${SHOP.since}</span>
             </span>
           </a>
           <nav class="nav" aria-label="Основная навигация">${nav}</nav>
@@ -115,7 +114,7 @@
           <div class="footer__grid">
             <div class="footer__about">
               <a class="logo" href="index.html">
-                <img class="logo__mark" src="img/logo.png" alt="Эмблема мастерской РА" width="42" height="42">
+                <img class="logo__mark" src="img/hero.png" alt="Эмблема мастерской РА" width="64" height="64">
                 <span>
                   <span class="logo__name">Мастерская&nbsp;РА</span><br>
                   <span class="logo__sub">${esc(SHOP.tagline)} · ${esc(SHOP.city)}</span>

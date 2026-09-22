@@ -149,7 +149,7 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 
 .logo { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
 .logo__mark {
-  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
   object-fit: cover; display: block;
   box-shadow: 0 4px 18px rgba(255, 140, 26, .22);
 }
@@ -241,25 +241,46 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 .socials svg { width: 18px; height: 18px; }
 
 /* ---------- hero ---------- */
-.hero { position: relative; overflow: hidden; padding: clamp(60px, 9vw, 120px) 0 clamp(50px, 7vw, 90px); }
+.hero { position: relative; overflow: hidden; padding: clamp(36px, 5vw, 64px) 0 clamp(40px, 5vw, 64px); }
 .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
-.hero__title { margin-bottom: 18px; }
-.hero__lead { color: var(--muted); font-size: clamp(15px, 1.6vw, 18px); max-width: 52ch; margin: 0 0 28px; }
-.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
-.hero__stats { display: flex; gap: clamp(20px, 4vw, 46px); margin-top: 42px; flex-wrap: wrap; }
+.hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+
+.hero__top { text-align: center; }
+.hero__top .hero__title { max-width: 22ch; margin-left: auto; margin-right: auto; }
+
+.hero__brandline {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(20px, 4vw, 48px); margin: clamp(18px, 2.5vw, 30px) 0 clamp(20px, 3vw, 32px);
+}
+.hero__brand-img {
+  width: clamp(140px, 17vw, 220px); height: auto; flex-shrink: 0;
+  filter: drop-shadow(0 14px 40px rgba(255, 140, 26, .18));
+}
+.hero__brand-name { display: flex; flex-direction: column; gap: 6px; }
+.hero__brand-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(26px, 3.6vw, 46px); line-height: 1.05;
+  background: linear-gradient(160deg, #f3d47c 0%, #d9a441 45%, #a8762a 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero__brand-sub {
+  font-size: clamp(13px, 1.5vw, 19px); font-weight: 600; letter-spacing: .04em;
+  color: #d9b163;
+}
+
+.hero__row {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(24px, 4vw, 56px); flex-wrap: wrap;
+}
+.hero__row .hero__lead { margin: 0; text-align: left; flex: 1 1 380px; }
+.hero__lead { color: var(--muted); font-size: clamp(15px, 1.6vw, 18px); max-width: 52ch; }
+.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
+
+.hero__stats { display: flex; justify-content: center; gap: clamp(20px, 4vw, 46px); margin-top: 30px; flex-wrap: wrap; }
 .hero__stat b { font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 30px); display: block; color: var(--amber); }
 .hero__stat span { color: var(--muted); font-size: 13px; }
 
-.hero__brand { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.hero__brand-card {
-  background: #150f0f; border: 1px solid rgba(255, 179, 71, .25); border-radius: 26px;
-  padding: clamp(22px, 3vw, 40px); width: 100%;
-  transform: rotate(-1.4deg);
-  box-shadow: 0 40px 90px rgba(0, 0, 0, .5), 0 0 80px rgba(255, 122, 26, .09);
-}
-.hero__brand-card img { display: block; width: 100%; height: auto; }
-.hero__brand-note { margin: 0; color: var(--muted); font-size: 13px; letter-spacing: .05em; text-align: center; }
+/* старый блок hero__brand больше не используется */
 
 /* ---------- категории ---------- */
 .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
@@ -917,8 +938,9 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 @media (max-width: 900px) {
   .nav, .header .search { display: none; }
   .burger { display: flex; }
-  .hero__inner { grid-template-columns: 1fr; gap: 34px; }
-  .hero__brand { max-width: 540px; margin: 0 auto; }
+  .hero__brandline { flex-direction: column; gap: 18px; margin-bottom: 24px; }
+  .hero__row { flex-direction: column; }
+  .hero__row .hero__lead { text-align: center; }
   .catalog-layout { grid-template-columns: 1fr; }
   .filters { position: static; }
   .filters__cats { flex-direction: row; flex-wrap: wrap; }
