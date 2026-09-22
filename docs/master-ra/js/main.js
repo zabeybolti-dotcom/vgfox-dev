@@ -204,7 +204,6 @@
       : p.badge === "hit" ? '<span class="badge badge--hit">Хит</span>' : "";
     const discount = p.oldPrice
       ? `<span class="p-card__discount">−${Math.round((1 - p.price / p.oldPrice) * 100)}%</span>` : "";
-    const stars = ICONS.star;
     return `
       <article class="p-card reveal ${delayClass || ""}">
         <a class="p-card__media" href="product.html?id=${p.id}" aria-label="${esc(p.name)}">
@@ -213,9 +212,7 @@
           ${discount}
         </a>
         <div class="p-card__body">
-          <span class="p-card__cat">${esc(FR.catName(p.cat))}</span>
           <h3 class="p-card__name"><a href="product.html?id=${p.id}">${esc(p.name)}</a></h3>
-          <div class="p-card__rating">${stars}<span>${p.rating.toFixed(1)} · ${p.reviews} отзывов</span></div>
           <div class="p-card__foot">
             <div class="price">
               <b>${fmt(p.price)}</b>

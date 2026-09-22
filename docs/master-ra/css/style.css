@@ -329,11 +329,11 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 }
 
 .p-card__body { padding: 16px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
-.p-card__cat { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-2); font-weight: 700; }
-.p-card__name { font-size: 15.5px; font-weight: 700; line-height: 1.35; margin: 0; }
+.p-card__name {
+  font-size: 14.5px; font-weight: 700; line-height: 1.35; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
 .p-card__name a:hover { color: var(--amber); }
-.p-card__rating { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
-.p-card__rating svg { width: 14px; height: 14px; color: var(--amber); }
 
 .p-card__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .price { display: flex; flex-direction: column; line-height: 1.15; }
@@ -969,9 +969,7 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
   .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .p-card { border-radius: 12px; }
   .p-card__body { padding: 10px 11px; gap: 5px; }
-  .p-card__cat { font-size: 9.5px; }
   .p-card__name { font-size: 12.5px; }
-  .p-card__rating { display: none; }
   .price b { font-size: 13px; white-space: nowrap; }
   .price s { font-size: 10.5px; white-space: nowrap; }
   .price { width: 100%; flex-direction: row; align-items: baseline; gap: 6px; }
