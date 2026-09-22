@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог огненного реквизита — Мастерская РА</title>
+  <meta name="description" content="Каталог мастерской Мастерская РА: пои, веера, роупдарты, кометы, факелы, стаффы, сценический реквизит. 56 позиций ручной работы, фильтры и доставка по России.">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="catalog">
+  <div id="app-header"></div>
+
+  <main class="container">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="index.html">Главная</a><span>/</span><b>Каталог</b>
+    </nav>
+
+    <div class="section page-top" style="padding-bottom:0">
+      <span class="kicker">Каталог</span>
+      <h1 id="page-title">Весь реквизит</h1>
+      <p class="page-top__lead" id="page-desc">Всё, что делает мастерская: от мягких нобов до сценических зонтов.
+        Используйте фильтры, чтобы найти своё пламя.</p>
+    </div>
+
+    <div class="catalog-layout">
+      <!-- фильтры -->
+      <aside class="filters" aria-label="Фильтры каталога">
+        <div class="filters__group">
+          <p class="filters__title">Категория</p>
+          <div class="filters__cats" id="f-cats"></div>
+        </div>
+        <div class="filters__group">
+          <p class="filters__title">Цена, ₽</p>
+          <div class="range">
+            <input type="number" id="f-min" placeholder="от 350" min="0" inputmode="numeric" aria-label="Цена от">
+            <span>—</span>
+            <input type="number" id="f-max" placeholder="до 6300" min="0" inputmode="numeric" aria-label="Цена до">
+          </div>
+        </div>
+        <div class="filters__group">
+          <p class="filters__title">Быстрые подборки</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button class="chip" type="button" data-badge="new">Только новинки</button>
+            <button class="chip" type="button" data-badge="hit">Только хиты</button>
+            <button class="chip" type="button" data-sale="1">Со скидкой</button>
+          </div>
+        </div>
+        <div class="filters__group">
+          <button class="btn btn--ghost btn--block" type="button" id="f-reset">Сбросить фильтры</button>
+        </div>
+      </aside>
+
+      <!-- сетка -->
+      <div>
+        <div class="catalog-top">
+          <div class="catalog-top__count" id="grid-count"></div>
+          <label class="sort">
+            Сортировка
+            <select id="sort" aria-label="Сортировка">
+              <option value="pop">По популярности</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+              <option value="name">По названию</option>
+              <option value="new">Сначала новинки</option>
+            </select>
+          </label>
+        </div>
+        <section class="grid-products" id="catalog-grid" aria-live="polite"></section>
+      </div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <div id="chat-root"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

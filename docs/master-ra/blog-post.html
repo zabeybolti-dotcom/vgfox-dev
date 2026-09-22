@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Запись в блоге — Мастерская РА</title>
+  <meta name="description" content="Запись из блога мастерской огненного реквизита Мастерская РА.">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="blog">
+  <div id="app-header"></div>
+
+  <main class="container">
+    <nav class="crumbs" aria-label="Хлебные крошки" id="post-crumbs"></nav>
+    <div id="post-root"></div>
+
+    <section class="section" id="more-root" hidden>
+      <div class="section-head">
+        <div>
+          <span class="kicker">Читайте также</span>
+          <h2>Ещё из блога</h2>
+        </div>
+        <a class="btn btn--ghost" href="blog.html">Все записи →</a>
+      </div>
+      <div class="blog-grid" id="more-grid"></div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <div id="chat-root"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/blog-post.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

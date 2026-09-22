@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мастерская РА — огненный реквизит ручной работы</title>
+  <meta name="description" content="Мастерская огненного реквизита Мастерская РА, Санкт-Петербург. Пои, веера, роупдарты, факелы и сценический реквизит ручной работы с 2018 года. Доставка по всей России.">
+  <meta property="og:title" content="Мастерская РА — огненный реквизит ручной работы">
+  <meta property="og:description" content="Пои, веера, роупдарты и факелы из мастерской РА. Ручная работа, Санкт-Петербург, доставка по России.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="img/products/8863072.jpg">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <div id="app-header"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <canvas class="hero__canvas" id="sparks" aria-hidden="true"></canvas>
+      <div class="container hero__inner">
+        <div>
+          <span class="kicker">Мастерская РА · СПб · с 2018</span>
+          <h1 class="hero__title">Реквизит, который <span class="text-fire">горит ярче</span> остальных</h1>
+          <p class="hero__lead">
+            Пои, веера, роупдарты, факелы и сценический реквизит ручной работы.
+            Армированное керамическое волокно, нержавеющие каркасы и контроль каждого
+            шва — чтобы ваше пламя было надёжным.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--fire btn--lg" href="catalog.html">Смотреть каталог</a>
+            <a class="btn btn--ghost btn--lg" href="about.html">О мастерской</a>
+          </div>
+          <div class="hero__stats">
+            <div class="hero__stat"><b>56</b><span>товаров в каталоге</span></div>
+            <div class="hero__stat"><b>8 лет</b><span>делаем реквизит</span></div>
+            <div class="hero__stat"><b>7 дней</b><span>средний срок кастома</span></div>
+            <div class="hero__stat"><b>РФ</b><span>доставка по стране</span></div>
+          </div>
+        </div>
+        <div class="hero__brand">
+          <div class="hero__brand-card">
+            <img src="img/logo-full.png" alt="Мастерская РА — мастерская огненного реквизита" width="917" height="260" fetchpriority="high">
+          </div>
+          <p class="hero__brand-note">огненный реквизит ручной работы · керамошнур · нержавейка</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- КАТЕГОРИИ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Каталог</span>
+            <h2>Весь реквизит мастерской</h2>
+          </div>
+          <p>От тренировочных поёв до сценических зонтов и ходуль — каждую позицию
+             делаем вручную и подгоняем под вас.</p>
+        </div>
+        <div class="cat-grid" id="home-cats"></div>
+      </div>
+    </section>
+
+    <!-- ХИТЫ -->
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Выбор артистов</span>
+            <h2>Хиты мастерской</h2>
+          </div>
+          <a class="btn btn--ghost" href="catalog.html?sort=pop">Весь каталог →</a>
+        </div>
+        <div class="grid-products" id="home-hits"></div>
+      </div>
+    </section>
+
+    <!-- ПРЕИМУЩЕСТВА -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Почему мы</span>
+            <h2>Ручная работа и огонь под контролем</h2>
+          </div>
+        </div>
+        <div class="features">
+          <div class="feature reveal">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c.6 3.2-.9 5-2.4 6.6C8 10.3 6.5 12 6.5 14.6a5.9 5.9 0 0 0 5.9 5.9c3 0 5.4-2.3 5.4-5.3 0-1.8-.8-3.2-1.7-4.4-.2 1-.8 1.9-1.8 2.3.4-2.9-.7-6.5-2.3-9.1Z"/></svg></div>
+            <b>Свои плетения</b>
+            <p>Изисы, манкифисты, мунблейзы и редкие перекрёстные плетения — многие придуманы в мастерской.</p>
+          </div>
+          <div class="feature reveal reveal-d1">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <b>Проверка перед отправкой</b>
+            <p>Каждый фитиль прошиваем и осматриваем: цепи, вертлюги, петли — всё на месте.</p>
+          </div>
+          <div class="feature reveal reveal-d2">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a5 5 0 0 0 7 7l-9.9 9.9a2.1 2.1 0 0 1-3-3Z"/><path d="m14 7 3 3"/></svg></div>
+            <b>Кастом без границ</b>
+            <p>Длина, вес, размер фитиля, материал цепи, цвет петель — подгоним реквизит под вас.</p>
+          </div>
+          <div class="feature reveal reveal-d3">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6L22 7"/></svg></div>
+            <b>Доставка по России</b>
+            <p>СДЭК, Почта России, Boxberry. По СПб — самовывоз и курьер. Отправка 1–2 дня.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОТЗЫВЫ -->
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Отзывы</span>
+            <h2>Что говорят артисты</h2>
+          </div>
+          <a class="btn btn--ghost" href="https://vk.ru/fireworkroom" target="_blank" rel="noopener">Отзывы в VK →</a>
+        </div>
+        <div class="reviews" id="home-reviews"></div>
+      </div>
+    </section>
+
+    <!-- БЛОГ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Блог мастерской</span>
+            <h2>Новинки и жизнь мастерской</h2>
+          </div>
+          <a class="btn btn--ghost" href="blog.html">Все записи →</a>
+        </div>
+        <div class="blog-grid" id="home-blog"></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta reveal">
+          <div>
+            <h2>Не нашли нужное — <span class="text-fire">сделаем сами</span></h2>
+            <p>Расскажите, какой реквизит нужен: тип, размер, вес и материал.
+               Мастерская изготовит под ваши параметры и подскажет по технике.</p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn--fire btn--lg" href="https://vk.ru/fireworkroom" target="_blank" rel="noopener">Написать в VK</a>
+            <a class="btn btn--ghost btn--lg" href="catalog.html">В каталог</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <div id="chat-root"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

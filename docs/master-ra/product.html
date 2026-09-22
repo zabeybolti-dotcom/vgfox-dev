@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Товар — Мастерская РА</title>
+  <meta name="description" content="Товар мастерской огненного реквизита Мастерская РА.">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="catalog">
+  <div id="app-header"></div>
+
+  <main class="container">
+    <nav class="crumbs" aria-label="Хлебные крошки" id="p-crumbs"></nav>
+    <div id="p-root"></div>
+    <section class="section related" id="related-root" hidden>
+      <div class="section-head">
+        <div>
+          <span class="kicker">Похожее</span>
+          <h2>Из той же категории</h2>
+        </div>
+      </div>
+      <div class="grid-products" id="related-grid"></div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <div id="chat-root"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>
