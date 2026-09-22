@@ -335,13 +335,13 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 .p-card__rating { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
 .p-card__rating svg { width: 14px; height: 14px; color: var(--amber); }
 
-.p-card__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.p-card__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .price { display: flex; flex-direction: column; line-height: 1.15; }
-.price b { font-family: var(--font-display); font-size: 17px; font-weight: 600; }
-.price s { font-size: 12.5px; color: var(--muted-2); }
+.price b { font-family: var(--font-display); font-size: 17px; font-weight: 600; white-space: nowrap; }
+.price s { font-size: 12.5px; color: var(--muted-2); white-space: nowrap; }
 
 .btn-add {
-  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex-shrink: 0;
   padding: 10px 16px; border-radius: 11px;
   background: rgba(255, 122, 26, .12); border: 1px solid rgba(255, 122, 26, .4);
   color: var(--amber); font-weight: 700; font-size: 13.5px;
@@ -956,6 +956,12 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
   .summary { position: static; }
   .about-hero { grid-template-columns: 1fr; }
   .about-cols, .contact-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 860px) {
+  /* в 3 колонки карточка узкая — цена и кнопка в столбик, чтобы не обрезалось */
+  .price { width: 100%; flex-direction: row; align-items: baseline; gap: 6px; }
+  .p-card__foot .btn-add { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 640px) {

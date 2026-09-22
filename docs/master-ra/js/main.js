@@ -6,7 +6,7 @@
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
 
-  const fmt = (n) => new Intl.NumberFormat("ru-RU").format(n) + " ₽";
+  const fmt = (n) => new Intl.NumberFormat("ru-RU").format(n) + "\u00A0₽";
 
   const esc = (s) => String(s == null ? "" : s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
