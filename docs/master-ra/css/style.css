@@ -966,9 +966,12 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
   .p-card__cat { font-size: 9.5px; }
   .p-card__name { font-size: 12.5px; }
   .p-card__rating { display: none; }
-  .price b { font-size: 13.5px; white-space: nowrap; }
-  .price s { font-size: 11px; white-space: nowrap; }
-  .p-card__foot { gap: 8px; }
+  .price b { font-size: 13px; white-space: nowrap; }
+  .price s { font-size: 10.5px; white-space: nowrap; }
+  .price { width: 100%; flex-direction: row; align-items: baseline; gap: 6px; }
+  .p-card__foot { gap: 6px; flex-wrap: wrap; }
+  .p-card__foot .btn-add { width: 100%; justify-content: center; }
+  .grid-products > .p-card { min-width: 0; }
   .btn-add { padding: 8px 8px; font-size: 11.5px; gap: 5px; border-radius: 9px; }
   .btn-add svg { display: none; }
   .reviews, .blog-grid { grid-template-columns: 1fr; }
