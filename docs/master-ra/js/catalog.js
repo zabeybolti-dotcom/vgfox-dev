@@ -17,6 +17,7 @@
   };
 
   const fCats = document.getElementById("f-cats");
+  const fStrip = document.getElementById("f-strip");
   const fMin = document.getElementById("f-min");
   const fMax = document.getElementById("f-max");
   const sortSel = document.getElementById("sort");
@@ -30,6 +31,18 @@
       <div class="f-cat ${state.cat === c.slug ? "is-active" : ""}" data-cat="${c.slug}" role="button" tabindex="0">
         ${FR.esc(c.name)}<span>${c.count}</span>
       </div>`).join("");
+    renderStrip();
+  }
+
+  /* мобильная полоска категорий над карточками */
+  function renderStrip() {
+    if (!fStrip) return;
+    const all = [{ slug: "all", name: "Все товары" }]
+      .concat(CATEGORIES.map((c) => ({ slug: c.slug, name: c.name })));
+    fStrip.innerHTML = all.map((c) => `
+      <button class="cat-strip__btn ${state.cat === c.slug ? "is-active" : ""}" data-cat="${c.slug}" type="button">
+        ${FR.esc(c.name)}
+      </button>`).join("");
   }
 
   /* ---------- применение ---------- */
@@ -127,6 +140,14 @@
   });
   fCats.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && e.target.classList.contains("f-cat")) e.target.click();
+  });
+  fStrip?.addEventListener("click", (e) => {
+    const el = e.target.closest(".cat-strip__btn");
+    if (!el) return;
+    state.cat = el.dataset.cat;
+    renderCatFilters();
+    render();
+    syncUrl();
   });
 
   let deb;

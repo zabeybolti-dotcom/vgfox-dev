@@ -564,6 +564,9 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 .catalog-top__count { color: var(--muted); font-size: 14px; }
 .catalog-top__count b { color: var(--text); }
 
+/* полоска категорий — только на мобильных, поверх карточек */
+.cat-strip { display: none; }
+
 .sort { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
 .sort select {
   padding: 9px 34px 9px 13px; border-radius: 10px;
@@ -946,10 +949,25 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
   .hero__brandline { flex-direction: column; gap: 18px; margin-bottom: 24px; }
   .hero__row { flex-direction: column; }
   .hero__row .hero__lead { text-align: center; flex: 0 0 auto; width: 100%; }
-  .catalog-layout { grid-template-columns: 1fr; }
-  .filters { position: static; }
-  .filters__cats { flex-direction: row; flex-wrap: wrap; }
-  .f-cat { border: 1px solid var(--line); }
+  .catalog-layout { grid-template-columns: 1fr; padding-top: 18px; }
+  .filters { display: none; }
+  .cat-strip {
+    display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px 4px; padding: 2px 20px 10px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .cat-strip::-webkit-scrollbar { display: none; }
+  .cat-strip__btn {
+    flex-shrink: 0; white-space: nowrap;
+    padding: 9px 15px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--line);
+    color: var(--muted); font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: all .15s ease;
+  }
+  .cat-strip__btn:hover { color: var(--text); border-color: var(--line-2); }
+  .cat-strip__btn.is-active {
+    color: var(--amber); border-color: rgba(255, 122, 26, .5);
+    background: rgba(255, 122, 26, .12);
+  }
   .product { grid-template-columns: 1fr; }
   .product__info { position: static; }
   .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
