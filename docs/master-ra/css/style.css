@@ -340,7 +340,7 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 .price s { font-size: 12.5px; color: var(--muted-2); }
 
 .btn-add {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
   padding: 10px 16px; border-radius: 11px;
   background: rgba(255, 122, 26, .12); border: 1px solid rgba(255, 122, 26, .4);
   color: var(--amber); font-weight: 700; font-size: 13.5px;
