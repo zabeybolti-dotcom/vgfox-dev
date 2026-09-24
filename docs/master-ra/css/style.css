@@ -413,8 +413,6 @@ h3 { font-size: clamp(17px, 2vw, 21px); }
 /* ---------- блог: стена постов (как в VK) ---------- */
 .blog-layout { padding-top: 26px; }
 
-.blog-rubrics { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 18px; }
-
 .wall { display: grid; gap: 18px; }
 
 .post {

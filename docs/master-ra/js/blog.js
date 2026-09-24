@@ -5,10 +5,6 @@
   const wall = document.getElementById("blog-wall");
   if (!wall) return;
 
-  const rubricsHost = document.getElementById("blog-rubrics");
-  const RUBRICS = ["Новинки", "Мастерская", "Выступления"];
-  let current = "Все";
-
   const ICON_HEART = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 20.3 4.6 13a4.8 4.8 0 0 1 0-6.9 5 5 0 0 1 7 0l.4.4.4-.4a5 5 0 0 1 7 0 4.8 4.8 0 0 1 0 6.9Z"/></svg>';
   const ICON_EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
   const ICON_CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>';
@@ -76,8 +72,7 @@
   }
 
   function render() {
-    const list = current === "Все" ? POSTS : POSTS.filter((p) => p.rubric === current);
-    wall.innerHTML = list.map(card).join("");
+    wall.innerHTML = POSTS.map(card).join("");
     if (FR.reveal) FR.reveal();
   }
 
@@ -100,24 +95,6 @@
       const liked = like.classList.toggle("is-liked");
       num.textContent = +num.textContent + (liked ? 1 : -1);
     }
-  });
-
-  /* ---------- рубрики: чипы + сайдбар ---------- */
-  const all = ["Все"].concat(RUBRICS);
-  const count = (r) => r === "Все" ? POSTS.length : POSTS.filter((p) => p.rubric === r).length;
-
-  rubricsHost.innerHTML = all.map((r) => `
-    <button class="chip ${r === current ? "is-active" : ""}" type="button" data-r="${FR.esc(r)}">
-      ${FR.esc(r)}<span class="chip__count">${count(r)}</span>
-    </button>`).join("");
-
-  rubricsHost.addEventListener("click", (e) => {
-    const btn = e.target.closest(".chip");
-    if (!btn) return;
-    current = btn.dataset.r;
-    rubricsHost.querySelectorAll(".chip").forEach((c) =>
-      c.classList.toggle("is-active", c === btn));
-    render();
   });
 
   render();
